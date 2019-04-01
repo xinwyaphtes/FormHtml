@@ -1,33 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-    Layout= "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
-
-<link href="~/lib/bootstrap/dist/css/layout.css" rel="stylesheet" />
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Reports</a></li>
-                    <li><a href="#">Analytics</a></li>
-                    <li><a href="#">Export</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Nav item</a></li>
-                    <li><a href="">Nav item again</a></li>
-                    <li><a href="">One more nav</a></li>
-                    <li><a href="">Another nav item</a></li>
-                    <li><a href="">More navigation</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Nav item again</a></li>
-                    <li><a href="">One more nav</a></li>
-                    <li><a href="">Another nav item</a></li>
-                </ul>
-            </div>
-            <div class="col-md-9 main">
+<link href="~/css/dashboard.css" rel="stylesheet" />
+<div class="container-fluid" id="left_menu">
+    <div class="row">
+        <div class="col-sm-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Export</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <form>
                 @Html.Partial("~/Views/Home/BarHead.cshtml")
-            </div>
+                <div id="container" class="container-fluid">
+
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jQuery.print.min.js"></script>
+    <script>
+        $('#left_menu li').click(function() {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+
+            $.get('/Settings/GetFormHtml',
+                function(data) {
+                    $('#container').html(data);
+                });
+        });
+
+        function print() {
+            $.print("#container" /*, options*/);
+        }
+    </script>
+}
