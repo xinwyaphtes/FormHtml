@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Template>
+
+@{
     Layout = "_Layout";
 }
 <link href="~/css/dashboard.css" rel="stylesheet" />
@@ -6,14 +8,15 @@
     <div class="row">
         <div class="col-sm-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Export</a></li>
+                @foreach (Template t in Model)
+                {
+                    <li><a href="#" data-tid="@t.Id">@t.Name</a></li>
+                }
             </ul>
         </div>
         <div class="col-sm-10 col-sm-offset-2 main">
             <form>
+                <input type="hidden" id="hd_mainId" />
                 @Html.Partial("~/Views/Home/BarHead.cshtml")
                 <div id="container" class="container-fluid">
 
@@ -26,18 +29,72 @@
 @section scripts{
     <script src="~/lib/jquery/dist/jQuery.print.min.js"></script>
     <script>
-        $('#left_menu li').click(function() {
+        $('#left_menu li').click(function () {
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
 
-            $.get('/Settings/GetFormHtml',
-                function(data) {
+            var id = $(this).find('a').data('tid');
+            $.get('/Settings/GetFormHtml/' + id,
+                function (data) {
                     $('#container').html(data);
                 });
         });
 
+        function search() {
+            var visitID = $('#txt_visitId').val();
+
+            $.get('/Home/SearchPatientForm/', { visitId: visitID },
+                function (data) {
+                    $('#container').html(data);
+                });
+        }
+
         function print() {
             $.print("#container" /*, options*/);
+        }
+
+        function edit(id) {
+            $('#hd_mainId').val(id);
+            $.get('/FormData/Edit/'+id,
+                function (data) {
+                    $('#container').html(data.source);
+                    
+                    $.each(data.formData,
+                        function() {
+                            $('#' + this.dataSign).prop('checked', this.value);
+                        });
+                });
+        }
+
+        function save() {
+            var radioData = [];
+
+            /*---------绑定数据---------
+            $.each($('span[name="leipiNewField"] input:radio'),
+                function (i, e) {
+                    $(this).attr('id', 'item_' + (i + 1));
+                });
+            //saveHTML
+            var newFormHTML = $('#container').html();
+            $.post('/Settings/SaveBindDataFormHtml', { name: '简易智能精神状态量表（MMSE）.html', source: newFormHTML });
+            /*---------绑定数据---------*/
+
+            $.each($('span[name="leipiNewField"] input:radio:checked'),
+                function () {
+                    radioData.push({
+                        DataSign: $(this).attr('id'),
+                        Value: 'checked'
+                    });
+                });
+            $.post('/FormData/SaveBindData',
+                {
+                    visitID: $('#txt_visitId').val(),
+                    name: $('#left_menu li.active a').html(),
+                    templateId: $('#left_menu li.active a').data('tid'),
+                    key: $('#hd_mainId').val(),
+                    data: radioData
+                });
+
         }
     </script>
 }

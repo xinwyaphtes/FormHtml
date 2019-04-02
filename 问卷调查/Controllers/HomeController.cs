@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using 问卷调查.Models;
+using 问卷调查.Util;
 
 namespace 问卷调查.Controllers
 {
@@ -12,26 +13,22 @@ namespace 问卷调查.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            using (var db = DBHelp.QueryDB())
+            {
+                var t = db.Queryable<Template>().Where(x => x.Status).ToList();
+
+                return View(t);
+            }
         }
 
-        public IActionResult About()
+        public IActionResult SearchPatientForm(string visitId)
         {
-            ViewData["Message"] = "Your application description page.";
+            using (var db = DBHelp.QueryDB())
+            {
+                var m = db.Queryable<Main>().Where(x => x.VisitID == visitId).ToList();
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+                return PartialView("PatientFormList", m);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

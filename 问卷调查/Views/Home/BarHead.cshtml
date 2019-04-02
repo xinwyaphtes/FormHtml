@@ -1,10 +1,16 @@
 ﻿
 <div class="col-sm-2">
-    <input type="text" class="form-control" placeholder="请输入病人号...">
+    <input type="text" class="form-control" placeholder="请输入病人号..." id="txt_visitId">
 </div>
 <div class="col-sm-10">
-    <span><button class="btn btn-primary">查询</button></span>
-    <span><button class="btn btn-primary">保存</button></span>
+    <span><button class="btn btn-primary" type="button" onclick="search();">查询</button></span>
+    <span><button class="btn btn-primary" type="button" onclick="save();">保存</button></span>
     <span><button class="btn btn-primary" type="button" onclick="print();">打印</button></span>
 </div>
+
+@*<div class="container-fluid">
+    <div class="checkbox col-sm-12">
+        <input type="checkbox"/><span>绑定数据</span>
+    </div>
+</div>*@
 

@@ -1,0 +1,21 @@
+﻿@model List<Main>
+
+<div>
+    <table class="table table-bordered">
+            <tr>
+                <td>创建时间</td>
+                <td>更新时间</td>
+                <td>表单名称</td>
+                <td>操作</td>
+            </tr>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.CreateDT</td>
+                <td>@m.UpdateDT</td>
+                <td>@m.Name</td>
+                <td><a href="#" onclick="edit('@m.Id');">编辑</a></td>
+            </tr>
+        }
+    </table>
+</div>
