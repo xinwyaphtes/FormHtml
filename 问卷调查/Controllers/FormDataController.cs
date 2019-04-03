@@ -11,7 +11,7 @@ namespace 问卷调查.Controllers
 {
     public class FormDataController : Controller
     {
-        public void SaveBindData(string visitID, string name, int templateId, int key, List<FormData> data)
+        public IActionResult SaveBindData(string visitID, string name, int templateId, int key, List<FormData> data,string dataResult)
         {
             using (var db = DBHelp.QueryDB())
             {
@@ -25,19 +25,45 @@ namespace 问卷调查.Controllers
                         Name = name,
                         TemplateId = templateId,
                         VisitID = visitID,
+                        Result = dataResult,
                         CreateDT = DateTime.Now,
                         UpdateDT = DateTime.Now
                     };
                     data.ForEach(x => { x.MainGuid = g; });
-
                     db.Insertable(m).ExecuteCommand();
-                    db.Insertable(data).ExecuteCommand();
                 }
                 else
                 {
+                    m.UpdateDT = DateTime.Now;
+                    m.Result = dataResult;
                     data.ForEach(x => { x.MainGuid = m.Guid; });
+                    db.Updateable(m).UpdateColumns(x => new { x.UpdateDT,x.Result }).ExecuteCommand();
                     db.Deleteable<FormData>().Where(x => x.MainGuid == m.Guid).ExecuteCommand();
+                }
+
+                if (data.Any())
+                {
                     db.Insertable(data).ExecuteCommand();
+                }
+
+                return RedirectToAction("SearchPatientForm", "Home", new { visitID });
+            }
+        }
+
+        public IActionResult Del(int id,int pageNum)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                var m = db.Queryable<Main>().InSingle(id);
+                if (m != null)
+                {
+                    m.IsDeleted = true;
+                    db.Updateable(m).UpdateColumns(x => new { x.IsDeleted }).ExecuteCommand();
+                    return RedirectToAction("SearchPatientForm", "Home", new { m.VisitID,pageNum });
+                }
+                else
+                {
+                    return null;
                 }
             }
         }
@@ -70,7 +96,8 @@ namespace 问卷调查.Controllers
                             HtmlFormContent c = new HtmlFormContent
                             {
                                 FormData = data,
-                                Source = htmlStr
+                                Source = htmlStr,
+                                Result = t.Result
                             };
 
                             return new JsonResult(c);

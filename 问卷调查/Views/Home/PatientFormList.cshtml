@@ -2,20 +2,31 @@
 
 <div>
     <table class="table table-bordered">
-            <tr>
-                <td>创建时间</td>
-                <td>更新时间</td>
-                <td>表单名称</td>
-                <td>操作</td>
-            </tr>
+        <tr>
+            <td>创建时间</td>
+            <td>更新时间</td>
+            <td>表单名称</td>
+            <td>操作</td>
+        </tr>
         @foreach (var m in Model)
         {
             <tr>
                 <td>@m.CreateDT</td>
                 <td>@m.UpdateDT</td>
                 <td>@m.Name</td>
-                <td><a href="#" onclick="edit('@m.Id');">编辑</a></td>
+                <td>
+                    <span>
+                        <a href="#" onclick="edit('@m.Id');" class="btn btn-sm btn-primary">
+                            编辑
+                        </a>
+                    </span>
+                    <span>
+                        <a href="#" onclick="del('@m.Id');" class="btn btn-sm btn-danger">删除</a>
+                    </span>
+                </td>
             </tr>
         }
     </table>
 </div>
+<input id="hd_formListCount" type="hidden" value="@ViewBag.RecordsCount" />
+

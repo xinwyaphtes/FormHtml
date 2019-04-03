@@ -21,11 +21,20 @@ namespace 问卷调查.Controllers
             }
         }
 
-        public IActionResult SearchPatientForm(string visitId)
+        public IActionResult SearchPatientForm(string visitId, int pageNum, int pagesize = 10)
         {
             using (var db = DBHelp.QueryDB())
             {
-                var m = db.Queryable<Main>().Where(x => x.VisitID == visitId).ToList();
+                var m = db.Queryable<Main>().Where(x => x.VisitID == visitId && !x.IsDeleted).ToList();
+                ViewBag.RecordsCount = m.Count;
+                if (pageNum == 0)
+                {
+                    m = m.OrderByDescending(x => x.UpdateDT).Take(pagesize).ToList();
+                }
+                else
+                {
+                    m = m.OrderByDescending(x => x.UpdateDT).Skip((pageNum - 1) * pagesize).Take(pagesize).ToList();
+                }
 
                 return PartialView("PatientFormList", m);
             }

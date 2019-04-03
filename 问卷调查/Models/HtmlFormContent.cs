@@ -9,5 +9,6 @@ namespace 问卷调查.Models
     {
         public string Source { get; set; }
         public List<FormData> FormData { get; set; }
+        public string Result { get; set; }
     }
 }

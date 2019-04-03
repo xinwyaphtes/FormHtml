@@ -5,7 +5,7 @@
 }
 <link href="~/css/dashboard.css" rel="stylesheet" />
 <div class="container-fluid" id="left_menu">
-    <div class="row">
+    <div class="">
         <div class="col-sm-2 sidebar">
             <ul class="nav nav-sidebar">
                 @foreach (Template t in Model)
@@ -15,37 +15,128 @@
             </ul>
         </div>
         <div class="col-sm-10 col-sm-offset-2 main">
-            <form>
-                <input type="hidden" id="hd_mainId" />
-                @Html.Partial("~/Views/Home/BarHead.cshtml")
-                <div id="container" class="container-fluid">
+            <input type="hidden" id="hd_mainId" />
+            @Html.Partial("~/Views/Home/BarHead.cshtml")
+            <div id="container" class="container" style="margin-top:60px">
 
-                </div>
-            </form>
+            </div>
+            <div class="col-sm-12" id="Paginator"> <ul id="pageLimit"></ul> </div>
         </div>
     </div>
 </div>
 
 @section scripts{
     <script src="~/lib/jquery/dist/jQuery.print.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-paginator.min.js"></script>
     <script>
-        $('#left_menu li').click(function () {
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
+        var pagesize = 10;
+        var visitID = '';
+        var dataResult = '';
+        $(function () {
+            $('#left_menu li').click(function () {
+                if (!Check()) return;
 
-            var id = $(this).find('a').data('tid');
-            $.get('/Settings/GetFormHtml/' + id,
-                function (data) {
-                    $('#container').html(data);
-                });
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+
+                var id = $(this).find('a').data('tid');
+                $.get('/Settings/GetFormHtml/' + id,
+                    function (data) {
+                        $('#container').html(data);
+                        Sum();
+                        $('button.hidden').removeClass('hidden').addClass('btn-show');
+                    });
+            });
+
+            $('#txt_visitId').change(function () {
+                visitID = $(this).val();
+            });
         });
 
-        function search() {
-            var visitID = $('#txt_visitId').val();
+        function Sum() {
+            //绑定radio
+            $("span[name='leipiNewField'] input:radio").click(function () {
+                var sum = 0;
+                $.each($("span[name='leipiNewField'] input:radio:checked"),
+                    function () {
+                        sum += Number($(this).val());
+                    });
+                $('table tr td .item_summary').text(sum);
+                dataResult = sum;
+            });
+        }
 
-            $.get('/Home/SearchPatientForm/', { visitId: visitID },
+        function Check() {
+            if (visitID == '') {
+                popshow();
+                return false;
+            } else
+                return true;
+        }
+
+        function InitPage() {
+            $('#pageLimit').bootstrapPaginator(GetOption());
+        }
+
+        function GetOption() {
+            var totalcount = $('#hd_formListCount').val();
+            var totalpage;
+            if (totalcount % pagesize == 0) {
+                totalpage = totalcount / pagesize;
+            } else {
+                totalpage = totalcount / pagesize + 1;
+            }
+            return {
+                currentPage: 1,
+                totalPages: totalpage,
+                size: "normal",
+                bootstrapMajorVersion: 3,
+                alignment: "right",
+                numberOfPages: 5,
+                itemTexts: function (type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
+                    }
+                },
+                onPageClicked: function (event, originalEvent, type, page) {
+                    $.get('/Home/SearchPatientForm',
+                        { visitId: visitID, pageNum: page, pageSize: pagesize },
+                        function (data) {
+                            $('#container').html(data);
+                        });
+                }
+            }
+        }
+
+
+        function popshow() {
+            $('#txt_visitId').popover('show');
+
+            setTimeout(function () {
+                $('#txt_visitId').popover('hide');
+                $('#txt_visitId').popover('destroy');
+            },
+                1000);
+        }
+
+        function search() {
+            if (!Check()) return;
+
+            $.get('/Home/SearchPatientForm/',
+                { visitId: visitID, pageSize: pagesize },
                 function (data) {
                     $('#container').html(data);
+                    InitPage();
+                    $('button.btn-show').removeClass('btn-show').addClass('hidden');
                 });
         }
 
@@ -55,46 +146,99 @@
 
         function edit(id) {
             $('#hd_mainId').val(id);
-            $.get('/FormData/Edit/'+id,
+            $.get('/FormData/Edit/' + id,
                 function (data) {
                     $('#container').html(data.source);
-                    
+
+                    //绑定radio
                     $.each(data.formData,
-                        function() {
-                            $('#' + this.dataSign).prop('checked', this.value);
+                        function () {
+                            //绑定checkbox、redio
+                            var obj = $('#' + this.dataSign);
+
+                            if (obj.attr("type") == 'text') {
+                                obj.val(this.value);
+                            } else {
+                                obj.prop('checked', this.attribution);
+                            }
+                            //绑定text
                         });
+
+                    Sum();
+                    $('table tr td .item_summary').text(data.result);
+
+                    $('button.hidden').removeClass('hidden').addClass('btn-show');
                 });
         }
 
         function save() {
             var radioData = [];
-
+            if (!Check()) return;
             /*---------绑定数据---------
-            $.each($('span[name="leipiNewField"] input:radio'),
+            $.each($('input[name="leipiNewField"][type=text]'),
                 function (i, e) {
-                    $(this).attr('id', 'item_' + (i + 1));
+                    //$(this).attr('value', (i+1)%2);
+                    $(this).attr('id', 'text_' + (i+1));
+                    //$(this).removeAttr('id');
                 });
-            //saveHTML
             var newFormHTML = $('#container').html();
-            $.post('/Settings/SaveBindDataFormHtml', { name: '简易智能精神状态量表（MMSE）.html', source: newFormHTML });
+            $.post('/Settings/SaveBindDataFormHtml', { name: '初步睡眠相关问卷.html', source: newFormHTML });
+            return;
             /*---------绑定数据---------*/
 
+            //绑定checkbox
+            $.each($('input[name="leipiNewField"][type=checkbox]:checked'),
+                function () {
+                    radioData.push({
+                        DataSign: $(this).attr('id'),
+                        Attribution: 'checked',
+                        //Value: $(this).val()
+                    });
+                });
+
+            //绑定radio
             $.each($('span[name="leipiNewField"] input:radio:checked'),
                 function () {
                     radioData.push({
                         DataSign: $(this).attr('id'),
-                        Value: 'checked'
+                        Attribution: 'checked',
+                        Value: $(this).val()
                     });
                 });
+
+            //绑定text
+            $.each($('input[name="leipiNewField"][type=text]'),
+                function () {
+                    radioData.push({
+                        DataSign: $(this).attr('id'),
+                        Value: $(this).val()
+                    });
+                });
+
             $.post('/FormData/SaveBindData',
                 {
-                    visitID: $('#txt_visitId').val(),
+                    visitID: visitID,
                     name: $('#left_menu li.active a').html(),
                     templateId: $('#left_menu li.active a').data('tid'),
                     key: $('#hd_mainId').val(),
-                    data: radioData
+                    data: radioData,
+                    dataResult: dataResult
+                },
+                function (data) {
+                    $('#container').html(data);
+                    $('button.btn-show').removeClass('btn-show').addClass('hidden');
                 });
 
+        }
+
+        function del(id) {
+            var pageNum = $('#pageLimit').bootstrapPaginator("getPages").current;
+            $.post('/FormData/Del/' + id,
+                { pageNum: pageNum },
+                function (data) {
+                    $('#container').html(data);
+                    $('button.btn-show').removeClass('btn-show').addClass('hidden');
+                });
         }
     </script>
 }

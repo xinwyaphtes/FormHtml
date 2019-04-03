@@ -12,6 +12,8 @@ namespace 问卷调查.Models
         public int Id { get; set; }
         public string MainGuid { get; set; }
         public string DataSign { get; set; }
+
+        public string Attribution { get; set; }
         public string Value { get; set; }
     }
 }
