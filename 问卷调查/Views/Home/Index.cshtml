@@ -45,6 +45,7 @@
                         $('#container').html(data);
                         Sum();
                         $('button.hidden').removeClass('hidden').addClass('btn-show');
+                        $('#Paginator').hide();
                     });
             });
 
@@ -137,6 +138,7 @@
                     $('#container').html(data);
                     InitPage();
                     $('button.btn-show').removeClass('btn-show').addClass('hidden');
+                    $('#Paginator').show();
                 });
         }
 
@@ -168,6 +170,7 @@
                     $('table tr td .item_summary').text(data.result);
 
                     $('button.hidden').removeClass('hidden').addClass('btn-show');
+                    $('#Paginator').hide();
                 });
         }
 
@@ -182,7 +185,7 @@
                     //$(this).removeAttr('id');
                 });
             var newFormHTML = $('#container').html();
-            $.post('/Settings/SaveBindDataFormHtml', { name: '初步睡眠相关问卷.html', source: newFormHTML });
+            $.post('/Settings/SaveBindDataFormHtml', { name: 'Moca量表.html', source: newFormHTML });
             return;
             /*---------绑定数据---------*/
 
@@ -227,6 +230,7 @@
                 function (data) {
                     $('#container').html(data);
                     $('button.btn-show').removeClass('btn-show').addClass('hidden');
+                    $('#Paginator').show();
                 });
 
         }
