@@ -1077,26 +1077,49 @@ UE.plugins["insertimg"] = function () {
     var me = this, thePlugins = 'insertimg';
     me.commands[thePlugins] = {
         execCommand: function () {
-            //var img = $('#file_img');
-            //img.val('');
-            //img.trigger('click');
-            //var me = this;
+            var $btn = document.getElementById('file_img');
+            $($btn).trigger('click');
+            var me = this;
 
-            //var input = document.getElementById("file_img");
-            //var newaddImg = function () {
-            //    addImg(img[0]);
-            //}
-            //input.addEventListener('change', newaddImg, false);
+            var a = function addListener() {
+                if ($btn.clickHandler) {
+                    $btn.removeEventListener('change', $btn.clickHandler);
+                }
 
-            //function addImg(img) {
-            //    var reader = new FileReader();
-            //    reader.readAsDataURL(img.files[0]);
-            //    reader.onload = function (e) {
-            //        //console.log(this.result);
-            //        me.execCommand('insertHtml', '<image src="' + this.result + '" />');
-            //    }
-            //}
-            this.execCommand('insertHtml', '123');
+                $btn.clickHandler = () => {
+                    var reader = new FileReader();
+                    reader.readAsDataURL($btn.files[0]);
+                    reader.onload = function (e) {
+                        me.execCommand('insertHtml', '<image src="' + this.result + '" />');
+                    };
+                };
+
+                $btn.addEventListener('change', $btn.clickHandler);
+            }();
+        }
+    };
+};
+
+UE.plugins['savehtml'] = function () {
+    var me = this, thePlugins = 'savehtml';
+    me.commands[thePlugins] = {
+        execCommand: function () {
+            var dialog = new UE.ui.Dialog({
+                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/savehtml.html',
+                name: thePlugins,
+                editor: this,
+                title: '保存模板',
+                cssRules: "width:400px;height:100px;",
+                buttons: [
+                    {
+                        className: 'edui-okbutton',
+                        label: '确定',
+                        onclick: function () {
+                            dialog.close(true);
+                        }
+                    }]
+            });
+            dialog.open();
         }
     };
 };

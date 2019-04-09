@@ -63,5 +63,22 @@ namespace 问卷调查.Controllers
             sw.Write(source);
             sw.Close();
         }
+
+        [HttpPost]
+        public JsonResult SaveHtml(string htmlstr, string name)
+        {
+            try
+            {
+                StreamReader sr = new StreamReader("./Template/" + name + ".html");
+                return new JsonResult("文件已存在");
+            }
+            catch (Exception e)
+            {
+                StreamWriter sw = new StreamWriter("./Template/" + name + ".html");
+                sw.Write(htmlstr);
+                sw.Close();
+                return new JsonResult("创建成功");
+            }
+        }
     }
 }
