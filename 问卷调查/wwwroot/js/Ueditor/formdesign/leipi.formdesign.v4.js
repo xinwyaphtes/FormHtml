@@ -1123,3 +1123,29 @@ UE.plugins['savehtml'] = function () {
         }
     };
 };
+
+UE.plugins['setparent'] = function () {
+    var me = this, thePlugins = 'setparent';
+    me.commands[thePlugins] = {
+        execCommand: function () {
+            var dialog = new UE.ui.Dialog({
+                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/setAttr.html',
+                name: thePlugins,
+                editor: this,
+                title: '设置父节点',
+                cssRules: "width:400px;height:300px;",
+                buttons: [
+                    {
+                        className: 'edui-okbutton',
+                        label: '确定',
+                        onclick: function () {
+                            dialog.close(true);
+                        }
+                    }]
+            });
+            dialog.open();
+            //var focusNode = this.selection.getStart();
+            //focusNode.classList.add("1-parent");
+        }
+    };
+};

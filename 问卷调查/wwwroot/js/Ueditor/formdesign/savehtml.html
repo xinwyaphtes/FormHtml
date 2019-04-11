@@ -10,14 +10,21 @@
     <script type="text/javascript" src="../dialogs/internal.js"></script>
 </head>
 <body>
-    <div class='' >
+    <div>
 	<input type='text' placeholder='请输入表单名称' id='htmlinput_name'/>
+	</div>
+	
+	<div id='div_html' style='display:none'>
 	</div>
 <script type="text/javascript">
 dialog.onok = function (){
 var name = $('#htmlinput_name').val();
 var content = editor.getContent();
 if(name==''){alert('请输入表单名称');return false;}
+
+$('#div_html').html(content);
+CreateDomId();
+content = $('#div_html').html();
 
 
 $.ajax({
@@ -33,6 +40,13 @@ fail:function(){
 }
 });
 
+}
+
+function CreateDomId(html){
+$.each($('#div_html input[name="leipiNewField"][type=checkbox]'),
+                function (i, e) {
+                    $(this).attr('id', 'checkbox_' + (i+1));
+                });
 }
 </script>
 </body>

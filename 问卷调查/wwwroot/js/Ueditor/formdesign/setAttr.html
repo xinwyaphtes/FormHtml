@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>设置父元素</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="generator" content="www.leipi.org" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+</head>
+<body>
+
+    <div>
+        是否为父节点<input type='checkbox' id='check_parent' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入父节点编号' id='num_index' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入父节点描述信息' id='text_desc' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入组描述信息' id='group_desc' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入子节点编号' id='num_child_index' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入子点描述信息' id='text_child_desc' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入子点代码' id='text_child_code' />
+    </div>
+    <div>
+        <input type='text' placeholder='请输入子点文本' id='text_child_value' />
+    </div>
+
+    <script type="text/javascript">
+        dialog.onok = function () {
+            var p_index = $('#num_index').val();
+            var p_desc = $('#text_desc').val();
+            var group = $('#group_desc').val();
+            var c_index = $('#num_child_index').val();
+            var c_desc = $('#text_child_desc').val();
+            var c_value = $('#text_child_value').val();
+            var focusNode = editor.selection.getStart();
+            if ($('#check_parent').is(':checked')) {
+                focusNode.setAttribute('data-parent', '');
+                focusNode.setAttribute('data-desc', '');
+                focusNode.setAttribute('data-group', '');
+                focusNode.setAttribute('data-group', group);
+                focusNode.setAttribute("data-parent", p_index);
+                focusNode.setAttribute('data-desc', p_desc);
+            } else {
+                focusNode.setAttribute('data-child', '');
+                focusNode.setAttribute('data-childdesc', '');
+                focusNode.setAttribute('data-value', '');
+                focusNode.setAttribute("data-child", p_index + '_' + c_index);
+                focusNode.setAttribute('data-childdesc', c_desc);
+                focusNode.setAttribute('data-value', c_value);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -16426,7 +16426,6 @@ UE.plugins['enterkey'] = function() {
         me = this,
         tag = me.options.enterTag;
     me.addListener('keyup', function(type, evt) {
-
         var keyCode = evt.keyCode || evt.which;
         if (keyCode == 13) {
             var range = me.selection.getRange(),
@@ -16435,7 +16434,6 @@ UE.plugins['enterkey'] = function() {
 
             //修正在h1-h6里边回车后不能嵌套p的问题
             if (!browser.ie) {
-
                 if (/h\d/i.test(hTag)) {
                     if (browser.gecko) {
                         var h = domUtils.findParentByTagName(start, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6','blockquote','caption','table'], true);
@@ -16470,7 +16468,7 @@ UE.plugins['enterkey'] = function() {
                 }
                 //没有站位符，会出现多行的问题
                 browser.opera &&  range.select();
-            }else{
+            } else {
                 me.fireEvent('saveScene',true,true)
             }
         }
@@ -27532,7 +27530,7 @@ UE.ui = baidu.editor.ui = {};
         'blockquote', 'pasteplain', 'pagebreak',
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts','insertimg','savehtml'];
+        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts','insertimg','savehtml','setparent'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
