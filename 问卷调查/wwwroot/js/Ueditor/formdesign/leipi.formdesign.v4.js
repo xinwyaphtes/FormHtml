@@ -399,7 +399,7 @@ UE.plugins['checkboxs'] = function () {
     me.commands[thePlugins] = {
         execCommand: function () {
             var dialog = new UE.ui.Dialog({
-                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/checkboxs.html',
+                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/bindcheckboxs.html',
                 name: thePlugins,
                 editor: this,
                 title: '复选框组',

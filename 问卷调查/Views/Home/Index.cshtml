@@ -175,7 +175,7 @@
         }
 
         function save() {
-            var radioData = [];
+            var tableData = [];
             if (!Check()) return;
             /*---------绑定数据---------
             $.each($('input[name="leipiNewField"][type=text]'),
@@ -190,33 +190,47 @@
             /*---------绑定数据---------*/
 
             //绑定checkbox
-            $.each($('input[name="leipiNewField"][type=checkbox]:checked'),
+            $.each($('[parent]'),
                 function () {
-                    radioData.push({
-                        DataSign: $(this).attr('id'),
-                        Attribution: 'checked',
-                        //Value: $(this).val()
-                    });
-                });
+                    var pIndex = $(this).attr('parent');
+                    var pDesc = $(this).attr('desc');
+                    var pGroup = $(this).attr('group');
 
-            //绑定radio
-            $.each($('span[name="leipiNewField"] input:radio:checked'),
-                function () {
-                    radioData.push({
-                        DataSign: $(this).attr('id'),
-                        Attribution: 'checked',
-                        Value: $(this).val()
+                    var item = $('[type=checkbox][id^="checkbox_' + pIndex + '"]:checked');
+                    var itemid = item.attr('id');
+                    var itemAttribution = 'checked';
+                    var itemDesc = item.attr('desc');
+                    var itemValue = item.val();
+
+                    tableData.push({
+                        ParentIndex: pIndex,
+                        ParentDesc: pDesc,
+                        ParentGroup: pGroup,
+
+                        DataSign: itemid,
+                        Attribution: itemAttribution,
+                        ItemDesc: itemDesc,
+                        ItemValue: itemValue
                     });
                 });
+            //绑定radio
+            //$.each($('span[name="leipiNewField"] input:radio:checked'),
+            //    function () {
+            //        radioData.push({
+            //            DataSign: $(this).attr('id'),
+            //            Attribution: 'checked',
+            //            Value: $(this).val()
+            //        });
+            //    });
 
             //绑定text
-            $.each($('input[name="leipiNewField"][type=text]'),
-                function () {
-                    radioData.push({
-                        DataSign: $(this).attr('id'),
-                        Value: $(this).val()
-                    });
-                });
+            //$.each($('input[name="leipiNewField"][type=text]'),
+            //    function () {
+            //        radioData.push({
+            //            DataSign: $(this).attr('id'),
+            //            Value: $(this).val()
+            //        });
+            //    });
 
             $.post('/FormData/SaveBindData',
                 {
@@ -224,7 +238,7 @@
                     name: $('#left_menu li.active a').html(),
                     templateId: $('#left_menu li.active a').data('tid'),
                     key: $('#hd_mainId').val(),
-                    data: radioData,
+                    data: tableData,
                     dataResult: dataResult
                 },
                 function (data) {
