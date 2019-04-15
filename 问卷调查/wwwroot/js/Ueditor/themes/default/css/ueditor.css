@@ -1847,3 +1847,9 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-for-setparent .edui-icon {
     background-image: url('../../../../../images/cog-solid.svg');
 }
+.edui-default .edui-toolbar .edui-for-setcss .edui-icon {
+    background-image: url('../../../../../images/css3-brands.svg');
+}
+.edui-default .edui-toolbar .edui-for-aotucompute .edui-icon {
+    background-image: url('../../../../../images/calculator-solid.svg');
+}

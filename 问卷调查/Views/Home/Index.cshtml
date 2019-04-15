@@ -1,5 +1,4 @@
 ﻿@model List<Template>
-
 @{
     Layout = "_Layout";
 }
@@ -43,7 +42,8 @@
                 $.get('/Settings/GetFormHtml/' + id,
                     function (data) {
                         $('#container').html(data);
-                        Sum();
+                        Bindcheckboxs(); //绑定单选
+                        Sum(); //绑定合计
                         $('button.hidden').removeClass('hidden').addClass('btn-show');
                         $('#Paginator').hide();
                     });
@@ -54,15 +54,32 @@
             });
         });
 
+        function Bindcheckboxs() {
+            //所有父节点设置唯一值的子checkbox设置为互斥
+            $.each($('[isuniq="true"]'),
+                function () {
+                    var pindex = $(this).attr('parent');
+                    var checkboxs = $('#container input[id^=checkbox_' + pindex + '_]');
+
+                    $.each(checkboxs,
+                        function () {
+                            $(this).click(function () {
+                                checkboxs.prop("checked", '');
+                                $(this).prop("checked", 'true');
+                            });
+                        });
+                });
+        }
+
         function Sum() {
             //绑定radio
-            $("span[name='leipiNewField'] input:radio").click(function () {
+            $("container input:checkbox").click(function () {
                 var sum = 0;
-                $.each($("span[name='leipiNewField'] input:radio:checked"),
+                $.each($("container input:checkbox:checked"),
                     function () {
                         sum += Number($(this).val());
                     });
-                $('table tr td .item_summary').text(sum);
+                $('#container #calc_sum').text(sum);
                 dataResult = sum;
             });
         }
@@ -118,7 +135,6 @@
             }
         }
 
-
         function popshow() {
             $('#txt_visitId').popover('show');
 
@@ -158,8 +174,8 @@
                             //绑定checkbox、redio
                             var obj = $('#' + this.dataSign);
 
-                            if (obj.attr("type") == 'text') {
-                                obj.val(this.value);
+                            if (obj.prop("type") === 'text') {
+                                obj.val(this.itemValue);
                             } else {
                                 obj.prop('checked', this.attribution);
                             }
@@ -167,7 +183,8 @@
                         });
 
                     Sum();
-                    $('table tr td .item_summary').text(data.result);
+                    Bindcheckboxs();
+                    $('#container #calc_sum').text(data.result);
 
                     $('button.hidden').removeClass('hidden').addClass('btn-show');
                     $('#Paginator').hide();
@@ -189,48 +206,36 @@
             return;
             /*---------绑定数据---------*/
 
-            //绑定checkbox
+            //绑定checkbox、text
             $.each($('[parent]'),
                 function () {
                     var pIndex = $(this).attr('parent');
                     var pDesc = $(this).attr('desc');
                     var pGroup = $(this).attr('group');
 
-                    var item = $('[type=checkbox][id^="checkbox_' + pIndex + '"]:checked');
-                    var itemid = item.attr('id');
-                    var itemAttribution = 'checked';
-                    var itemDesc = item.attr('desc');
-                    var itemValue = item.val();
+                    var items = $('#container input[id*=_' + pIndex + '_]');
 
-                    tableData.push({
-                        ParentIndex: pIndex,
-                        ParentDesc: pDesc,
-                        ParentGroup: pGroup,
+                    $.each(items,
+                        function () {
+                            var type = $(this).attr('type');
+                            console.log(type);
+                            var item = $(this);
+                            var itemid = item.attr('id');
+                            var itemAttribution = type === 'text' ? '' : $(this).prop('checked')?'checked':'';
+                            var itemDesc = item.attr('desc');
+                            var itemValue = item.val();
+                            tableData.push({
+                                ParentIndex: pIndex,
+                                ParentDesc: pDesc,
+                                ParentGroup: pGroup,
 
-                        DataSign: itemid,
-                        Attribution: itemAttribution,
-                        ItemDesc: itemDesc,
-                        ItemValue: itemValue
-                    });
+                                DataSign: itemid,
+                                Attribution: itemAttribution,
+                                ItemDesc: itemDesc,
+                                ItemValue: itemValue
+                            });
+                        });
                 });
-            //绑定radio
-            //$.each($('span[name="leipiNewField"] input:radio:checked'),
-            //    function () {
-            //        radioData.push({
-            //            DataSign: $(this).attr('id'),
-            //            Attribution: 'checked',
-            //            Value: $(this).val()
-            //        });
-            //    });
-
-            //绑定text
-            //$.each($('input[name="leipiNewField"][type=text]'),
-            //    function () {
-            //        radioData.push({
-            //            DataSign: $(this).attr('id'),
-            //            Value: $(this).val()
-            //        });
-            //    });
 
             $.post('/FormData/SaveBindData',
                 {

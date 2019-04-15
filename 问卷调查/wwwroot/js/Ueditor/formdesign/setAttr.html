@@ -11,6 +11,9 @@
 </head>
 <body>
     <div>
+        选项是否为一<input type="checkbox" id="check_isuniq" />
+    </div>
+    <div>
         <input type='text' placeholder='请输入父节点编号' id='num_index' />
     </div>
     <div>
@@ -26,12 +29,14 @@
             var p_desc = $('#text_desc').val();
             var group = $('#group_desc').val();
             var focusNode = editor.selection.getStart();
-                focusNode.setAttribute('parent', '');
-                focusNode.setAttribute('desc', '');
-                focusNode.setAttribute('group', '');
-                focusNode.setAttribute('group', group);
-                focusNode.setAttribute("parent", p_index);
-                focusNode.setAttribute('desc', p_desc);
+            focusNode.setAttribute('parent', '');
+            focusNode.setAttribute('desc', '');
+            focusNode.setAttribute('group', '');
+            focusNode.setAttribute('isuniq', '');
+            focusNode.setAttribute('group', group);
+            focusNode.setAttribute("parent", p_index);
+            focusNode.setAttribute('desc', p_desc);
+            focusNode.setAttribute('isuniq', $('#check_isuniq').prop('checked'));
         }
     </script>
 </body>

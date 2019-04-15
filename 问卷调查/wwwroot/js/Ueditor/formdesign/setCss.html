@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>文本框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="generator" content="www.leipi.org" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-ie6.css">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/ie.css">
+    <![endif]-->
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript">
+        /* Thank you by
+        http://www.alt-tag.com/blog/2006/02/ie-dom-bugs/ */
+        function createElement(type, name) {
+            var element = null;
+            try {
+                element = document.createElement('<' + type + ' name="' + name + '">');
+            } catch (e) { }
+            if (element == null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+    <div class="content">
+        <span>带下划线的输入框<input type="radio" value="inputwithline" name="textcss" /></span>
+        <span>不带下划线的输入框<input type="radio" value="inputnoline" name="textcss" /></span>
+        <span>表格<input type="checkbox" value="table" /></span>
+    </div>
+    <script type="text/javascript">
+        var thePlugins = 'setcss';
+        dialog.oncancel = function () {
+            if (UE.plugins[thePlugins].editdom) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function () {
+            var inputwithline =
+                'input{border-bottom:1px solid #dbdbdb; border-top:0px; border-left:0px; border-right:0px;';
+            var inputnoline =
+                'input{border:0;}';
+            var table =
+                'table{margin-bottom:10px;border-collapse:collapse;}td, th{padding:5px 10px;border:1px solid #DDD}';
+            var css = '<style>';
+            var textcss = $('input[name="textcss"]').val();
+            if (textcss === 'inputwithline') {
+                css += inputwithline;
+            } else {
+                css += inputnoline;
+            }
+            if ($('input[type="checkbox"]:checked').val() === 'table') {
+                css += table;
+            }
+            css += '</style>';
+
+            editor.execCommand('insertHtml', css);
+        };
+    </script>
+</body>
+</html>

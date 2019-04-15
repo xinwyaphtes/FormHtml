@@ -399,10 +399,10 @@ UE.plugins['checkboxs'] = function () {
     me.commands[thePlugins] = {
         execCommand: function () {
             var dialog = new UE.ui.Dialog({
-                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/bindcheckboxs.html',
+                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/bindformcontrol.html',
                 name: thePlugins,
                 editor: this,
-                title: '复选框组',
+                title: '控件组',//'复选框组',
                 cssRules: "width:600px;height:400px;",
                 buttons: [
                     {
@@ -1146,6 +1146,43 @@ UE.plugins['setparent'] = function () {
             dialog.open();
             //var focusNode = this.selection.getStart();
             //focusNode.classList.add("1-parent");
+        }
+    };
+};
+
+UE.plugins['setcss'] = function () {
+    var me = this, thePlugins = 'setcss';
+    me.commands[thePlugins] = {
+        execCommand: function () {
+            var dialog = new UE.ui.Dialog({
+                iframeUrl: this.options.UEDITOR_HOME_URL + UE.leipiFormDesignUrl + '/setCss.html',
+                name: thePlugins,
+                editor: this,
+                title: '设置样式',
+                cssRules: "width:400px;height:300px;",
+                buttons: [
+                    {
+                        className: 'edui-okbutton',
+                        label: '确定',
+                        onclick: function () {
+                            dialog.close(true);
+                        }
+                    }]
+            });
+            dialog.open();
+        }
+    };
+};
+
+UE.plugins["aotucompute"] = function () {
+    var me = this, thePlugins = 'aotucompute';
+    me.commands[thePlugins] = {
+        execCommand: function () {
+            //自动计算类型 
+            //1.合计
+            //所有子节点绑定事件，更新合计值针对checkbox
+            //插入自动计算结果文本
+            me.execCommand('insertHtml', '<span id="calc_sum"></span>');
         }
     };
 };
