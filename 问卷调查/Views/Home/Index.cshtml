@@ -43,7 +43,7 @@
                     function (data) {
                         $('#container').html(data);
                         Bindcheckboxs(); //绑定单选
-                        Sum(); //绑定合计
+                        BindSum(); //绑定合计
                         $('button.hidden').removeClass('hidden').addClass('btn-show');
                         $('#Paginator').hide();
                     });
@@ -71,15 +71,16 @@
                 });
         }
 
-        function Sum() {
+        function BindSum() {
             //绑定radio
-            $("container input:checkbox").click(function () {
+            $("#container input:checkbox").click(function () {
                 var sum = 0;
-                $.each($("container input:checkbox:checked"),
+                $.each($("#container input:checkbox:checked"),
                     function () {
                         sum += Number($(this).val());
                     });
-                $('#container #calc_sum').text(sum);
+
+                $('#container .calcsum').text(sum);
                 dataResult = sum;
             });
         }
@@ -182,9 +183,9 @@
                             //绑定text
                         });
 
-                    Sum();
+                    BindSum();
                     Bindcheckboxs();
-                    $('#container #calc_sum').text(data.result);
+                    $('#container .calcsum').text(data.result);
 
                     $('button.hidden').removeClass('hidden').addClass('btn-show');
                     $('#Paginator').hide();
@@ -218,7 +219,6 @@
                     $.each(items,
                         function () {
                             var type = $(this).attr('type');
-                            console.log(type);
                             var item = $(this);
                             var itemid = item.attr('id');
                             var itemAttribution = type === 'text' ? '' : $(this).prop('checked')?'checked':'';
@@ -243,7 +243,7 @@
                     name: $('#left_menu li.active a').html(),
                     templateId: $('#left_menu li.active a').data('tid'),
                     key: $('#hd_mainId').val(),
-                    data: tableData,
+                    data: JSON.stringify(tableData),
                     dataResult: dataResult
                 },
                 function (data) {

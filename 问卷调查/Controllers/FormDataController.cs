@@ -11,10 +11,13 @@ namespace 问卷调查.Controllers
 {
     public class FormDataController : Controller
     {
-        public IActionResult SaveBindData(string visitID, string name, int templateId, int key, List<FormData> data,string dataResult)
+        [HttpPost]
+        public IActionResult SaveBindData(string visitID, string name, int templateId, int key, string data,string dataResult)
         {
             using (var db = DBHelp.QueryDB())
             {
+                var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
+
                 var m = db.Queryable<Main>().InSingle(key);
                 if (m == null)
                 {
@@ -29,21 +32,21 @@ namespace 问卷调查.Controllers
                         CreateDT = DateTime.Now,
                         UpdateDT = DateTime.Now
                     };
-                    data.ForEach(x => { x.MainGuid = g; });
+                    jsonData.ForEach(x => { x.MainGuid = g; });
                     db.Insertable(m).ExecuteCommand();
                 }
                 else
                 {
                     m.UpdateDT = DateTime.Now;
                     m.Result = dataResult;
-                    data.ForEach(x => { x.MainGuid = m.Guid; });
+                    jsonData.ForEach(x => { x.MainGuid = m.Guid; });
                     db.Updateable(m).UpdateColumns(x => new { x.UpdateDT,x.Result }).ExecuteCommand();
                     db.Deleteable<FormData>().Where(x => x.MainGuid == m.Guid).ExecuteCommand();
                 }
 
                 if (data.Any())
                 {
-                    db.Insertable(data).ExecuteCommand();
+                    db.Insertable(jsonData).ExecuteCommand();
                 }
 
                 return RedirectToAction("SearchPatientForm", "Home", new { visitID });
