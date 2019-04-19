@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "_MobileLayout";
+}
+<nav class="navbar-fixed-top navbar-inverse navbar">
+    <div class="container-fluid">
+        <div class="row" style="margin-top:15px">
+            <div class="col-xs-4"><span class="glyphicon glyphicon-chevron-left"></span></div>
+            <div class="col-xs-4">儿童问卷</div>
+            <div class="col-xs-4 text-right">1/13</div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+                <div v-for="(item,index) in data">
+                    <div v-if="index==0" v-show="item.isShowpage">
+                        <p>
+                            <h3 class="text-center">知情同意书</h3>
+                            <br />
+                            <div>尊敬的同学家长您好！</div>
+                            &emsp;&emsp;睡眠障碍严重影响儿童健康，特别是睡眠时打鼾、憋气等所导致的睡眠效率下降及睡眠缺氧，不仅可导致儿童的生长发育迟缓，而且能够影响儿童神经认知功能的发育，从而对儿童的学习成绩等产生长期影响。为了早期发现儿童睡眠问题的影响，为政府部门相关卫生决策提供依据，由上海市教育委员会创新计划项目支持，上海交通大学附属第六人民医院耳鼻咽喉头颈外科（国家临床重点专科）、上海市睡眠呼吸障碍重点实验室及上海市第八人民医院体检中心共同承担，将对上海市徐汇区幼儿园及小学儿童进行睡眠健康及学习、行为问题方面的问卷调查，留口腔咽拭子样本，将根据问卷结果，选取一部分学生进行腕表（便携式）睡眠筛查，所有项目均无损伤，所有同学的信息也将严格保密。对于睡眠筛查发现有睡眠问题的同学，上海交通大学附属第六人民医院睡眠中心将提供免费金标准睡眠检测（多导睡眠检测，限200名免费），希望得到同学和家长的支持与配合，谢谢！
+                        </p>
+                    </div>
+                    <div v-show="item.isShowpage" v-else>
+                        <div>
+                            <h3>{{index+1}}.{{item.subject.title}}</h3>
+                            <p>{{item.subject.describe}}</p>
+                        </div>
+                        <div>
+                            <ul class="clearfix">
+                                <!-- 单选 -->
+                                <li v-if="item.multiSelect == 0" v-for="(li, liIndex) in item.subject.option" onclick="choiceRadio(index, liIndex)">
+                                    <input type="radio" value="li" v-model="item.checkbox" />
+                                    <span>{{li}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <button type="button" class="btn btn-primary" @@click="next">同意并继续</button>
+            <button type="button" v-show="false" class="btn btn-primary" @@click="next">同意并继续</button>
+            <button type="button" v-show="false" class="btn btn-primary" @@click="next">同意并继续</button>
+            <button type="button" v-show="false" class="btn btn-primary pull-right" @@click="prev">下一页</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                transitionName: 'slide',
+                data: [
+                    {
+                        isShowpage: true
+                    },
+                    {
+                        subject: {
+                            title: '现患疾病',
+                            describe: '您目前是否患有下列疾病？（多选）',
+                            option: [
+                                '无', '糖尿病', '高血压', '肥胖症', '冠心病', '痛风', '偏头痛', '中风', '阻塞性肺病', '抑郁症', '胃癌', '直结肠癌', '肺癌',
+                                '脂肪肝', '其它恶性瘤'
+                            ], //选项
+                            male: ['前列腺癌'],
+                            female: ['宫颈癌', '乳腺癌', '卵巢癌', '子宫癌'],
+                        },
+                        checkbox: [],
+                        multiSelect: 0, //2为多选、0为单选、1为组合单选
+                        isSelect: false, //判断是否选中其中一个
+                        isFirst: true, //判断是否点击多选第一个按钮
+                        isAddData: false, //判断是否已加载新数据
+                        isShowpage: false
+                    },
+                ],
+            },
+            methods: {
+                next: function () {//下一题
+                    this.data[0].isShowpage =false;
+                    this.data[1].isShowpage =true;
+                    //this.dataIndex += 1;
+                    //if(this.dataIndex > 0){
+                    //    this.isPrev = true;
+                    //    if(this.data[this.dataIndex].isSelect){
+                    //        this.isNext = true;
+                    //    }else{
+                    //        this.isNext = false;
+                    //    }
+                    //}
+                    //if(this.data.length - 1 == this.dataIndex){
+                    //    this.isNext = false;
+                    //    this.isSubmit = true;
+                    //}
+                },
+            }
+        });
+    </script>
+}
