@@ -13,7 +13,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" id="content">
             <div v-for="(item,index) in data">
                 <div v-show="item.show" v-html="item.html"></div>
             </div>
@@ -43,56 +43,60 @@
                         html: '<p><h3 class= "text-center">知情同意书</h3><br/><div>尊敬的同学家长您好！</div>&emsp;&emsp;睡眠障碍严重影响儿童健康，特别是睡眠时打鼾、憋气等所导致的睡眠效率下降及睡眠缺氧，不仅可导致儿童的生长发育迟缓，而且能够影响儿童神经认知功能的发育，从而对儿童的学习成绩等产生长期影响。为了早期发现儿童睡眠问题的影响，为政府部门相关卫生决策提供依据，由上海市教育委员会创新计划项目支持，上海交通大学附属第六人民医院耳鼻咽喉头颈外科（国家临床重点专科）、上海市睡眠呼吸障碍重点实验室及上海市第八人民医院体检中心共同承担，将对上海市徐汇区幼儿园及小学儿童进行睡眠健康及学习、行为问题方面的问卷调查，留口腔咽拭子样本，将根据问卷结果，选取一部分学生进行腕表（便携式）睡眠筛查，所有项目均无损伤，所有同学的信息也将严格保密。对于睡眠筛查发现有睡眠问题的同学，上海交通大学附属第六人民医院睡眠中心将提供免费金标准睡眠检测（多导睡眠检测，限200名免费），希望得到同学和家长的支持与配合，谢谢</p>',
                         show: true,
                     },
+                    {
+                        html: '<div>儿童姓名<input name="name" type="text" style="width:100px;" /><div><div>学校<input name="school" type="text" style="width:100px;" /><div><div>班级<input name="class" type="text" style="width:100px;" /><div><div>学号<input name="stdno" type="text" style="width:100px;" /><div><div>填写日期<input name="writedate" type="text" style="width:100px;" /><div>',
+                        show: false,
+                    },
                     {                      
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><input type="checkbox" id="1_1" parent="1"/>目前睡眠时有</div><div><input type="checkbox" id="1_2" parent="1"/>曾经有，发生年龄：<input id="1_3" type="text" style="width:50px;" />岁至<input id="1_4" type="text" style="width:50px"/>岁</div><div><input type="checkbox" id="1_5" parent="1"/>从未发生过</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><input type="checkbox" id="1_1" parent="1"/>目前睡眠时有</div><div><input type="checkbox" id="1_2" />曾经有，发生年龄：<input id="1_3" type="text" style="width:50px;" />岁至<input id="1_4" type="text" style="width:50px"/>岁</div><div><input type="checkbox" id="1_5" />从未发生过</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.如打鼾，您的孩子共打鼾<input id="2_1" style="width:50px;" type="text"/>年？',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.如打鼾，您的孩子共打鼾<input id="2_1" parent="2" style="width:50px;" type="text"/>年？',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.如打鼾，您的孩子打鼾中途是否有憋气？</p><div><input type="checkbox" id="3_1" parent="3"/>是<input type="checkbox" id="3_2" parent="3"/>否</div><div>发现憋气已有<input id="3_2" type="text" style="width:50px;" />年？</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.如打鼾，您的孩子打鼾中途是否有憋气？</p><div><input type="checkbox" id="3_1" parent="3"/>是<input type="checkbox" id="3_2" />否</div><div>发现憋气已有<input id="3_2" type="text" style="width:50px;" />年？</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.您的孩子既往是否治疗过儿童鼾症？</p><div><input type="checkbox" id="4_1" parent="4"/>是<input type="checkbox" id="4_2" parent="4"/>否</div><div>-如是，治疗方法为：</div><div><input type="checkbox" id="4_3" parent="4"/>药物，药物名：<input id="4_4" type="text" style="width:100px;" /></div><div><input type="checkbox" id="4_5" parent="4"/>矫正口腔畸形</div><div><input type="checkbox" id="4_6" parent="4"/>佩戴呼吸机</div><div><input type="checkbox" id="4_7" parent="4"/>手术，请勾选：<input type="checkbox" id="4_8" parent="4"/>扁桃体切除术<input type="checkbox" id="4_9" parent="4"/>腺样体切除术<input type="checkbox" id="4_10" parent="4"/>扁桃体+腺样体切除术</div><div><input type="checkbox" id="4_11" parent="4"/>其它<input id="4_12" type="text" style="width:100px;" /></div><div>-如是，何时开始？<input id="4_13" type="text" style="width:50px;" />治疗持续多久？<input id="4_14" type="text" style="width:50px;" /></div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.您的孩子既往是否治疗过儿童鼾症？</p><div><input type="checkbox" id="4_1" parent="4"/>是<input type="checkbox" id="4_2" />否</div><div>-如是，治疗方法为：</div><div><input type="checkbox" id="4_3" />药物，药物名：<input id="4_4" type="text" style="width:100px;" /></div><div><input type="checkbox" id="4_5" />矫正口腔畸形</div><div><input type="checkbox" id="4_6" />佩戴呼吸机</div><div><input type="checkbox" id="4_7" />手术，请勾选：<input type="checkbox" id="4_8" />扁桃体切除术<input type="checkbox" id="4_9" />腺样体切除术<input type="checkbox" id="4_10" />扁桃体+腺样体切除术</div><div><input type="checkbox" id="4_11" />其它<input id="4_12" type="text" style="width:100px;" /></div><div>-如是，何时开始？<input id="4_13" type="text" style="width:50px;" />治疗持续多久？<input id="4_14" type="text" style="width:50px;" /></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.您的孩子是否有扁桃体或腺样体肥大的病史？</p><div><input type="checkbox" id="5_1" parent="5"/>是<input type="checkbox" id="5_2" parent="5"/>否<input type="checkbox" id="5_3" parent="5"/>不清楚</div><div>确诊扁桃体肥大时的年龄：<input id="5_4" type="text" style="width:50px;" />岁？确诊腺样体肥大时的年龄：<input id="5_5" type="text" style="width:50px;" />岁？</div><div>-是否已接受过扁桃体或腺样体切除手术？</div><div><input type="checkbox" id="5_6" parent="5"/>未手术</div><div><input type="checkbox" id="5_7" parent="5"/>有扁桃体切除术</div><div><input type="checkbox" id="5_8" parent="5"/>有腺样体切除术</div><div><input type="checkbox" id="5_9" parent="5"/>有扁桃体+腺样体切除术</div><div>-手术时年龄：<input id="5_10" type="text" style="width:50px;" />岁？</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.您的孩子是否有扁桃体或腺样体肥大的病史？</p><div><input type="checkbox" id="5_1" parent="5"/>是<input type="checkbox" id="5_2" />否<input type="checkbox" id="5_3" />不清楚</div><div>确诊扁桃体肥大时的年龄：<input id="5_4" type="text" style="width:50px;" />岁？确诊腺样体肥大时的年龄：<input id="5_5" type="text" style="width:50px;" />岁？</div><div>-是否已接受过扁桃体或腺样体切除手术？</div><div><input type="checkbox" id="5_6" />未手术</div><div><input type="checkbox" id="5_7" />有扁桃体切除术</div><div><input type="checkbox" id="5_8" />有腺样体切除术</div><div><input type="checkbox" id="5_9" />有扁桃体+腺样体切除术</div><div>-手术时年龄：<input id="5_10" type="text" style="width:50px;" />岁？</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>6.儿童出生史？</p><div>①是否早产？<input type="checkbox" id="6_1" parent="6"/>是<input type="checkbox" id="6_2" parent="6"/>否</div><div>②是否低体重儿（小于1000g）？</div><input type="checkbox" id="6_3" parent="6"/>是<input type="checkbox" id="6_4" parent="6"/>否</div><div>③是否母乳喂养？</div><input type="checkbox" id="6_5" parent="6"/>以母乳为主<input type="checkbox" id="6_6" parent="6"/>以奶粉为主</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>6.儿童出生史？</p><div>①是否早产？<input type="checkbox" id="6_1" parent="6"/>是<input type="checkbox" id="6_2" />否</div><div>②是否低体重儿（小于1000g）？</div><input type="checkbox" id="6_3" />是<input type="checkbox" id="6_4" />否</div><div>③是否母乳喂养？</div><input type="checkbox" id="6_5" />以母乳为主<input type="checkbox" id="6_6" />以奶粉为主</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>7.既往病史及治疗史：</p><div>中耳炎：<input type="checkbox" id="7_1" parent="7"/>无<input type="checkbox" id="7_2" parent="7"/>有，治疗方法<input id="7_3" type="text" style="width:80px"/></div><div>过敏性鼻炎：：<input type="checkbox" id="7_4" parent="7"/>无<input type="checkbox" id="7_5" parent="7"/>有，治疗方法<input id="7_6" type="text" style="width:80px"/></div><div>哮喘：<input type="checkbox" id="7_7" parent="7"/>无<input type="checkbox" id="7_8" parent="7"/>有，治疗方法<input id="7_9" type="text" style="width:80px"/></div><div>化脓性扁桃体炎：<input type="checkbox" id="7_10" parent="7"/>无<input type="checkbox" id="7_11" parent="7"/>有，治疗方法<input id="7_12" type="text" style="width:80px"/></div><div>鼻窦炎：<input type="checkbox" id="7_13" parent="7"/>无<input type="checkbox" id="7_14" parent="7"/>有，治疗方法<input id="7_15" type="text" style="width:80px"/></div><div>急性喉炎：<input type="checkbox" id="7_16" parent="7"/>无<input type="checkbox" id="7_17" parent="7"/>有，治疗方法<input id="7_18" type="text" style="width:80px"/></div><div>心血管疾病 ：<input type="checkbox" id="7_19" parent="7"/>无<input type="checkbox" id="7_20" parent="7"/>有，疾病名：<input id="7_21" type="text" style="width:80px"/>,治疗方法<input id="7_22" type="text" style="width:80px"/></div><div>呼吸系统疾病：<input type="checkbox" id="7_23" parent="7"/>无<input type="checkbox" id="7_24" parent="7"/>有，疾病名：<input id="7_25" type="text" style="width:80px"/>,治疗方法<input id="7_26" type="text" style="width:80px"/></div><div>肾脏疾病：<input type="checkbox" id="7_27" parent="7"/>无<input type="checkbox" id="7_28" parent="7"/>有，疾病名：<input id="7_29" type="text" style="width:80px"/>,治疗方法<input id="7_30" type="text" style="width:80px"/></div><div>肝脏疾病：<input type="checkbox" id="7_31" parent="7"/>无<input type="checkbox" id="7_32" parent="7"/>有，疾病名：<input id="7_33" type="text" style="width:80px"/>,治疗方法<input id="7_34" type="text" style="width:80px"/></div><div>神经系统疾病：<input type="checkbox" id="7_35" parent="7"/>无<input type="checkbox" id="7_36" parent="7"/>有，疾病名：<input id="7_37" type="text" style="width:80px"/>,治疗方法<input id="7_38" type="text" style="width:80px"/></div><div>其他特殊病史：<input type="checkbox" id="7_39" parent="7"/>无<input type="checkbox" id="7_40" parent="7"/>有，疾病名：<input id="7_41" type="text" style="width:80px"/>,治疗方法<input id="7_42" type="text" style="width:80px"/></div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>7.既往病史及治疗史：</p><div>中耳炎：<input type="checkbox" id="7_1" parent="7"/>无<input type="checkbox" id="7_2" />有，治疗方法<input id="7_3" type="text" style="width:80px"/></div><div>过敏性鼻炎：：<input type="checkbox" id="7_4" />无<input type="checkbox" id="7_5" />有，治疗方法<input id="7_6" type="text" style="width:80px"/></div><div>哮喘：<input type="checkbox" id="7_7" />无<input type="checkbox" id="7_8" />有，治疗方法<input id="7_9" type="text" style="width:80px"/></div><div>化脓性扁桃体炎：<input type="checkbox" id="7_10" />无<input type="checkbox" id="7_11" />有，治疗方法<input id="7_12" type="text" style="width:80px"/></div><div>鼻窦炎：<input type="checkbox" id="7_13" />无<input type="checkbox" id="7_14" />有，治疗方法<input id="7_15" type="text" style="width:80px"/></div><div>急性喉炎：<input type="checkbox" id="7_16" />无<input type="checkbox" id="7_17" />有，治疗方法<input id="7_18" type="text" style="width:80px"/></div><div>心血管疾病 ：<input type="checkbox" id="7_19" />无<input type="checkbox" id="7_20" />有，疾病名：<input id="7_21" type="text" style="width:80px"/>,治疗方法<input id="7_22" type="text" style="width:80px"/></div><div>呼吸系统疾病：<input type="checkbox" id="7_23" />无<input type="checkbox" id="7_24" />有，疾病名：<input id="7_25" type="text" style="width:80px"/>,治疗方法<input id="7_26" type="text" style="width:80px"/></div><div>肾脏疾病：<input type="checkbox" id="7_27" />无<input type="checkbox" id="7_28" />有，疾病名：<input id="7_29" type="text" style="width:80px"/>,治疗方法<input id="7_30" type="text" style="width:80px"/></div><div>肝脏疾病：<input type="checkbox" id="7_31" />无<input type="checkbox" id="7_32" />有，疾病名：<input id="7_33" type="text" style="width:80px"/>,治疗方法<input id="7_34" type="text" style="width:80px"/></div><div>神经系统疾病：<input type="checkbox" id="7_35" />无<input type="checkbox" id="7_36" />有，疾病名：<input id="7_37" type="text" style="width:80px"/>,治疗方法<input id="7_38" type="text" style="width:80px"/></div><div>其他特殊病史：<input type="checkbox" id="7_39" />无<input type="checkbox" id="7_40" />有，疾病名：<input id="7_41" type="text" style="width:80px"/>,治疗方法<input id="7_42" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.父亲年龄：<input id="8_1" type="text" style="width:80px"/>父亲学历：<input id="8_2" type="text" style="width:80px"/>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.父亲年龄：<input id="8_1" type="text" style="width:80px" parent="8"/>父亲学历：<input id="8_2" type="text" style="width:80px"/>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.母亲年龄：<input id="9_1" type="text" style="width:80px"/>母亲学历：<input id="9_2" type="text" style="width:80px"/>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.母亲年龄：<input id="9_1" type="text" style="width:80px" parent="9"/>母亲学历：<input id="9_2" type="text" style="width:80px"/>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="10_1"/>是<input type="checkbox" id="10_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="10_1" parent="10"/>是<input type="checkbox" id="10_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="11_1"/>是<input type="checkbox" id="11_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="11_1" parent="11"/>是<input type="checkbox" id="11_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>12.您孩子是否与父母同住？</p><div><input type="checkbox" id="12_1"/>是<input type="checkbox" id="12_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>12.您孩子是否与父母同住？</p><div><input type="checkbox" id="12_1" parent="12"/>是<input type="checkbox" id="12_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>13.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="13_1"/>是<input id="13_2" type="text" style="width:80px"/>人<input type="checkbox" id="13_3"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>13.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="13_1" parent="13"/>是<input id="13_2" type="text" style="width:80px"/>人<input type="checkbox" id="13_3"/>否</div>',
                         show: false
                     },
                 ],
@@ -108,7 +112,7 @@
                         this.btNext = '保存';
                     };
                     if (this.pageIndex + 1 == this.data.length) {
-                        alert(1);
+                        save();
                         return false;
                     }
                     this.data[this.pageIndex].show = false;
@@ -131,5 +135,61 @@
                 }
             }
         });
+
+        function save() {
+            var tableData = [];
+            var childInfo = {
+                Name: $('input[name="name"]').val(),
+                Type: 1,
+                Company: $('input[name="school"]').val(),
+                Department: $('input[name="class"]').val(),
+                EmployeeNo: $('input[name="stdno"]').val(),
+            }
+
+            $.each($('[parent]'),
+                function () {
+                    var pIndex = $(this).attr('parent');
+                    //console.log(pIndex);
+                    //var pDesc = $(this).attr('desc');
+                    //var pGroup = $(this).attr('group');
+
+                    var items = $('input[id^=' + pIndex + '_]');
+
+                    $.each(items,
+                        function () {
+                            var type = $(this).attr('type');
+                            var item = $(this);
+                            var itemid = item.attr('id');
+                            var itemAttribution = type === 'text' ? '' : $(this).prop('checked') ? 'checked' : '';
+                            //var itemDesc = item.attr('desc');
+                            var itemValue = item.val();
+                            tableData.push({
+                                ParentIndex: pIndex,
+                                //ParentDesc: pDesc,
+                                //ParentGroup: pGroup,
+
+                                DataSign: itemid,
+                                Attribution: itemAttribution,
+                                //ItemDesc: itemDesc,
+                                ItemValue: itemValue
+                            });
+                        });
+                });
+
+            $.post('/FormData/SaveChildData',
+                {
+                    //visitID: visitID,
+                    //name: $('#left_menu li.active a').html(),
+                    //templateId: $('#left_menu li.active a').data('tid'),
+                    //key: $('#hd_mainId').val(),
+                    childInfo: childInfo,
+                    data: JSON.stringify(tableData),
+                    //dataResult: dataResult
+                },
+                function (data) {
+                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>")
+                });
+
+        }
     </script>
 }

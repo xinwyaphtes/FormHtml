@@ -12,7 +12,7 @@ namespace 问卷调查.Controllers
     public class FormDataController : Controller
     {
         [HttpPost]
-        public IActionResult SaveBindData(string visitID, string name, int templateId, int key, string data,string dataResult)
+        public IActionResult SaveBindData(string visitID, string name, int templateId, int key, string data, string dataResult)
         {
             using (var db = DBHelp.QueryDB())
             {
@@ -40,7 +40,7 @@ namespace 问卷调查.Controllers
                     m.UpdateDT = DateTime.Now;
                     m.Result = dataResult;
                     jsonData.ForEach(x => { x.MainGuid = m.Guid; });
-                    db.Updateable(m).UpdateColumns(x => new { x.UpdateDT,x.Result }).ExecuteCommand();
+                    db.Updateable(m).UpdateColumns(x => new { x.UpdateDT, x.Result }).ExecuteCommand();
                     db.Deleteable<FormData>().Where(x => x.MainGuid == m.Guid).ExecuteCommand();
                 }
 
@@ -53,7 +53,31 @@ namespace 问卷调查.Controllers
             }
         }
 
-        public IActionResult Del(int id,int pageNum)
+        [HttpPost]
+        public void SaveChildData(Patient childInfo, string data)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
+
+                string g = Guid.NewGuid().ToString("D"); ;
+                var m = new Main
+                {
+                    Guid = g,
+                    Name = "儿童问卷",
+                    //TemplateId = templateId,
+                    VisitID = "1",
+                    //Result = dataResult,
+                    CreateDT = DateTime.Now,
+                    UpdateDT = DateTime.Now
+                };
+                jsonData.ForEach(x => { x.MainGuid = g; });
+                db.Insertable(m).ExecuteCommand();
+                db.Insertable(jsonData).ExecuteCommand();
+            }
+        }
+
+        public IActionResult Del(int id, int pageNum)
         {
             using (var db = DBHelp.QueryDB())
             {
@@ -62,7 +86,7 @@ namespace 问卷调查.Controllers
                 {
                     m.IsDeleted = true;
                     db.Updateable(m).UpdateColumns(x => new { x.IsDeleted }).ExecuteCommand();
-                    return RedirectToAction("SearchPatientForm", "Home", new { m.VisitID,pageNum });
+                    return RedirectToAction("SearchPatientForm", "Home", new { m.VisitID, pageNum });
                 }
                 else
                 {
