@@ -26,53 +26,66 @@
 
         p {
             word-break: break-all;
-            font-size:18px
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 5px;
         }
 
-        div{
-            font-size:16px
+        div {
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
 
-        input{
-            border:0;
-            border-bottom:1px solid
+        input {
+            border: 0;
+            border-bottom: 1px solid;
         }
 
-        .margin-top-50{
-            margin-top:50px
+            input[type="checkbox"]:not(:first-child) {
+                margin-left: 10px;
+            }
+
+        .margin-top-50 {
+            margin-top: 50px
         }
     </style>
 </head>
 <body>
     <partial name="_CookieConsentPartial" />
 
-<div id="app">
-    @RenderBody()
-</div>
+    <div id="app">
+        @RenderBody()
+    </div>
+    <footer class="text-center navbar-fixed-bottom" style="background-color: gainsboro; color: white">
+        <span>
+            <img src="~/images/mijianlogo.png" width="15" /><span style="font-size:8px">上海米健提供技术支持</span>
+        </span>
+    </footer>
 
-<environment include="Development">
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-</environment>
-<environment exclude="Development">
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            crossorigin="anonymous"
-            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-    </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            crossorigin="anonymous"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-    </script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-</environment>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </environment>
 
     @RenderSection("Scripts", required: false)
 </body>
