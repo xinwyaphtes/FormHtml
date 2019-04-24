@@ -60,13 +60,17 @@ namespace 问卷调查.Controllers
             {
                 var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
 
-                string g = Guid.NewGuid().ToString("D"); ;
+                string p = Guid.NewGuid().ToString("D");
+                childInfo.VisitID = p;
+                db.Insertable(childInfo).ExecuteCommand();
+
+                string g = Guid.NewGuid().ToString("D"); 
                 var m = new Main
                 {
                     Guid = g,
-                    Name = "儿童问卷",
+                    Name = "儿童睡眠及学习行为能力调查",
                     //TemplateId = templateId,
-                    VisitID = "1",
+                    VisitID = p,
                     //Result = dataResult,
                     CreateDT = DateTime.Now,
                     UpdateDT = DateTime.Now

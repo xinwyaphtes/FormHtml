@@ -6,8 +6,10 @@
     <div class="container-fluid">
         <div class="row" style="margin-top:15px">
             @*<div class="col-xs-4"><span class="glyphicon glyphicon-chevron-left"></span></div>*@
-            <div class="col-xs-8">儿童问卷</div>
-            <div class="col-xs-4 text-right">{{pageIndex + 1}}/{{data.length}}</div>
+            <div class="col-xs-8">儿童睡眠及学习行为能力调查</div>
+            <div class="col-xs-4 text-right">
+                <span v-show="pageIndex>1 & pageIndex< data.length - 1">{{pageIndex - 1}}/{{data.length-3}}</span>
+            </div>
         </div>
     </div>
 </nav>
@@ -35,172 +37,172 @@
         new Vue({
             el: '#app',
             data: {
-                btNext: '同意并继续',
+                btNext: '确定',
                 btPrev: '上一页',
                 showPrev: false,
                 pageIndex: 0,
                 data: [
                     {
                         html:
-                            '<p><h3 class= "text-center">知情同意书</h3><br/><div>尊敬的同学家长您好！</div>&emsp;&emsp;睡眠障碍严重影响儿童健康，特别是睡眠时打鼾、憋气等所导致的睡眠效率下降及睡眠缺氧，不仅可导致儿童的生长发育迟缓，而且能够影响儿童神经认知功能的发育，从而对儿童的学习成绩等产生长期影响。为了早期发现儿童睡眠问题的影响，为政府部门相关卫生决策提供依据，由上海市教育委员会创新计划项目支持，上海交通大学附属第六人民医院耳鼻咽喉头颈外科（国家临床重点专科）、上海市睡眠呼吸障碍重点实验室及上海市第八人民医院体检中心共同承担，将对上海市徐汇区幼儿园及小学儿童进行睡眠健康及学习、行为问题方面的问卷调查，留口腔咽拭子样本，将根据问卷结果，选取一部分学生进行腕表（便携式）睡眠筛查，所有项目均无损伤，所有同学的信息也将严格保密。对于睡眠筛查发现有睡眠问题的同学，上海交通大学附属第六人民医院睡眠中心将提供免费金标准睡眠检测（多导睡眠检测，限200名免费），希望得到同学和家长的支持与配合，谢谢</p>',
+                            '<h3 class= "text-center">知情同意书</h3><br/><p>尊敬的同学家长您好！</p><p>&emsp;&emsp;睡眠障碍严重影响儿童健康，特别是睡眠时打鼾、憋气等所导致的睡眠效率下降及睡眠缺氧，不仅可导致儿童的生长发育迟缓，而且能够影响儿童神经认知功能的发育，从而对儿童的学习成绩等产生长期影响。</p><p>&emsp;&emsp;为了早期发现儿童睡眠问题的影响，为政府部门相关卫生决策提供依据，由<strong><i>上海市教育委员会创新计划项目支持</i></strong>，上海交通大学附属第六人民医院耳鼻咽喉头颈外科（国家临床重点专科）、上海市睡眠呼吸障碍重点实验室及上海市第八人民医院体检中心共同承担，将在上海市徐汇区幼儿园及小学儿童中开展“儿童睡眠及学习行为能力的调查”</p><p>&emsp;&emsp;本次调查共分为3步：①进行睡眠健康及学习、行为问题方面的问卷调查，留取无创口腔拭子样本。②根据问卷结果，选取一部分学生进行家用腕表式睡眠筛查。③对于家用腕表式睡眠筛查仍提示可能存在睡眠相关问题的同学，上海交通大学附属第六人民医院睡眠中心将提供<strong><i>免费金标准睡眠检测</i></strong>（医院内多导睡眠检测，限200名免费）。所有项目均无损伤，所有同学的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p><p>（联系方式：您如果有关本项调查的任何问题，请通过电话18930170062与调查人员联系，我们将解答您的疑问。）</p><div style="color:red"><input type="checkbox" id="confirm"/>已阅读知情同意书，同意开始进行第一步问卷调查</div>',
                         show: true,
                     },
                     {
                         html:
-                            '<div>儿童姓名<input name="name" type="text" style="width:100px;" /><div><div>学校<input name="school" type="text" style="width:100px;" /><div><div>班级<input name="class" type="text" style="width:100px;" /><div><div>学号<input name="stdno" type="text" style="width:100px;" /><div><div>填写日期<input name="writedate" type="text" style="width:100px;" /><div>',
+                            '<p>儿童姓名：<input name="name" type="text" style="width:100px;" /></p><p>学校：<input name="school" type="text" style="width:150px;" /><p>' +
+                                '<p>①年级：<select name="dept"><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
+                                '<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:150px;" /></p>',
                         show: false,
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>目前睡眠时有</div><div><input type="checkbox" id="A1_2" />曾经有，发生年龄：<input id="A1_3" type="text" style="width:50px;" />岁至<input id="A1_4" type="text" style="width:50px"/>岁</div><div><input type="checkbox" id="A1_5" />从未发生过</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>几乎从未发生过</div><div><input type="checkbox" id="A1_2" />目前睡眠时有，发生年龄：<input id="A1_3" type="text" style="width:50px"/>岁至今<div><input type="checkbox" id="A1_4" />曾经有，发生年龄：<input id="A1_5" type="text" style="width:50px"/>岁至<input id="A1_6" type="text" style="width:50px"/>岁</div></div><div>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</div><div><div><input type="checkbox" id="A1_7" />否</div><div><input type="checkbox" id="A1_8" />是，发现憋气有<input id="A1_9" type="text" style="width:50px"/>年</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.如打鼾，您的孩子共打鼾<input id="A2_1" parent="2" desc="基本健康情况" group="A" style="width:50px;" type="text"/>年？',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.您的孩子是否有扁桃体或腺样体肥大的病史？</p>' +
+                            '<div><div><input type="checkbox" id="A2_1" parent="2" desc="基本健康情况" group="A"/>只有扁桃体肥大病史 ，发现年龄：<input id="A2_2" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_3"/>只有腺样体肥大病史，发现年龄：<input id="A2_4" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_5"/>扁桃体及腺样体均有肥大病史，发现年龄：<input id="A2_6" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_7"/>扁桃体及腺样体均无肥大病史</div>' +
+                            '<div><input type="checkbox" id="A2_8"/>不清楚</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.如打鼾，您的孩子打鼾中途是否有憋气？</p><div><input type="checkbox" id="A3_1" parent="3" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A3_2" />否</div><div>发现憋气已有<input id="A3_2" type="text" style="width:50px;" />年？</div>',
-                        show: false
-                    },
-                    {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.您的孩子既往是否治疗过儿童鼾症？</p>' +
-                            '<div><div><input type="checkbox" id="A4_1" parent="4" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A4_2" />否</div></div>' +
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p><div><input type="checkbox" id="A3_1" parent="3" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A3_2" />否</div>' +
                             '<div>-如是，治疗方法为：</div>' +
-                            '<div><input type="checkbox" id="A4_3" />药物，药物名：<input id="A4_4" type="text" style="width:100px;" /></div>' +
-                            '<div><input type="checkbox" id="A4_5" />矫正口腔畸形' +
-                            '<div><input type="checkbox" id="A4_6" />佩戴呼吸机</div>' +
-                            '<div><input type="checkbox" id="A4_7" />手术，请勾选：</div>' +
-                            '<div><input type="checkbox" id="A4_8" />扁桃体切除术<input type="checkbox" id="A4_9" />腺样体切除术<input type="checkbox" id="A4_10" />扁桃体+腺样体切除术</div>' +
-                            '<div><input type="checkbox" id="A4_11" />其它<input id="A4_12" type="text" style="width:100px;" /></div>' +
-                            '<div>-如是，何时开始？<input id="A4_13" type="text" style="width:50px;" />治疗持续多久？<input id="A4_14" type="text" style="width:50px;" /></div>',
+                            '<div><div><input type="checkbox" id="A3_3" />药物，药物名：<input id="A3_4" type="text" style="width:100px"/>何时开始？<input id="A3_5" type="text" style="width:100px"/>治疗持续多久？<input id="A3_6" type="text" style="width:100px"/></div></div>' +
+                            '<div><div><input type="checkbox" id="A3_7" />矫正口腔畸形，何时开始？<input id="A3_8" type="text" style="width:100px"/>治疗持续多久？<input id="A3_9" type="text" style="width:100px"/></div></div>' +
+                            '<div><div><input type="checkbox" id="A3_7" />佩戴呼吸机，何时开始？<input id="A3_10" type="text" style="width:100px"/>治疗持续多久？<input id="A3_11" type="text" style="width:100px"/></div></div>' +
+                            '<div><div><input type="checkbox" id="A3_12" />手术，请勾选：</div></div>' +
+                            '<div><div><input type="checkbox" id="A3_13" />扁桃体切除术</div>' +
+                            '<div><input type="checkbox" id="A3_14" />腺样体切除术</div>' +
+                            '<div><input type="checkbox" id="A3_14" />扁桃体+腺样体切除术</div></div>' +
+                            '<div>-手术时年龄：<input id="A3_15" type="text" style="width:50px;" />岁？</div>' +
+                            '<div><div><input type="checkbox" id="A3_16" />其他治疗方式：<input id="A3_17" type="text" style="width:150px;" />治疗时间：<input id="A3_18" type="text" style="width:50px;" /></div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.您的孩子是否有扁桃体或腺样体肥大的病史？</p><div><input type="checkbox" id="A5_1" parent="5" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A5_2" />否<input type="checkbox" id="A5_3" />不清楚</div>' +
-                            '<div>确诊扁桃体肥大时的年龄：<input id="A5_4" type="text" style="width:50px;" />岁？确诊腺样体肥大时的年龄：<input id="A5_5" type="text" style="width:50px;" />岁？</div>' +
-                            '<div>-是否已接受过扁桃体或腺样体切除手术？</div>' +
-                            '<div><input type="checkbox" id="A5_6" />未手术</div>' +
-                            '<div><input type="checkbox" id="A5_7" />有扁桃体切除术</div>' +
-                            '<div><input type="checkbox" id="A5_8" />有腺样体切除术</div>' +
-                            '<div><input type="checkbox" id="A5_9" />有扁桃体+腺样体切除术</div>' +
-                            '<div>-手术时年龄：<input id="A5_10" type="text" style="width:50px;" />岁？</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.儿童出生史？</p>' +
+                            '<div>①是否早产？</div><div><input type="checkbox" id="A4_1" parent="4" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A4_2" />否</div>' +
+                            '<div>②是否低体重儿（小于1000g）？</div><div><input type="checkbox" id="A4_3" />是<input type="checkbox" id="A4_4" />否</div>' +
+                            '<div>③是否母乳喂养？</div><div><input type="checkbox" id="A4_5" />以母乳为主<input type="checkbox" id="A4_6" />以奶粉为主</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>6.儿童出生史？</p>' +
-                            '<div>①是否早产？<input type="checkbox" id="A6_1" parent="6" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A6_2" />否</div>' +
-                            '<div>②是否低体重儿（小于1000g）？</div><input type="checkbox" id="A6_3" />是<input type="checkbox" id="A6_4" />否</div>' +
-                            '<div>③是否母乳喂养？</div><input type="checkbox" id="A6_5" />以母乳为主<input type="checkbox" id="A6_6" />以奶粉为主</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.既往病史及治疗史：</p>' +
+                            '<div>①中耳炎：<input type="checkbox" id="A7_1" parent="7" desc="基本健康情况" group="A"/>无<input type="checkbox" id="A7_2" />有，治疗方法<input id="A7_3" type="text" style="width:80px"/></div>' +
+                            '<div>②化脓性扁桃体炎：<input type="checkbox" id="A7_10" />无<input type="checkbox" id="A7_11" />有，治疗方法<input id="A7_12" type="text" style="width:80px"/></div><div>鼻窦炎：<input type="checkbox" id="A7_13" />无<input type="checkbox" id="A7_14" />有，治疗方法<input id="A7_15" type="text" style="width:80px"/></div>' +
+                            '<div>③鼻窦炎：<input type="checkbox" id="A7_4" />无<input type="checkbox" id="A7_5" />有，治疗方法<input id="A7_6" type="text" style="width:80px"/></div><div>哮喘：<input type="checkbox" id="A7_7" />无<input type="checkbox" id="A7_8" />有，治疗方法<input id="A7_9" type="text" style="width:80px"/></div>' +
+                            '<div>④过敏性鼻炎：<input type="checkbox" id="A7_16" />无<input type="checkbox" id="A7_17" />有，治疗方法<input id="A7_18" type="text" style="width:80px"/></div>' +
+                            '<div>⑤哮喘 ：<input type="checkbox" id="A7_19" />无<input type="checkbox" id="A7_20" />有，治疗方法<input id="A7_22" type="text" style="width:80px"/></div>' +
+                            '<div>⑥急性喉炎：<input type="checkbox" id="A7_23" />无<input type="checkbox" id="A7_24" />有，治疗方法<input id="A7_26" type="text" style="width:80px"/></div>' +
+                            '<div>⑦血糖异常：<input type="checkbox" id="A7_27" />无<input type="checkbox" id="A7_28" />有，治疗方法<input id="A7_30" type="text" style="width:80px"/></div>' +
+                            '<div>⑧血脂异常：<input type="checkbox" id="A7_31" />无<input type="checkbox" id="A7_32" />有，治疗方法<input id="A7_34" type="text" style="width:80px"/></div>' +
+                            '<div>⑨血压异常：<input type="checkbox" id="A7_35" />无<input type="checkbox" id="A7_36" />有，治疗方法<input id="A7_38" type="text" style="width:80px"/></div>' +
+                            '<div>⑩心血管疾病：<input type="checkbox" id="A7_39" />无<input type="checkbox" id="A7_40" />有，疾病名：<input id="A7_41" type="text" style="width:80px"/>,治疗方法<input id="A7_42" type="text" style="width:80px"/></div>' +
+                            '<div>⑪肾脏疾病：<input type="checkbox" id="A7_43" />无<input type="checkbox" id="A7_44" />有，疾病名：<input id="A7_45" type="text" style="width:80px"/>,治疗方法<input id="A7_46" type="text" style="width:80px"/></div>' +
+                            '<div>⑫肝脏疾病：<input type="checkbox" id="A7_47" />无<input type="checkbox" id="A7_48" />有，疾病名：<input id="A7_49" type="text" style="width:80px"/>,治疗方法<input id="A7_50" type="text" style="width:80px"/></div>' +
+                            '<div>⑬神经系统疾病：<input type="checkbox" id="A7_51" />无<input type="checkbox" id="A7_52" />有，疾病名：<input id="A7_53" type="text" style="width:80px"/>,治疗方法<input id="A7_54" type="text" style="width:80px"/></div>' +
+                            '<div>⑭除血糖异常外的内分泌系统疾病：<input type="checkbox" id="A7_55" />无<input type="checkbox" id="A7_56" />有，疾病名：<input id="A7_57" type="text" style="width:80px"/>,治疗方法<input id="A7_58" type="text" style="width:80px"/></div>' +
+                            '<div>⑮除哮喘外的其他呼吸系统疾病：<input type="checkbox" id="A7_59" />无<input type="checkbox" id="A7_60" />有，疾病名：<input id="A7_61" type="text" style="width:80px"/>,治疗方法<input id="A7_62" type="text" style="width:80px"/></div>' +
+                            '<div>⑯其他特殊病史：<input type="checkbox" id="A7_63" />无<input type="checkbox" id="A7_64" />有，疾病名：<input id="A7_65" type="text" style="width:80px"/>,治疗方法<input id="A7_66" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>7.既往病史及治疗史：</p>' +
-                            '<div>中耳炎：<input type="checkbox" id="A7_1" parent="7" desc="基本健康情况" group="A"/>无<input type="checkbox" id="A7_2" />有，治疗方法<input id="A7_3" type="text" style="width:80px"/></div>' +
-                            '<div>过敏性鼻炎：<input type="checkbox" id="A7_4" />无<input type="checkbox" id="A7_5" />有，治疗方法<input id="A7_6" type="text" style="width:80px"/></div><div>哮喘：<input type="checkbox" id="A7_7" />无<input type="checkbox" id="A7_8" />有，治疗方法<input id="A7_9" type="text" style="width:80px"/></div>' +
-                            '<div>化脓性扁桃体炎：<input type="checkbox" id="A7_10" />无<input type="checkbox" id="A7_11" />有，治疗方法<input id="A7_12" type="text" style="width:80px"/></div><div>鼻窦炎：<input type="checkbox" id="A7_13" />无<input type="checkbox" id="A7_14" />有，治疗方法<input id="A7_15" type="text" style="width:80px"/></div>' +
-                            '<div>急性喉炎：<input type="checkbox" id="A7_16" />无<input type="checkbox" id="A7_17" />有，治疗方法<input id="A7_18" type="text" style="width:80px"/></div>' +
-                            '<div>心血管疾病 ：<input type="checkbox" id="A7_19" />无<input type="checkbox" id="A7_20" />有，疾病名：<input id="A7_21" type="text" style="width:80px"/>,治疗方法<input id="A7_22" type="text" style="width:80px"/></div>' +
-                            '<div>呼吸系统疾病：<input type="checkbox" id="A7_23" />无<input type="checkbox" id="A7_24" />有，疾病名：<input id="A7_25" type="text" style="width:80px"/>,治疗方法<input id="A7_26" type="text" style="width:80px"/></div>' +
-                            '<div>肾脏疾病：<input type="checkbox" id="A7_27" />无<input type="checkbox" id="A7_28" />有，疾病名：<input id="A7_29" type="text" style="width:80px"/>,治疗方法<input id="A7_30" type="text" style="width:80px"/></div>' +
-                            '<div>肝脏疾病：<input type="checkbox" id="A7_31" />无<input type="checkbox" id="A7_32" />有，疾病名：<input id="A7_33" type="text" style="width:80px"/>,治疗方法<input id="A7_34" type="text" style="width:80px"/></div>' +
-                            '<div>神经系统疾病：<input type="checkbox" id="A7_35" />无<input type="checkbox" id="A7_36" />有，疾病名：<input id="A7_37" type="text" style="width:80px"/>,治疗方法<input id="A7_38" type="text" style="width:80px"/></div>' +
-                            '<div>其他特殊病史：<input type="checkbox" id="A7_39" />无<input type="checkbox" id="A7_40" />有，疾病名：<input id="A7_41" type="text" style="width:80px"/>,治疗方法<input id="A7_42" type="text" style="width:80px"/></div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>6.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>8.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"/></div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>7.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>9.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"/></div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>12.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>13.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
+                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>1.呼吸情况</p>' +
+                            '<div>①睡觉打鼾超过睡眠时间的一半<div><input type="checkbox" id="B1_1" parent="1" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B1_2"/>否</div></div>' +
+                            '<div>②睡觉总是打鼾<div><input type="checkbox" id="B1_3" />是<input type="checkbox" id="B1_4"/>否</div></div>' +
+                            '<div>③睡觉鼾声重<div><input type="checkbox" id="B1_5" />是<input type="checkbox" id="B1_6"/>否</div></div>' +
+                            '<div>④夜间睡觉时呼吸沉重或呼吸声大<div><input type="checkbox" id="B1_7" />是<input type="checkbox" id="B1_8"/>否</div></div>' +
+                            '<div>⑤夜间睡觉时呼吸困难或呼吸费力<div><input type="checkbox" id="B1_9" />是<input type="checkbox" id="B1_10"/>否</div></div>' +
+                            '<div>⑥夜间睡眠时观察到孩子有呼吸停止<div><input type="checkbox" id="B1_11" />是<input type="checkbox" id="B1_12"/>否</div></div>' +
+                            '<div>⑦白天喜欢张嘴呼吸<div><input type="checkbox" id="B1_13" />是<input type="checkbox" id="B1_14"/>否</div></div>' +
+                            '<div>⑧早晨睡醒时有口干<div><input type="checkbox" id="B1_15" />是<input type="checkbox" id="B1_16"/>否</div></div>' +
+                            '<div>⑨早上起床时伴头痛<div><input type="checkbox" id="B1_17" />是<input type="checkbox" id="B1_18"/>否</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>1.呼吸情况</p><div>睡觉打鼾超过睡眠时间的一半<div><input type="checkbox" id="B1_1" parent="1" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B1_2"/>否</div></div>' +
-                            '<div>睡觉总是打鼾<div><input type="checkbox" id="B1_3" />是<input type="checkbox" id="B1_4"/>否</div></div>' +
-                            '<div>睡觉鼾声重<div><input type="checkbox" id="B1_5" />是<input type="checkbox" id="B1_6"/>否</div></div>' +
-                            '<div>夜间睡觉时呼吸沉重或呼吸声大<div><input type="checkbox" id="B1_7" />是<input type="checkbox" id="B1_8"/>否</div></div>' +
-                            '<div>夜间睡觉时呼吸困难或呼吸费力<div><input type="checkbox" id="B1_9" />是<input type="checkbox" id="B1_10"/>否</div></div>' +
-                            '<div>夜间睡眠时观察到孩子有呼吸停止<div><input type="checkbox" id="B1_11" />是<input type="checkbox" id="B1_12"/>否</div></div>' +
-                            '<div>白天喜欢张嘴呼吸<div><input type="checkbox" id="B1_13" />是<input type="checkbox" id="B1_14"/>否</div></div>' +
-                            '<div>早晨睡醒时有口干<div><input type="checkbox" id="B1_15" />是<input type="checkbox" id="B1_16"/>否</div></div>' +
-                            '<div>早上起床时伴头痛<div><input type="checkbox" id="B1_17" />是<input type="checkbox" id="B1_18"/>否</div></div>',
+                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>2.白天嗜睡情况</p><div>①白天有睡意的困扰或总爱睡觉<div><input type="checkbox" id="B2_1" parent="2" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B2_2"/>否</div></div>' +
+                            '<div>②老师或其他看护人评价孩子白天表现得昏昏欲睡<div><input type="checkbox" id="B2_3" />是<input type="checkbox" id="B2_4"/>否</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>2.白天嗜睡情况</p><div>白天有睡意的困扰或总爱睡觉<div><input type="checkbox" id="B2_1" parent="2" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B2_2"/>否</div></div>' +
-                            '<div>老师或其他看护人评价孩子白天表现得昏昏欲睡<div><input type="checkbox" id="B2_3" />是<input type="checkbox" id="B2_4"/>否</div></div>',
+                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>3.儿童行为情况</p><div>①在跟孩子讲话他/她好像心不在焉或没有在听<div><input type="checkbox" id="B3_1" parent="3" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B3_2"/>否</div></div>' +
+                            '<div>②较难安排活动或任务<div><input type="checkbox" id="B3_3" />是<input type="checkbox" id="B3_4"/>否</div></div>' +
+                            '<div>③易被外部的刺激因素分散注意力<div><input type="checkbox" id="B3_5" />是<input type="checkbox" id="B3_6"/>否</div></div>' +
+                            '<div>④坐下时总是手脚乱动不安或浑身不适<div><input type="checkbox" id="B3_7" />是<input type="checkbox" id="B3_8"/>否</div></div>' +
+                            '<div>⑤常表现得忙个不停或高谈阔论<div><input type="checkbox" id="B3_9" />是<input type="checkbox" id="B3_10"/>否</div></div>' +
+                            '<div>⑥平时总爱打断别人或者抢话说<div><input type="checkbox" id="B3_11" />是<input type="checkbox" id="B3_12"/>否</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>3.儿童行为情况</p><div>在跟孩子讲话他/她好像心不在焉或没有在听<div><input type="checkbox" id="B3_1" parent="3" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B3_2"/>否</div></div>' +
-                            '<div>较难安排活动或任务<div><input type="checkbox" id="B3_3" />是<input type="checkbox" id="B3_4"/>否</div></div>' +
-                            '<div>易被外部的刺激因素分散注意力<div><input type="checkbox" id="B3_5" />是<input type="checkbox" id="B3_6"/>否</div></div>' +
-                            '<div>坐下时总是手脚乱动不安或浑身不适<div><input type="checkbox" id="B3_7" />是<input type="checkbox" id="B3_8"/>否</div></div>' +
-                            '<div>常表现得忙个不停或高谈阔论<div><input type="checkbox" id="B3_9" />是<input type="checkbox" id="B3_10"/>否</div></div>' +
-                            '<div>平时总爱打断别人或者抢话说<div><input type="checkbox" id="B3_11" />是<input type="checkbox" id="B3_12"/>否</div></div>',
-                        show: false
-                    },
-                    {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>4.其它</p><div>睡觉偶尔尿床<div><input type="checkbox" id="B4_1" parent="4" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B4_2"/>否</div></div>' +
-                            '<div>晨起时感觉未得到充分休息<div><input type="checkbox" id="B4_3" />是<input type="checkbox" id="B4_4"/>否</div></div>' +
-                            '<div>早上很难叫醒<div><input type="checkbox" id="B4_5" />是<input type="checkbox" id="B4_6"/>否</div></div>' +
-                            '<div>曾有过生长发育停滞<div><input type="checkbox" id="B4_7" />是<input type="checkbox" id="B4_8"/>否</div></div><div>超重<div><input type="checkbox" id="B4_9" />是<input type="checkbox" id="B4_10"/>否</div></div>',
+                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>4.其它</p><div>①睡觉偶尔尿床<div><input type="checkbox" id="B4_1" parent="4" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B4_2"/>否</div></div>' +
+                            '<div>②晨起时感觉未得到充分休息<div><input type="checkbox" id="B4_3" />是<input type="checkbox" id="B4_4"/>否</div></div>' +
+                            '<div>③早上很难叫醒<div><input type="checkbox" id="B4_5" />是<input type="checkbox" id="B4_6"/>否</div></div>' +
+                            '<div>④曾有过生长发育停滞<div><input type="checkbox" id="B4_7" />是<input type="checkbox" id="B4_8"/>否</div></div>' +
+                            '<div>⑤超重<div><input type="checkbox" id="B4_9" />是<input type="checkbox" id="B4_10"/>否</div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>1.（睡眠问题）在最近4周中，您的孩子发生下列情况的频率 *</p>' +
-                            '<div>有响亮的鼾声<div><input type="checkbox" id="C1_1" parent="1" desc="儿童OSA-18睡眠问卷" group="C"/>从不<input type="checkbox" id="C1_2"/>几乎没有<input type="checkbox" id="C1_3"/>很少时候<input type="checkbox" id="C1_4"/>有时<div><input type="checkbox" id="C1_5"/>较多的时候<input type="checkbox" id="C1_6"/>几乎每天<input type="checkbox" id="C1_7"/>每天</div></div></div>' +
-                            '<div>晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C1_8"  />从不<input type="checkbox" id="C1_9"/>几乎没有<input type="checkbox" id="C1_10"/>很少时候<input type="checkbox" id="C1_11"/>有时<div><input type="checkbox" id="C1_12"/>较多的时候<input type="checkbox" id="C1_13"/>几乎每天<input type="checkbox" id="C1_14"/>每天</div></div></div>' +
-                            '<div>睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C1_15"  />从不<input type="checkbox" id="C1_16"/>几乎没有<input type="checkbox" id="C1_17"/>很少时候<input type="checkbox" id="C1_18"/>有时<div><input type="checkbox" id="C1_19"/>较多的时候<input type="checkbox" id="C1_20"/>几乎每天<input type="checkbox" id="C1_21"/>每天</div></div></div>' +
-                            '<div>睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C1_22"  />从不<input type="checkbox" id="C1_23"/>几乎没有<input type="checkbox" id="C1_24"/>很少时候<input type="checkbox" id="C1_25"/>有时<div><input type="checkbox" id="C1_26"/>较多的时候<input type="checkbox" id="C1_27"/>几乎每天<input type="checkbox" id="C1_28"/>每天</div></div></div>',
+                            '<div>①有响亮的鼾声</div><div><input type="checkbox" id="C1_1" parent="1" desc="儿童OSA-18睡眠问卷" group="C"/>从不（0次/周）<div><input type="checkbox" id="C1_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_7"/>每天（约7次/周）</div></div></div>' +
+                            '<div>②晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C1_8"  />从不（0次/周）<div><input type="checkbox" id="C1_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_14"/>每天（约7次/周）</div></div></div>' +
+                            '<div>③睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C1_15"  />从不（0次/周）<div><input type="checkbox" id="C1_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_21"/>每天（约7次/周）</div></div></div>' +
+                            '<div>④睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C1_22"  />从不（0次/周）<div><input type="checkbox" id="C1_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_28"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>2.（身体不适）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>有响亮的鼾声<div><input type="checkbox" id="C2_1" parent="2" desc="儿童OSA-18睡眠问卷" group="C" />从不<input type="checkbox" id="C2_2"/>几乎没有<input type="checkbox" id="C2_3"/>很少时候<input type="checkbox" id="C2_4"/>有时<div><input type="checkbox" id="C2_5"/>较多的时候<input type="checkbox" id="C2_6"/>几乎每天<input type="checkbox" id="C2_7"/>每天</div></div></div>' +
-                            '<div>晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C2_8"  />从不<input type="checkbox" id="C2_9"/>几乎没有<input type="checkbox" id="C2_10"/>很少时候<input type="checkbox" id="C2_11"/>有时<div><input type="checkbox" id="C2_12"/>较多的时候<input type="checkbox" id="C2_13"/>几乎每天<input type="checkbox" id="C2_14"/>每天</div></div></div>' +
-                            '<div>睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C2_15"  />从不<input type="checkbox" id="C2_16"/>几乎没有<input type="checkbox" id="C2_17"/>很少时候<input type="checkbox" id="C2_18"/>有时<div><input type="checkbox" id="C2_19"/>较多的时候<input type="checkbox" id="C2_20"/>几乎每天<input type="checkbox" id="C2_21"/>每天</div></div></div>' +
-                            '<div>睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C2_22"  />从不<input type="checkbox" id="C2_23"/>几乎没有<input type="checkbox" id="C2_24"/>很少时候<input type="checkbox" id="C2_25"/>有时<div><input type="checkbox" id="C2_26"/>较多的时候<input type="checkbox" id="C2_27"/>几乎每天<input type="checkbox" id="C2_28"/>每天</div></div></div>',
+                            '<div>①由于鼻塞需要张口呼吸<div><input type="checkbox" id="C2_1" parent="2" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C2_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_7"/>每天（约7次/周）</div></div></div>' +
+                            '<div>②反复感冒或上呼吸道感染<div><input type="checkbox" id="C2_8"  />从不（0次/周）<div><input type="checkbox" id="C2_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_14"/>每天（约7次/周）</div></div></div>' +
+                            '<div>③有鼻腔分泌物或流鼻涕<div><input type="checkbox" id="C2_15"  />从不（0次/周）<div><input type="checkbox" id="C2_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_21"/>每天（约7次/周）</div></div></div>' +
+                            '<div>④吞咽食物困难<div><input type="checkbox" id="C2_22"  />从不（0次/周）<div><input type="checkbox" id="C2_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_28"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>3.（情绪问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>情绪波动或发脾气<div><input type="checkbox" id="C3_1" parent="3" desc="儿童OSA-18睡眠问卷" group="C" />从不<input type="checkbox" id="C3_2"/>几乎没有<input type="checkbox" id="C3_3"/>很少时候<input type="checkbox" id="C3_4"/>有时<div><input type="checkbox" id="C3_5"/>较多的时候<input type="checkbox" id="C3_6"/>几乎每天<input type="checkbox" id="C3_7"/>每天</div></div></div>' +
-                            '<div>攻击性行为或多动<div><input type="checkbox" id="C3_8"  />从不<input type="checkbox" id="C3_9"/>几乎没有<input type="checkbox" id="C3_10"/>很少时候<input type="checkbox" id="C3_11"/>有时<div><input type="checkbox" id="C3_12"/>较多的时候<input type="checkbox" id="C3_13"/>几乎每天<input type="checkbox" id="C3_14"/>每天</div></div></div>' +
-                            '<div>违反纪律<div><input type="checkbox" id="C3_15"  />从不<input type="checkbox" id="C3_16"/>几乎没有<input type="checkbox" id="C3_17"/>很少时候<input type="checkbox" id="C3_18"/>有时<div><input type="checkbox" id="C3_19"/>较多的时候<input type="checkbox" id="C3_20"/>几乎每天<input type="checkbox" id="C3_21"/>每天</div></div></div>',
+                            '<div>①情绪波动或发脾气<div><input type="checkbox" id="C3_1" parent="3" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C3_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_7"/>每天（约7次/周）</div></div></div>' +
+                            '<div>②攻击性行为或多动<div><input type="checkbox" id="C3_8"  />从不（0次/周）<div><input type="checkbox" id="C3_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_14"/>每天（约7次/周）</div></div></div>' +
+                            '<div>③违反纪律<div><input type="checkbox" id="C3_15"  />从不（0次/周）<div><input type="checkbox" id="C3_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_21"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>4.（日间问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>情绪波动或发脾气<div><input type="checkbox" id="C4_1" parent="4" desc="儿童OSA-18睡眠问卷" group="C" />从不<input type="checkbox" id="C4_2"/>几乎没有<input type="checkbox" id="C4_3"/>很少时候<input type="checkbox" id="C4_4"/>有时<div><input type="checkbox" id="C4_5"/>较多的时候<input type="checkbox" id="C4_6"/>几乎每天<input type="checkbox" id="C4_7"/>每天</div></div></div>' +
-                            '<div>攻击性行为或多动<div><input type="checkbox" id="C4_8"  />从不<input type="checkbox" id="C4_9"/>几乎没有<input type="checkbox" id="C4_10"/>很少时候<input type="checkbox" id="C4_11"/>有时<div><input type="checkbox" id="C4_12"/>较多的时候<input type="checkbox" id="C4_13"/>几乎每天<input type="checkbox" id="C4_14"/>每天</div></div></div>' +
-                            '<div>违反纪律<div><input type="checkbox" id="C4_15"  />从不<input type="checkbox" id="C4_16"/>几乎没有<input type="checkbox" id="C4_17"/>很少时候<input type="checkbox" id="C4_18"/>有时<div><input type="checkbox" id="C4_19"/>较多的时候<input type="checkbox" id="C4_20"/>几乎每天<input type="checkbox" id="C4_21"/>每天</div></div></div>',
+                            '<div>①嗜睡或过多的打瞌睡<div><input type="checkbox" id="C4_1" parent="4" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C4_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_7"/>每天（约7次/周）</div></div></div>' +
+                            '<div>②无法集中注意力<div><input type="checkbox" id="C4_8"  />从不（0次/周）<div><input type="checkbox" id="C4_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_14"/>每天（约7次/周）</div></div></div>' +
+                            '<div>③早上起床困难<div><input type="checkbox" id="C4_15"  />从不（0次/周）<div><input type="checkbox" id="C4_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_21"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>5.（照护者关心的问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>有响亮的鼾声<div><input type="checkbox" id="C5_1" parent="5" desc="儿童OSA-18睡眠问卷" group="C" />从不<input type="checkbox" id="C5_2"/>几乎没有<input type="checkbox" id="C5_3"/>很少时候<input type="checkbox" id="C5_4"/>有时<div><input type="checkbox" id="C5_5"/>较多的时候<input type="checkbox" id="C5_6"/>几乎每天<input type="checkbox" id="C5_7"/>每天</div></div></div>' +
-                            '<div>晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C5_8"  />从不<input type="checkbox" id="C5_9"/>几乎没有<input type="checkbox" id="C5_10"/>很少时候<input type="checkbox" id="C5_11"/>有时<div><input type="checkbox" id="C5_12"/>较多的时候<input type="checkbox" id="C5_13"/>几乎每天<input type="checkbox" id="C5_14"/>每天</div></div></div>' +
-                            '<div>睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C5_15"  />从不<input type="checkbox" id="C5_16"/>几乎没有<input type="checkbox" id="C5_17"/>很少时候<input type="checkbox" id="C5_18"/>有时<div><input type="checkbox" id="C5_19"/>较多的时候<input type="checkbox" id="C5_20"/>几乎每天<input type="checkbox" id="C5_21"/>每天</div></div></div>' +
-                            '<div>睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C5_22"  />从不<input type="checkbox" id="C5_23"/>几乎没有<input type="checkbox" id="C5_24"/>很少时候<input type="checkbox" id="C5_25"/>有时<div><input type="checkbox" id="C5_26"/>较多的时候<input type="checkbox" id="C5_27"/>几乎每天<input type="checkbox" id="C5_28"/>每天</div></div></div>' +
-                            '<div>睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C5_29"  />从不<input type="checkbox" id="C5_30"/>几乎没有<input type="checkbox" id="C5_31"/>很少时候<input type="checkbox" id="C5_32"/>有时<div><input type="checkbox" id="C5_33"/>较多的时候<input type="checkbox" id="C5_34"/>几乎每天<input type="checkbox" id="C5_35"/>每天</div></div></div>',
+                            '<div>①您为您孩子的健康问题担心<div><input type="checkbox" id="C5_1" parent="5" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C5_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_7"/>每天（约7次/周）</div></div></div>' +
+                            '<div>②您担心您的孩子夜间呼吸不畅<div><input type="checkbox" id="C5_8"  />从不（0次/周）<div><input type="checkbox" id="C5_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_14"/>每天（约7次/周）</div></div></div>' +
+                            '<div>③影响您的日常工作或家务<div><input type="checkbox" id="C5_15"  />从不（0次/周）<div><input type="checkbox" id="C5_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_21"/>每天（约7次/周）</div></div></div>' +
+                            '<div>④因上述问题而焦虑<div><input type="checkbox" id="C5_22"  />从不（0次/周）<div><input type="checkbox" id="C5_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_28"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
@@ -311,13 +313,13 @@
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>'
                             +
                             '<div>在过去一周中，您孩子在如下情形时是否经常打瞌睡或几乎每次都入睡？</div>' +
-                            '<div>穿衣服</div><div><input type="checkbox" id="1_8" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_9" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_10" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>独自玩耍</div><div><input type="checkbox" id="1_11" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_12" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_13" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>和别人玩耍</div><div><input type="checkbox" id="1_14" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_15" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_16" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>看电视</div><div><input type="checkbox" id="1_17" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_18" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_19" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>坐车</div><div><input type="checkbox" id="1_20" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_21" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_22" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>吃饭</div><div><input type="checkbox" id="1_23" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_24" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_25" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>洗澡</div><div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡<input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡<input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div>'
+                            '<div>①穿衣服</div><div><div><input type="checkbox" id="1_8" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_9" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_10" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>②独自玩耍</div><div><div><input type="checkbox" id="1_11" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_12" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_13" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>③和别人玩耍</div><div><div><input type="checkbox" id="1_14" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_15" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_16" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>④看电视</div><div><div><input type="checkbox" id="1_17" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_18" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_19" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>⑤坐车</div><div><div><input type="checkbox" id="1_20" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_21" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_22" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>⑥吃饭</div><div><div><input type="checkbox" id="1_23" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_24" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_25" desc="addtion" group="D">几乎每次都入睡</div>' +
+                            '<div>⑦洗澡</div><div><div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div>'
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -382,15 +384,30 @@
                             '<div><div>47.让自己受别人欺骗</div><div><input type="checkbox" parent="47" desc="儿童行为问卷" group="E" id="E47_1"/>无<input type="checkbox" id="E47_2"/>稍有<input type="checkbox" id="E47_3"/>相当多<input type="checkbox" id="E47_4"/>很多</div></div>' +
                             '<div><div>48.有大便问题(腹泻,排便不规则,便秘)</div><div><input type="checkbox" parent="48" desc="儿童行为问卷" group="E" id="E48_1"/>无<input type="checkbox" id="E48_2"/>稍有<input type="checkbox" id="E48_3"/>相当多<input type="checkbox" id="E48_4"/>很多</div></div>'
                     },
+                    {
+                        html:'<p><h3>感谢您参与本次问卷调查，意向征求：</h3></p>' +
+                            '<div>①如果您的孩子经过问卷筛查可能存在睡眠相关问题，是否愿意接受家用腕表式的睡眠监测仪筛查？（免费，带回家做）</div>' +
+                            '<div><input type="checkbox" parent="1" desc="意向征求" group="F" id="F1_1"/>是<input type="checkbox" id="F1_2"/>否</div>' +
+                            '②如果腕表式筛查仪提示可能存在睡眠问题，是否愿意到医院进行完善的睡眠监测（前200名儿童免费）？' +
+                            '<div><input type="checkbox" parent="2" desc="意向征求" group="F" id="F2_1"/>是<input type="checkbox" id="F2_2"/>否</div>' +
+                            '③是否愿意留取儿童的无创口腔拭子？' +
+                            '<div><input type="checkbox" parent="3" desc="意向征求" group="F" id="F3_1"/>是<input type="checkbox" id="F3_2"/>否</div>'
+                    }
                 ],
             },
             methods: {
                 next: function () { //下一题
-                    checkNeed();
+                    //checkNeed();
                     if (this.pageIndex == 0) {
-                        this.btNext = '下一页';
-                        this.showPrev = true;
+                        if (!$('#confirm').prop('checked')) {
+                            alert('请确认您以否同意知情同意书！');
+                            return false;
+                        }
 
+                        this.btNext = '下一页';
+                    }
+                    if (this.pageIndex == 1) {
+                        this.showPrev = true;
                     }
                     if (this.pageIndex + 1 == this.data.length - 1) {
                         this.btNext = '确认并提交';
@@ -406,7 +423,9 @@
                 },
                 prev: function () {
                     if (this.pageIndex - 1 == 0) {
-                        this.btNext = '同意并继续';
+                        this.btNext = '确定';
+                    }
+                    if (this.pageIndex - 1 == 1) {
                         this.showPrev = false;
                     }
                     if (this.pageIndex == this.data.length - 1) {
@@ -420,32 +439,28 @@
             }
         });
 
-        $.each($('input[type="checkbox"][parent]'),
+        $.each($('input[type="checkbox"]'),
             function () {
-                //相同父元素且同一个div的checkbox互斥
-                var group = $(this).attr("group");
-                var index = $(this).attr("parent");
-                
-                var groupdiv = $("#" + group + index + "_1").parent('div').parent('div');
-                if (typeof (groupdiv.attr("show")) != "undefined") {
-                    groupdiv = $("#" + group + index + "_1").parent('div');
-                }
+                var checkbox = $(this);
 
-                $.each(groupdiv, function () {
-                    var items = $(this).find('input[type="checkbox"]');
-                    $.each(items, function () {
-                        $(this).click(function () {
-                            items.prop("checked", "");
-                            $(this).prop("checked", "checked");
-                        });
-                    });
+                $(this).click(function () {
+                    var groupdiv = checkbox.parent('div').parent('div');
+                    var itemDiv = groupdiv.attr("show") === "true" ? checkbox.closest('div') : groupdiv;
+                    var hasClass = checkbox.hasClass("check");
+                    itemDiv.find('input[type="checkbox"]').prop("checked", "");
+                    itemDiv.find('input[type="checkbox"]').removeClass("check");
+                    if (!hasClass) {
+                        checkbox.prop("checked", "checked");
+                        checkbox.addClass("check");
+                    }
                 });
             });
 
         function checkNeed() {
-            //当前显示的
-            var div_shown = $('#content div[show="true"]');
-
+            //当前界面下任何一组没有一个对选框则提示
+            var hascheckbox = $('#content div[show="true"]').find('input[type="checkbox"]');
+            var itemchecked = $('#content div[show="true"]').find('input[type="checkbox"]:checked').prop('checked');
+            if (hascheckbox.length > 0 && !itemchecked) { alert('出错啦') }
         }
 
         function save() {
@@ -454,8 +469,9 @@
                 Name: $('input[name="name"]').val(),
                 Type: 1,
                 Company: $('input[name="school"]').val(),
-                Department: $('input[name="class"]').val(),
+                Department:$('select[name="dept"]').val() + $('input[name="class"]').val(),
                 EmployeeNo: $('input[name="stdno"]').val(),
+                Birthday: $('input[name="birthday"]').val(),
             }
 
             $.each($('[parent]'),
