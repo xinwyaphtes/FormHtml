@@ -17,5 +17,6 @@ namespace 问卷调查.Models
         public string Department { get; set; }
         public string EmployeeNo { get; set; }
         public string Birthday { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -27,12 +27,29 @@
         </div>
     </div>
 </div>
-
 @section Scripts
     {
     <script>
         // checkbox：<input type="checkbox" id="1_1" parent="1"/>
         // text : <input id="1_3" type="text" style="width:50px;" />
+        BootstrapDialog.show({
+            title: '微信悬浮框设置步骤',
+            message: '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">如不设置悬浮窗，再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
+            buttons: [{
+                id: 'btn-ok',
+                icon: 'glyphicon glyphicon-check',
+                label: '确定',
+                cssClass: 'btn-primary',
+                data: {
+                    js: 'btn-confirm',
+                    'user-id': '3'
+                },
+                autospin: false,
+                action: function (dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
 
         new Vue({
             el: '#app',
@@ -50,8 +67,8 @@
                     {
                         html:
                             '<p>儿童姓名：<input name="name" type="text" style="width:100px;" /></p><p>学校：<input name="school" type="text" style="width:150px;" /><p>' +
-                                '<p>①年级：<select name="dept"><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
-                                '<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:150px;" /></p>',
+                            '<p>①年级：<select name="dept"><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
+                            '<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:200px;" /></p>',
                         show: false,
                     },
                     {
@@ -72,13 +89,13 @@
                             '<div>-如是，治疗方法为：</div>' +
                             '<div><div><input type="checkbox" id="A3_3" />药物，药物名：<input id="A3_4" type="text" style="width:100px"/>何时开始？<input id="A3_5" type="text" style="width:100px"/>治疗持续多久？<input id="A3_6" type="text" style="width:100px"/></div></div>' +
                             '<div><div><input type="checkbox" id="A3_7" />矫正口腔畸形，何时开始？<input id="A3_8" type="text" style="width:100px"/>治疗持续多久？<input id="A3_9" type="text" style="width:100px"/></div></div>' +
-                            '<div><div><input type="checkbox" id="A3_7" />佩戴呼吸机，何时开始？<input id="A3_10" type="text" style="width:100px"/>治疗持续多久？<input id="A3_11" type="text" style="width:100px"/></div></div>' +
-                            '<div><div><input type="checkbox" id="A3_12" />手术，请勾选：</div></div>' +
-                            '<div><div><input type="checkbox" id="A3_13" />扁桃体切除术</div>' +
-                            '<div><input type="checkbox" id="A3_14" />腺样体切除术</div>' +
-                            '<div><input type="checkbox" id="A3_14" />扁桃体+腺样体切除术</div></div>' +
-                            '<div>-手术时年龄：<input id="A3_15" type="text" style="width:50px;" />岁？</div>' +
-                            '<div><div><input type="checkbox" id="A3_16" />其他治疗方式：<input id="A3_17" type="text" style="width:150px;" />治疗时间：<input id="A3_18" type="text" style="width:50px;" /></div></div>',
+                            '<div><div><input type="checkbox" id="A3_10" />佩戴呼吸机，何时开始？<input id="A3_11" type="text" style="width:100px"/>治疗持续多久？<input id="A3_12" type="text" style="width:100px"/></div></div>' +
+                            '<div><div><input type="checkbox" id="A3_13" />手术，请勾选：</div></div>' +
+                            '<div><div><input type="checkbox" id="A3_14" />扁桃体切除术</div>' +
+                            '<div><input type="checkbox" id="A3_15" />腺样体切除术</div>' +
+                            '<div><input type="checkbox" id="A3_16" />扁桃体+腺样体切除术</div></div>' +
+                            '<div>-手术时年龄：<input id="A3_17" type="text" style="width:50px;" />岁？</div>' +
+                            '<div><div><input type="checkbox" id="A3_18" />其他治疗方式：<input id="A3_19" type="text" style="width:150px;" />治疗时间：<input id="A3_20" type="text" style="width:50px;" /></div></div>',
                         show: false
                     },
                     {
@@ -385,7 +402,7 @@
                             '<div><div>48.有大便问题(腹泻,排便不规则,便秘)</div><div><input type="checkbox" parent="48" desc="儿童行为问卷" group="E" id="E48_1"/>无<input type="checkbox" id="E48_2"/>稍有<input type="checkbox" id="E48_3"/>相当多<input type="checkbox" id="E48_4"/>很多</div></div>'
                     },
                     {
-                        html:'<p><h3>感谢您参与本次问卷调查，意向征求：</h3></p>' +
+                        html: '<p><h3>感谢您参与本次问卷调查，意向征求：</h3></p>' +
                             '<div>①如果您的孩子经过问卷筛查可能存在睡眠相关问题，是否愿意接受家用腕表式的睡眠监测仪筛查？（免费，带回家做）</div>' +
                             '<div><input type="checkbox" parent="1" desc="意向征求" group="F" id="F1_1"/>是<input type="checkbox" id="F1_2"/>否</div>' +
                             '②如果腕表式筛查仪提示可能存在睡眠问题，是否愿意到医院进行完善的睡眠监测（前200名儿童免费）？' +
@@ -469,7 +486,7 @@
                 Name: $('input[name="name"]').val(),
                 Type: 1,
                 Company: $('input[name="school"]').val(),
-                Department:$('select[name="dept"]').val() + $('input[name="class"]').val(),
+                Department: $('select[name="dept"]').val() + $('input[name="class"]').val(),
                 EmployeeNo: $('input[name="stdno"]').val(),
                 Birthday: $('input[name="birthday"]').val(),
             }
