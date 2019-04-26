@@ -81,6 +81,34 @@ namespace 问卷调查.Controllers
             }
         }
 
+        [HttpPost]
+        public void SavePregnantData(Patient pregnantInfo, string data)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
+
+                string p = Guid.NewGuid().ToString("D");
+                pregnantInfo.VisitID = p;
+                db.Insertable(pregnantInfo).ExecuteCommand();
+
+                string g = Guid.NewGuid().ToString("D");
+                var m = new Main
+                {
+                    Guid = g,
+                    Name = "孕妇问卷",
+                    //TemplateId = templateId,
+                    VisitID = p,
+                    //Result = dataResult,
+                    CreateDT = DateTime.Now,
+                    UpdateDT = DateTime.Now
+                };
+                jsonData.ForEach(x => { x.MainGuid = g; });
+                db.Insertable(m).ExecuteCommand();
+                db.Insertable(jsonData).ExecuteCommand();
+            }
+        }
+
         public IActionResult Del(int id, int pageNum)
         {
             using (var db = DBHelp.QueryDB())
