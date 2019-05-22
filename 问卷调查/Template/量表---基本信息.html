@@ -22,7 +22,7 @@
         margin-left: 20px;
     }
 </style>
-<p style="margin-left: 56px; white-space: normal; line-height:20px;"><span class="col-xs-3"></span><span style="font-size: 20px; line-height:20px; font-family: 宋体;font-weight: bold;">基本病史问卷</span></p>
+<p style="margin-left: 56px; white-space: normal; line-height:20px;"><span class="col-xs-4"></span><span style="font-size: 20px; line-height:20px; font-family: 宋体;font-weight: bold;">基本病史问卷</span></p>
 <p>
     <div class="row">
         <div class="col-xs-6">1.住院号：<input type="text" desc="住院号" parent="1" id="text_1_1" style="width: 100px"></div>
@@ -43,6 +43,16 @@
         </div>
     </div>
 </p>
+<script>
+    var visitId = $('#patinfo span[name="visitId"]').html();
+    var name = $('#patinfo span[name="name"]').html();
+    var age = $('#patinfo span[name="age"]').html();
+    var sex = $('#patinfo span[name="sex"]').html();
+    $('#text_1_1').val(visitId);
+    $('#text_2_1').val(name);
+    $('#text_3_1').val(sex);
+    $('#text_4_1').val(age);
+</script>
 <p>
     <div class="row">
         <div class="col-xs-6">

@@ -16,6 +16,7 @@ namespace 问卷调查.Models
         public bool Status { get; set; }
         public DateTime CreateDT { get; set; }
         public DateTime UpdateDT { get; set; }
+        public int type { get; set; }
         public int PrintOrder { get; set; }
     }
 }

@@ -26,9 +26,10 @@
             background-color: #286090;
             border-color: #286090;
         }
-        .navbar-inverse .navbar-brand {
-            color: white;
-        }
+
+            .navbar-inverse .navbar-brand {
+                color: white;
+            }
 
         .navbar-brand {
             padding: 15px 15px 15px 0
@@ -44,21 +45,21 @@
                     <span>问卷调查</span>
                 </a>
             </div>
-            
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            @if (controller.ToString() == "Home")
-                            {
-                                <a href="/Settings/Index">设置</a>
-                            }
-                            else
-                            {
-                                <a href="/Home/Index">返回</a>
-                            }
-                        </li>
-                    </ul>
+            <div class="navbar-header col-sm-3" style="padding-right: 5px;padding-left: 0">
+                <div class="input-group" style="width:100%">
+                    <input autocomplete="off" style="margin-top: 8px" type="text" class="form-control" placeholder="请输入患者号/患者姓名..." id="txt_visitId"
+                           data-toggle="popover" data-content="患者不存在，请重新选择或添加新患者。" data-placement="bottom">
+                    <div class="input-group-btn" style="width: 0">
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    </div>
                 </div>
+            </div>
+            <div class="navbar-header col-sm-2" style="padding-left: 0">
+                <button style="margin-top:8px" class="btn btn-default" type="button" onclick="search();"><span class="glyphicon glyphicon-search"></span><span style="margin-left:10px">查询</span></button>
+            </div>
+            <div>
+                <button style="margin-top:8px" class="btn btn-default pull-right" type="button" onclick="AddPatient" data-toggle="modal" data-target="#patientInfoModal"><span class="glyphicon glyphicon-user"></span><span style="margin-left:10px">添加患者</span></button>
+            </div>
         </div>
     </nav>
 
@@ -73,7 +74,9 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
                         <footer>
-                            <p>&copy; 2019 - 问卷调查</p>
+                            <p>
+                                &copy; 2019<span style="margin-left: 10px;font-size: 10px"><img src="~/images/mijianlogo.png" />上海米健</span>
+                            </p>
                         </footer>
                     </div>
                 </div>

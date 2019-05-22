@@ -1,0 +1,18 @@
+﻿@model List<Main>
+
+<ul class="nav nav-sidebar">
+    @foreach (Main m in Model.OrderByDescending(x => x.UpdateDT))
+        {
+    <li>
+        <a href="#" onclick="edit('@m.Id')">
+            <div>
+                @m.Name
+            </div>
+            <div>
+                @(m.UpdateDT.Value.ToString("yyyy/MM/dd HH:mm"))
+            </div>
+        </a>
+    </li>
+        }
+</ul>
+

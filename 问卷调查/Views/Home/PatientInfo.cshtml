@@ -1,0 +1,16 @@
+﻿@model Patient
+
+
+<div class="row">
+    <div class="col-sm-4">住院号：<span name="visitId">@Model.VisitID</span></div>
+    <div class="col-sm-3">姓名：<span name="name">@Model.Name</span></div>
+    <div class="col-sm-2">性别：<span name="sex">@(Model.Sex == 1 ? "男" : "女")</span></div>
+    <div class="col-sm-2">年龄：<span name="age">@((DateTime.Now - (string.IsNullOrEmpty(Model.Birthday) ? DateTime.Now : DateTime.Parse(Model.Birthday))).Days / 365)</span></div>
+    <div class="col-sm-12">
+        <hr />
+    </div>
+    <div class="col-sm-1">
+        <button id="btnMode" class="btn btn-default hidden" onclick="ExchangeMode(this)"><span class="glyphicon glyphicon-eye-open"></span></button>
+    </div>
+</div>
+

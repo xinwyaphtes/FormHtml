@@ -80,5 +80,33 @@ namespace 问卷调查.Controllers
                 return new JsonResult("创建成功");
             }
         }
+
+        [HttpPost]
+        public void AddPatient(string visitId, string name, string birthday, int sex)
+        {
+            var p = new Patient
+            {
+                Name = name,
+                Birthday = birthday,
+                Sex = sex,
+                Type= 1,
+                VisitID = visitId
+            };
+
+            using (var db = DBHelp.QueryDB())
+            {
+                var singlePat = db.Queryable<Patient>().First(x=>x.VisitID== visitId);
+
+                if (singlePat != null)
+                {
+                    p.Id = singlePat.Id;
+                    db.Updateable(p).ExecuteCommand();
+                }
+                else
+                {
+                    db.Insertable(p).ExecuteCommand();
+                }
+            }
+        }
     }
 }

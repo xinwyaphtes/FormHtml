@@ -1,0 +1,19 @@
+﻿@model List<Template>
+
+@foreach (var t in Model.GroupBy(x=>x.type))
+{
+    switch (t.Key)
+    {
+        case 1:
+            <h4>成人问卷</h4>
+            <div class="row">
+                @foreach (var tt in t.OrderBy(x=>x.PrintOrder))
+                {
+                    <div class="col-sm-4" style="font-size: 18px;margin-bottom: 10px">
+                        <a onclick="OpenForm('@tt.Id','@tt.Name')" class="control-group">@tt.Name</a>
+                    </div>
+                }
+            </div>
+            break;
+    }
+}
