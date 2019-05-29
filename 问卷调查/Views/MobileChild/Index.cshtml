@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-xs-12" id="content">
             <div v-for="(item,index) in data">
-                <div v-show="item.show" v-html="item.html" v-bind:show="item.show"></div>
+                <div style="position:relative" v-show="item.show" v-html="item.html" v-bind:show="item.show"></div>
             </div>
             <div class="margin-top-50">
                 <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev">{{btPrev}}</button>
@@ -34,27 +34,30 @@
         // text : <input id="1_3" type="text" style="width:50px;" />
         BootstrapDialog.show({
             title: '微信悬浮框设置步骤',
-            message: '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">如不设置悬浮窗，再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
-            buttons: [{
-                id: 'btn-ok',
-                icon: 'glyphicon glyphicon-check',
-                label: '确定',
-                cssClass: 'btn-primary',
-                data: {
-                    js: 'btn-confirm',
-                    'user-id': '3'
-                },
-                autospin: false,
-                action: function (dialogRef) {
-                    dialogRef.close();
+            message:
+                '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">如不设置悬浮窗，再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
+            buttons: [
+                {
+                    id: 'btn-ok',
+                    icon: 'glyphicon glyphicon-check',
+                    label: '确定',
+                    cssClass: 'btn-primary',
+                    data: {
+                        js: 'btn-confirm',
+                        'user-id': '3'
+                    },
+                    autospin: false,
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
                 }
-            }]
+            ]
         });
 
         new Vue({
             el: '#app',
             data: {
-                btNext: '确定',
+                btNext: '确认',
                 btPrev: '上一页',
                 showPrev: false,
                 pageIndex: 0,
@@ -72,7 +75,8 @@
                         show: false,
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>几乎从未发生过</div><div><input type="checkbox" id="A1_2" />目前睡眠时有，发生年龄：<input id="A1_3" type="text" style="width:50px"/>岁至今<div><input type="checkbox" id="A1_4" />曾经有，发生年龄：<input id="A1_5" type="text" style="width:50px"/>岁至<input id="A1_6" type="text" style="width:50px"/>岁</div></div><div>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</div><div><div><input type="checkbox" id="A1_7" />否</div><div><input type="checkbox" id="A1_8" />是，发现憋气有<input id="A1_9" type="text" style="width:50px"/>年</div></div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>几乎从未发生过</div><div><input type="checkbox" id="A1_2" />目前睡眠时有，发生年龄：<input id="A1_3" type="text" style="width:50px"/>岁至今</div><div><input type="checkbox" id="A1_4" />曾经有，发生年龄：<input id="A1_5" type="text" style="width:50px"/>岁至<input id="A1_6" type="text" style="width:50px"/>岁</div></div><div>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</div><div><div><input type="checkbox" id="A1_7" />否</div><div><input type="checkbox" id="A1_8" />是，发现憋气有<input id="A1_9" type="text" style="width:50px"/>年</div></div>',
                         show: false
                     },
                     {
@@ -85,17 +89,20 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p><div><input type="checkbox" id="A3_1" parent="3" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A3_2" />否</div>' +
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p><div><input type="checkbox" id="A3_1" parent="3" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A3_2" />否</div>' +
                             '<div>-如是，治疗方法为：</div>' +
-                            '<div><div><input type="checkbox" id="A3_3" />药物，药物名：<input id="A3_4" type="text" style="width:100px"/>何时开始？<input id="A3_5" type="text" style="width:100px"/>治疗持续多久？<input id="A3_6" type="text" style="width:100px"/></div></div>' +
-                            '<div><div><input type="checkbox" id="A3_7" />矫正口腔畸形，何时开始？<input id="A3_8" type="text" style="width:100px"/>治疗持续多久？<input id="A3_9" type="text" style="width:100px"/></div></div>' +
-                            '<div><div><input type="checkbox" id="A3_10" />佩戴呼吸机，何时开始？<input id="A3_11" type="text" style="width:100px"/>治疗持续多久？<input id="A3_12" type="text" style="width:100px"/></div></div>' +
-                            '<div><div><input type="checkbox" id="A3_13" />手术，请勾选：</div></div>' +
+                            '<div><div><input type="checkbox" id="A3_3" />药物，药物名：<input id="A3_4" type="text" style="width:100px"/>何时开始？<input id="A3_5" type="text" style="width:100px"/>治疗持续多久？<input id="A3_6" type="text" style="width:100px"/></div>' +
+                            '<div><input type="checkbox" id="A3_7" />矫正口腔畸形，何时开始？<input id="A3_8" type="text" style="width:100px"/>治疗持续多久？<input id="A3_9" type="text" style="width:100px"/></div>' +
+                            '<div><input type="checkbox" id="A3_10" />佩戴呼吸机，何时开始？<input id="A3_11" type="text" style="width:100px"/>治疗持续多久？<input id="A3_12" type="text" style="width:100px"/></div>' +
+                            '<div style="position:absolute;bottom:-8px"><input type="checkbox" id="A3_18" />其他治疗方式：<input id="A3_19" type="text" style="width:150px;" />治疗时间：<input id="A3_20" type="text" style="width:50px;" /></div>' +
+                            '<div><input type="checkbox" id="A3_13" />手术，请勾选：</div></div>' +
                             '<div><div><input type="checkbox" id="A3_14" />扁桃体切除术</div>' +
                             '<div><input type="checkbox" id="A3_15" />腺样体切除术</div>' +
                             '<div><input type="checkbox" id="A3_16" />扁桃体+腺样体切除术</div></div>' +
                             '<div>-手术时年龄：<input id="A3_17" type="text" style="width:50px;" />岁？</div>' +
-                            '<div><div><input type="checkbox" id="A3_18" />其他治疗方式：<input id="A3_19" type="text" style="width:150px;" />治疗时间：<input id="A3_20" type="text" style="width:50px;" /></div></div>',
+                            '<div style="visibility:hidden">1</div>' +
+                            '<div style="visibility:hidden">1</div>',
                         show: false
                     },
                     {
@@ -126,27 +133,33 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>6.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"/></div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>6.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>7.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"/></div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>7.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"/></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
                         show: false
                     },
                     {
@@ -163,12 +176,14 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>2.白天嗜睡情况</p><div>①白天有睡意的困扰或总爱睡觉<div><input type="checkbox" id="B2_1" parent="2" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B2_2"/>否</div></div>' +
+                        html:
+                            '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>2.白天嗜睡情况</p><div>①白天有睡意的困扰或总爱睡觉<div><input type="checkbox" id="B2_1" parent="2" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B2_2"/>否</div></div>' +
                             '<div>②老师或其他看护人评价孩子白天表现得昏昏欲睡<div><input type="checkbox" id="B2_3" />是<input type="checkbox" id="B2_4"/>否</div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>3.儿童行为情况</p><div>①在跟孩子讲话他/她好像心不在焉或没有在听<div><input type="checkbox" id="B3_1" parent="3" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B3_2"/>否</div></div>' +
+                        html:
+                            '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>3.儿童行为情况</p><div>①在跟孩子讲话他/她好像心不在焉或没有在听<div><input type="checkbox" id="B3_1" parent="3" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B3_2"/>否</div></div>' +
                             '<div>②较难安排活动或任务<div><input type="checkbox" id="B3_3" />是<input type="checkbox" id="B3_4"/>否</div></div>' +
                             '<div>③易被外部的刺激因素分散注意力<div><input type="checkbox" id="B3_5" />是<input type="checkbox" id="B3_6"/>否</div></div>' +
                             '<div>④坐下时总是手脚乱动不安或浑身不适<div><input type="checkbox" id="B3_7" />是<input type="checkbox" id="B3_8"/>否</div></div>' +
@@ -177,7 +192,8 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>4.其它</p><div>①睡觉偶尔尿床<div><input type="checkbox" id="B4_1" parent="4" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B4_2"/>否</div></div>' +
+                        html:
+                            '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>4.其它</p><div>①睡觉偶尔尿床<div><input type="checkbox" id="B4_1" parent="4" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B4_2"/>否</div></div>' +
                             '<div>②晨起时感觉未得到充分休息<div><input type="checkbox" id="B4_3" />是<input type="checkbox" id="B4_4"/>否</div></div>' +
                             '<div>③早上很难叫醒<div><input type="checkbox" id="B4_5" />是<input type="checkbox" id="B4_6"/>否</div></div>' +
                             '<div>④曾有过生长发育停滞<div><input type="checkbox" id="B4_7" />是<input type="checkbox" id="B4_8"/>否</div></div>' +
@@ -185,7 +201,8 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>1.（睡眠问题）在最近4周中，您的孩子发生下列情况的频率 *</p>' +
+                        html:
+                            '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>1.（睡眠问题）在最近4周中，您的孩子发生下列情况的频率 *</p>' +
                             '<div>①有响亮的鼾声</div><div><input type="checkbox" id="C1_1" parent="1" desc="儿童OSA-18睡眠问卷" group="C"/>从不（0次/周）<div><input type="checkbox" id="C1_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_7"/>每天（约7次/周）</div></div></div>' +
                             '<div>②晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C1_8"  />从不（0次/周）<div><input type="checkbox" id="C1_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_14"/>每天（约7次/周）</div></div></div>' +
                             '<div>③睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C1_15"  />从不（0次/周）<div><input type="checkbox" id="C1_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_21"/>每天（约7次/周）</div></div></div>' +
@@ -193,7 +210,8 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>2.（身体不适）在最近4周中，您的孩子发生下列情况的频率 *' +
+                        html:
+                            '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>2.（身体不适）在最近4周中，您的孩子发生下列情况的频率 *' +
                             '<div>①由于鼻塞需要张口呼吸<div><input type="checkbox" id="C2_1" parent="2" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C2_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_7"/>每天（约7次/周）</div></div></div>' +
                             '<div>②反复感冒或上呼吸道感染<div><input type="checkbox" id="C2_8"  />从不（0次/周）<div><input type="checkbox" id="C2_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_14"/>每天（约7次/周）</div></div></div>' +
                             '<div>③有鼻腔分泌物或流鼻涕<div><input type="checkbox" id="C2_15"  />从不（0次/周）<div><input type="checkbox" id="C2_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_21"/>每天（约7次/周）</div></div></div>' +
@@ -201,21 +219,24 @@
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>3.（情绪问题）在最近4周中，您的孩子发生下列情况的频率 *' +
+                        html:
+                            '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>3.（情绪问题）在最近4周中，您的孩子发生下列情况的频率 *' +
                             '<div>①情绪波动或发脾气<div><input type="checkbox" id="C3_1" parent="3" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C3_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_7"/>每天（约7次/周）</div></div></div>' +
                             '<div>②攻击性行为或多动<div><input type="checkbox" id="C3_8"  />从不（0次/周）<div><input type="checkbox" id="C3_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_14"/>每天（约7次/周）</div></div></div>' +
                             '<div>③违反纪律<div><input type="checkbox" id="C3_15"  />从不（0次/周）<div><input type="checkbox" id="C3_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_21"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>4.（日间问题）在最近4周中，您的孩子发生下列情况的频率 *' +
+                        html:
+                            '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>4.（日间问题）在最近4周中，您的孩子发生下列情况的频率 *' +
                             '<div>①嗜睡或过多的打瞌睡<div><input type="checkbox" id="C4_1" parent="4" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C4_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_7"/>每天（约7次/周）</div></div></div>' +
                             '<div>②无法集中注意力<div><input type="checkbox" id="C4_8"  />从不（0次/周）<div><input type="checkbox" id="C4_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_14"/>每天（约7次/周）</div></div></div>' +
                             '<div>③早上起床困难<div><input type="checkbox" id="C4_15"  />从不（0次/周）<div><input type="checkbox" id="C4_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_21"/>每天（约7次/周）</div></div></div>',
                         show: false
                     },
                     {
-                        html: '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>5.（照护者关心的问题）在最近4周中，您的孩子发生下列情况的频率 *' +
+                        html:
+                            '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>5.（照护者关心的问题）在最近4周中，您的孩子发生下列情况的频率 *' +
                             '<div>①您为您孩子的健康问题担心<div><input type="checkbox" id="C5_1" parent="5" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C5_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_7"/>每天（约7次/周）</div></div></div>' +
                             '<div>②您担心您的孩子夜间呼吸不畅<div><input type="checkbox" id="C5_8"  />从不（0次/周）<div><input type="checkbox" id="C5_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_14"/>每天（约7次/周）</div></div></div>' +
                             '<div>③影响您的日常工作或家务<div><input type="checkbox" id="C5_15"  />从不（0次/周）<div><input type="checkbox" id="C5_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_21"/>每天（约7次/周）</div></div></div>' +
@@ -225,7 +246,8 @@
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>填写人与小孩关系：<input type="checkbox" id="1_1" desc="addtion" group="D"/>父亲<input type="checkbox" id="1_2" desc="addtion" group="D"/>母亲<input type="checkbox" id="1_3" desc="addtion" group="D"/>其它</div>' +
-                            '<div>您孩子晚上就寝时间：</div><div>平时：<select id="1_4" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select><div>周末：<select id="1_5" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select></div>'
+                            '<div>您孩子晚上就寝时间：</div><div>平时：<select id="1_4" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select><div>周末：<select id="1_5" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -233,7 +255,8 @@
                             '<div><div>2.孩子上床后是否可在20分钟内入睡？</div><div><input type="checkbox" parent="2" desc="儿童睡眠习惯问卷" group="D" id="D2_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D2_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D2_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>3.孩子是否独自在自己床上睡觉？</div><div><input type="checkbox" parent="3" desc="儿童睡眠习惯问卷" group="D" id="D3_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D3_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D3_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>4.孩子是否在他人床上入睡？</div><div><input type="checkbox" parent="4" desc="儿童睡眠习惯问卷" group="D" id="D4_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D4_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D4_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>5.孩子入睡时是否伴有翻身或肢体节律性动作？</div><div><input type="checkbox" parent="5" desc="儿童睡眠习惯问卷" group="D" id="D5_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D5_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D5_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>5.孩子入睡时是否伴有翻身或肢体节律性动作？</div><div><input type="checkbox" parent="5" desc="儿童睡眠习惯问卷" group="D" id="D5_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D5_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D5_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -241,7 +264,8 @@
                             '<div><div>7.孩子入睡时是否需要陪伴？</div><div><input type="checkbox" parent="7" desc="儿童睡眠习惯问卷" group="D" id="D7_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D7_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D7_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>8.到了就寝时间，孩子是否主动上床睡觉？</div><div><input type="checkbox" parent="8" desc="儿童睡眠习惯问卷" group="D" id="D8_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D8_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D8_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>9.到了就寝时间，孩子是否不愿意上床睡觉？</div><div><input type="checkbox" parent="9" desc="儿童睡眠习惯问卷" group="D" id="D9_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D9_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D9_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>10.到了就寝时间，孩子是否有如哭闹、拒绝待在床上等不良行为？</div><div><input type="checkbox" parent="10" desc="儿童睡眠习惯问卷" group="D" id="D10_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D10_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D10_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>10.到了就寝时间，孩子是否有如哭闹、拒绝待在床上等不良行为？</div><div><input type="checkbox" parent="10" desc="儿童睡眠习惯问卷" group="D" id="D10_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D10_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D10_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -249,7 +273,8 @@
                             '<div><div>12.孩子是否害怕一个人睡觉？</div><div><input type="checkbox" parent="12" desc="儿童睡眠习惯问卷" group="D" id="D12_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D12_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D12_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>13.孩子是否担心在睡眠中死去？</div><div><input type="checkbox" parent="13" desc="儿童睡眠习惯问卷" group="D" id="D13_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D13_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D13_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>14.您是否认为孩子睡得太少？</div><div><input type="checkbox" parent="14" desc="儿童睡眠习惯问卷" group="D" id="D14_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D14_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D14_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>15.您是否认为孩子睡得太多？</div><div><input type="checkbox" parent="15" desc="儿童睡眠习惯问卷" group="D" id="D15_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D15_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D15_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>15.您是否认为孩子睡得太多？</div><div><input type="checkbox" parent="15" desc="儿童睡眠习惯问卷" group="D" id="D15_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D15_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D15_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -257,7 +282,8 @@
                             '<div><div>17.您是否认为孩子的睡眠质量好？</div><div><input type="checkbox" parent="17" desc="儿童睡眠习惯问卷" group="D" id="D17_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D17_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D17_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>18.您是否认为孩子每日的睡眠量保持一致？</div><div><input type="checkbox" parent="18" desc="儿童睡眠习惯问卷" group="D" id="D18_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D18_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D18_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>19.孩子是否有尿床现象？</div><div><input type="checkbox" parent="19" desc="儿童睡眠习惯问卷" group="D" id="D19_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D19_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D19_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>20.孩子是否有说梦话现象？</div><div><input type="checkbox" parent="20" desc="儿童睡眠习惯问卷" group="D" id="D20_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D20_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D20_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>20.孩子是否有说梦话现象？</div><div><input type="checkbox" parent="20" desc="儿童睡眠习惯问卷" group="D" id="D20_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D20_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D20_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -265,7 +291,8 @@
                             '<div><div>22.孩子是否有梦游（睡眠过程中行走）现象？</div><div><input type="checkbox" parent="22" desc="儿童睡眠习惯问卷" group="D" id="D22_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D22_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D22_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>23.孩子是否同父母（或代养人）在同一房间内睡觉？</div><div><input type="checkbox" parent="23" desc="儿童睡眠习惯问卷" group="D" id="D23_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D23_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D23_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>24.孩子是否同父母（或代养人）在同一床上睡觉？</div><div><input type="checkbox" parent="24" desc="儿童睡眠习惯问卷" group="D" id="D24_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D24_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D24_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>25.孩子是否有半夜转移到他人（父母、兄弟姐妹等）床上的现象？</div><div><input type="checkbox" parent="25" desc="儿童睡眠习惯问卷" group="D" id="D25_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D25_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D25_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>25.孩子是否有半夜转移到他人（父母、兄弟姐妹等）床上的现象？</div><div><input type="checkbox" parent="25" desc="儿童睡眠习惯问卷" group="D" id="D25_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D25_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D25_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
@@ -273,62 +300,53 @@
                             '<div><div>27.接上题，如有，在何部位？（如无可不填）</div><div><input type="checkbox" parent="27" desc="儿童睡眠习惯问卷" group="D" id="D27_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D27_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D27_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>28.孩子睡眠中是否有磨牙现象？</div><div><input type="checkbox" parent="28" desc="儿童睡眠习惯问卷" group="D" id="D28_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D28_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D28_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>29.孩子睡眠中是否有打鼾很响的现象？</div><div><input type="checkbox" parent="29" desc="儿童睡眠习惯问卷" group="D" id="D29_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D29_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D29_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>30.孩子睡眠中是否有呼吸暂停现象？ </div><div><input type="checkbox" parent="30" desc="儿童睡眠习惯问卷" group="D" id="D30_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D30_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D30_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>30.孩子睡眠中是否有呼吸暂停现象？ </div><div><input type="checkbox" parent="30" desc="儿童睡眠习惯问卷" group="D" id="D30_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D30_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D30_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div><div>31.孩子睡眠中是否有憋气或气急等呼吸困难现象？</div><div><input type="checkbox" parent="31" desc="儿童睡眠习惯问卷" group="D" id="D31_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D31_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D31_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>32.孩子在陌生环境中（如到亲戚家或去旅行）是否有入睡困难现象？</div><div><input type="checkbox" parent="32" desc="儿童睡眠习惯问卷" group="D" id="D32_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D32_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D32_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>33.孩子是否有抱怨睡得不好的现象？</div><div><input type="checkbox" parent="33" desc="儿童睡眠习惯问卷" group="D" id="D33_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D33_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D33_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
+                            '<div><div>32.孩子在陌生环境中（如到亲戚家或去旅行）是否有入睡困难现象？</div><div><input type="checkbox" parent="32" desc="儿童睡眠习惯问卷" group="D" id="D32_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D32_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D32_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>33.孩子是否有抱怨睡得不好的现象？</div><div><input type="checkbox" parent="33" desc="儿童睡眠习惯问卷" group="D" id="D33_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D33_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D33_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>34.孩子是否有半夜醒来且伴有无法安慰的哭吵、出汗的现象？</div><div><input type="checkbox" parent="34" desc="儿童睡眠习惯问卷" group="D" id="D34_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D34_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D34_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>35.孩子是否有被噩梦惊醒的现象？</div><div><input type="checkbox" parent="35" desc="儿童睡眠习惯问卷" group="D" id="D35_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D35_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D35_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>35.孩子是否有被噩梦惊醒的现象？</div><div><input type="checkbox" parent="35" desc="儿童睡眠习惯问卷" group="D" id="D35_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D35_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D35_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
-                            '<div><div>36.孩子是否会夜间醒来一次？</div><div><input type="checkbox" parent="36" desc="儿童睡眠习惯问卷" group="D" id="D36_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D36_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D36_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>37.孩子是否会夜间醒来一次以上？</div><div><input type="checkbox" parent="37" desc="儿童睡眠习惯问卷" group="D" id="D37_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D37_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D37_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>38.孩子夜间醒来再次入睡是否需要帮助？</div><div><input type="checkbox" parent="38" desc="儿童睡眠习惯问卷" group="D" id="D38_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D38_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D38_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>39.孩子每次夜醒持续时间通常为：</div><div><input type="text" parent="39" desc="儿童睡眠习惯问卷" group="D" id="D39_1" style="width:80px"/>小时<input type="text" id="D39_2" style="width:80px"/>分钟</div></div>'
-                            +
-                            '<div><div>40.孩子早晨是否可自己醒来？</div><div><input type="checkbox" parent="40" desc="儿童睡眠习惯问卷" group="D" id="D40_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D40_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D40_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>36.孩子是否会夜间醒来一次？</div><div><input type="checkbox" parent="36" desc="儿童睡眠习惯问卷" group="D" id="D36_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D36_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D36_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>37.孩子是否会夜间醒来一次以上？</div><div><input type="checkbox" parent="37" desc="儿童睡眠习惯问卷" group="D" id="D37_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D37_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D37_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>38.孩子夜间醒来再次入睡是否需要帮助？</div><div><input type="checkbox" parent="38" desc="儿童睡眠习惯问卷" group="D" id="D38_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D38_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D38_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>39.孩子每次夜醒持续时间通常为：</div><div><input type="text" parent="39" desc="儿童睡眠习惯问卷" group="D" id="D39_1" style="width:80px"/>小时<input type="text" id="D39_2" style="width:80px"/>分钟</div></div>' +
+                            '<div><div>40.孩子早晨是否可自己醒来？</div><div><input type="checkbox" parent="40" desc="儿童睡眠习惯问卷" group="D" id="D40_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D40_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D40_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
-                            '<div><div>41.孩子早晨是否需闹钟吵醒？</div><div><input type="checkbox" parent="41" desc="儿童睡眠习惯问卷" group="D" id="D41_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D41_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D41_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>42.孩子是否醒来后情绪不佳？</div><div><input type="checkbox" parent="42" desc="儿童睡眠习惯问卷" group="D" id="D42_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D42_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D42_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>43.孩子早晨是否由他人唤醒？</div><div><input type="checkbox" parent="43" desc="儿童睡眠习惯问卷" group="D" id="D43_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D43_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D43_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
+                            '<div><div>41.孩子早晨是否需闹钟吵醒？</div><div><input type="checkbox" parent="41" desc="儿童睡眠习惯问卷" group="D" id="D41_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D41_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D41_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>42.孩子是否醒来后情绪不佳？</div><div><input type="checkbox" parent="42" desc="儿童睡眠习惯问卷" group="D" id="D42_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D42_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D42_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>43.孩子早晨是否由他人唤醒？</div><div><input type="checkbox" parent="43" desc="儿童睡眠习惯问卷" group="D" id="D43_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D43_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D43_3"/>偶尔或无（0-1次/周）</div></div>' +
                             '<div><div>44.孩子醒后是否不愿起床？</div><div><input type="checkbox" parent="44" desc="儿童睡眠习惯问卷" group="D" id="D44_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D44_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D44_3"/>偶尔或无（0-1次/周）</div></div>' +
-                            '<div><div>45.孩子早晨起床后是否需长时间才能清醒？</div><div><input type="checkbox" parent="45" desc="儿童睡眠习惯问卷" group="D" id="D45_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D45_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D45_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>45.孩子早晨起床后是否需长时间才能清醒？</div><div><input type="checkbox" parent="45" desc="儿童睡眠习惯问卷" group="D" id="D45_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D45_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D45_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
-                            '<div><div>46.孩子是否醒得很早？</div><div><input type="checkbox" parent="46" desc="儿童睡眠习惯问卷" group="D" id="D46_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D46_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D46_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>47.孩子早餐是否胃口好？</div><div><input type="checkbox" parent="47" desc="儿童睡眠习惯问卷" group="D" id="D47_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D47_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D47_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>48.孩子白天是否有打盹现象</div><div><input type="checkbox" parent="48" desc="儿童睡眠习惯问卷" group="D" id="D48_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D48_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D48_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>49.孩子是否有在活动过程中突然入睡的情况？</div><div><input type="checkbox" parent="49" desc="儿童睡眠习惯问卷" group="D" id="D49_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D49_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D49_3"/>偶尔或无（0-1次/周）</div></div>'
-                            +
-                            '<div><div>50.孩子是否看起来疲乏？</div><div><input type="checkbox" parent="50" desc="儿童睡眠习惯问卷" group="D" id="D50_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D50_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D50_3"/>偶尔或无（0-1次/周）</div></div>'
+                            '<div><div>46.孩子是否醒得很早？</div><div><input type="checkbox" parent="46" desc="儿童睡眠习惯问卷" group="D" id="D46_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D46_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D46_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>47.孩子早餐是否胃口好？</div><div><input type="checkbox" parent="47" desc="儿童睡眠习惯问卷" group="D" id="D47_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D47_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D47_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>48.孩子白天是否有打盹现象</div><div><input type="checkbox" parent="48" desc="儿童睡眠习惯问卷" group="D" id="D48_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D48_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D48_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>49.孩子是否有在活动过程中突然入睡的情况？</div><div><input type="checkbox" parent="49" desc="儿童睡眠习惯问卷" group="D" id="D49_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D49_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D49_3"/>偶尔或无（0-1次/周）</div></div>' +
+                            '<div><div>50.孩子是否看起来疲乏？</div><div><input type="checkbox" parent="50" desc="儿童睡眠习惯问卷" group="D" id="D50_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D50_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D50_3"/>偶尔或无（0-1次/周）</div></div>',
+                        show: false
                     },
                     {
-                        html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>'
-                            +
+                        html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>您孩子通常一天睡觉时间（包括晚上和白天的总睡眠）</div>' +
-                            '<div>平时：<input type="text" id="1_6" style="width:50px" desc="addtion" group="D"/>小时，周末：<input type="text" id="1_7" style="width:50px" desc="addtion" group="D"/>小时</div>'
+                            '<div>平时：<input type="text" id="1_6" style="width:50px" desc="addtion" group="D"/>小时，周末：<input type="text" id="1_7" style="width:50px" desc="addtion" group="D"/>小时</div>',
+                        show: false
                     },
                     {
-                        html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>'
-                            +
+                        html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>在过去一周中，您孩子在如下情形时是否经常打瞌睡或几乎每次都入睡？</div>' +
                             '<div>①穿衣服</div><div><div><input type="checkbox" id="1_8" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_9" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_10" desc="addtion" group="D">几乎每次都入睡</div>' +
                             '<div>②独自玩耍</div><div><div><input type="checkbox" id="1_11" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_12" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_13" desc="addtion" group="D">几乎每次都入睡</div>' +
@@ -336,7 +354,8 @@
                             '<div>④看电视</div><div><div><input type="checkbox" id="1_17" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_18" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_19" desc="addtion" group="D">几乎每次都入睡</div>' +
                             '<div>⑤坐车</div><div><div><input type="checkbox" id="1_20" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_21" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_22" desc="addtion" group="D">几乎每次都入睡</div>' +
                             '<div>⑥吃饭</div><div><div><input type="checkbox" id="1_23" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_24" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_25" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>⑦洗澡</div><div><div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div>'
+                            '<div>⑦洗澡</div><div><div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -349,7 +368,8 @@
                             '<div><div>7.容易或经常哭叫</div><div><input type="checkbox" parent="7" desc="儿童行为问卷" group="E" id="E7_1"/>无<input type="checkbox" id="E7_2"/>稍有<input type="checkbox" id="E7_3"/>相当多<input type="checkbox" id="E7_4"/>很多</div></div>' +
                             '<div><div>8.脾气很大</div><div><input type="checkbox" parent="8" desc="儿童行为问卷" group="E" id="E8_1"/>无<input type="checkbox" id="E8_2"/>稍有<input type="checkbox" id="E8_3"/>相当多<input type="checkbox" id="E8_4"/>很多</div></div>' +
                             '<div><div>9.爱做白日梦</div><div><input type="checkbox" parent="9" desc="儿童行为问卷" group="E" id="E9_1"/>无<input type="checkbox" id="E9_2"/>稍有<input type="checkbox" id="E9_3"/>相当多<input type="checkbox" id="E9_4"/>很多</div></div>' +
-                            '<div><div>10.学习困难</div><div><input type="checkbox" parent="10" desc="儿童行为问卷" group="E" id="E10_1"/>无<input type="checkbox" id="E10_2"/>稍有<input type="checkbox" id="E10_3"/>相当多<input type="checkbox" id="E10_4"/>很多</div></div>'
+                            '<div><div>10.学习困难</div><div><input type="checkbox" parent="10" desc="儿童行为问卷" group="E" id="E10_1"/>无<input type="checkbox" id="E10_2"/>稍有<input type="checkbox" id="E10_3"/>相当多<input type="checkbox" id="E10_4"/>很多</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -362,7 +382,8 @@
                             '<div><div>17.造成的麻烦比同龄孩子多</div><div><input type="checkbox" parent="17" desc="儿童行为问卷" group="E" id="E17_1"/>无<input type="checkbox" id="E17_2"/>稍有<input type="checkbox" id="E17_3"/>相当多<input type="checkbox" id="E17_4"/>很多</div></div>' +
                             '<div><div>18.说话与同龄儿童不同(像婴儿说话,口吃,别人不易听懂)</div><div><input type="checkbox" parent="18" desc="儿童行为问卷" group="E" id="E18_1"/>无<input type="checkbox" id="E18_2"/>稍有<input type="checkbox" id="E18_3"/>相当多<input type="checkbox" id="E18_4"/>很多</div></div>' +
                             '<div><div>19.抵赖错误或归罪他人</div><div><input type="checkbox" parent="19" desc="儿童行为问卷" group="E" id="E19_1"/>无<input type="checkbox" id="E19_2"/>稍有<input type="checkbox" id="E19_3"/>相当多<input type="checkbox" id="E19_4"/>很多</div></div>' +
-                            '<div><div>20.好争吵</div><div><input type="checkbox" parent="20" desc="儿童行为问卷" group="E" id="E20_1"/>无<input type="checkbox" id="E20_2"/>稍有<input type="checkbox" id="E20_3"/>相当多<input type="checkbox" id="E20_4"/>很多</div></div>'
+                            '<div><div>20.好争吵</div><div><input type="checkbox" parent="20" desc="儿童行为问卷" group="E" id="E20_1"/>无<input type="checkbox" id="E20_2"/>稍有<input type="checkbox" id="E20_3"/>相当多<input type="checkbox" id="E20_4"/>很多</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -375,7 +396,8 @@
                             '<div><div>27.欺凌别人</div><div><input type="checkbox" parent="27" desc="儿童行为问卷" group="E" id="E27_1"/>无<input type="checkbox" id="E27_2"/>稍有<input type="checkbox" id="E27_3"/>相当多<input type="checkbox" id="E27_4"/>很多</div></div>' +
                             '<div><div>28.不能停止重夏性活动</div><div><input type="checkbox" parent="28" desc="儿童行为问卷" group="E" id="E28_1"/>无<input type="checkbox" id="E28_2"/>稍有<input type="checkbox" id="E28_3"/>相当多<input type="checkbox" id="E28_4"/>很多</div></div>' +
                             '<div><div>29.残忍</div><div><input type="checkbox" parent="29" desc="儿童行为问卷" group="E" id="E29_1"/>无<input type="checkbox" id="E29_2"/>稍有<input type="checkbox" id="E29_3"/>相当多<input type="checkbox" id="E29_4"/>很多</div></div>' +
-                            '<div><div>30.稚气或不成熟(自己会的事要人帮忙,依缠别人,常需别人鼓励,支持)</div><div><input type="checkbox" parent="30" desc="儿童行为问卷" group="E" id="E30_1"/>无<input type="checkbox" id="E30_2"/>稍有<input type="checkbox" id="E30_3"/>相当多<input type="checkbox" id="E30_4"/>很多</div></div>'
+                            '<div><div>30.稚气或不成熟(自己会的事要人帮忙,依缠别人,常需别人鼓励,支持)</div><div><input type="checkbox" parent="30" desc="儿童行为问卷" group="E" id="E30_1"/>无<input type="checkbox" id="E30_2"/>稍有<input type="checkbox" id="E30_3"/>相当多<input type="checkbox" id="E30_4"/>很多</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -388,7 +410,8 @@
                             '<div><div>37.在努力中容易泄气</div><div><input type="checkbox" parent="37" desc="儿童行为问卷" group="E" id="E37_1"/>无<input type="checkbox" id="E37_2"/>稍有<input type="checkbox" id="E37_3"/>相当多<input type="checkbox" id="E37_4"/>很多</div></div>' +
                             '<div><div>38.妨害其他儿童</div><div><input type="checkbox" parent="38" desc="儿童行为问卷" group="E" id="E38_1"/>无<input type="checkbox" id="E38_2"/>稍有<input type="checkbox" id="E38_3"/>相当多<input type="checkbox" id="E38_4"/>很多</div></div>' +
                             '<div><div>39.基本上是一个不愉快的小孩</div><div><input type="checkbox" parent="39" desc="儿童行为问卷" group="E" id="E39_1"/>无<input type="checkbox" id="E39_2"/>稍有<input type="checkbox" id="E39_3"/>相当多<input type="checkbox" id="E39_4"/>很多</div></div>' +
-                            '<div><div>40.有饮食问题(食欲不佳,进食中常跑开)</div><div><input type="checkbox" parent="40" desc="儿童行为问卷" group="E" id="E40_1"/>无<input type="checkbox" id="E40_2"/>稍有<input type="checkbox" id="E40_3"/>相当多<input type="checkbox" id="E40_4"/>很多</div></div>'
+                            '<div><div>40.有饮食问题(食欲不佳,进食中常跑开)</div><div><input type="checkbox" parent="40" desc="儿童行为问卷" group="E" id="E40_1"/>无<input type="checkbox" id="E40_2"/>稍有<input type="checkbox" id="E40_3"/>相当多<input type="checkbox" id="E40_4"/>很多</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>儿童行为问卷（请在每个项目后面按不同程度勾选）</h3></p>' +
@@ -399,7 +422,8 @@
                             '<div><div>45.感到在家庭圈子中被欺编</div><div><input type="checkbox" parent="45" desc="儿童行为问卷" group="E" id="E45_1"/>无<input type="checkbox" id="E45_2"/>稍有<input type="checkbox" id="E45_3"/>相当多<input type="checkbox" id="E45_4"/>很多</div></div>' +
                             '<div><div>46.自夸和吹牛</div><div><input type="checkbox" parent="46" desc="儿童行为问卷" group="E" id="E46_1"/>无<input type="checkbox" id="E46_2"/>稍有<input type="checkbox" id="E46_3"/>相当多<input type="checkbox" id="E46_4"/>很多</div></div>' +
                             '<div><div>47.让自己受别人欺骗</div><div><input type="checkbox" parent="47" desc="儿童行为问卷" group="E" id="E47_1"/>无<input type="checkbox" id="E47_2"/>稍有<input type="checkbox" id="E47_3"/>相当多<input type="checkbox" id="E47_4"/>很多</div></div>' +
-                            '<div><div>48.有大便问题(腹泻,排便不规则,便秘)</div><div><input type="checkbox" parent="48" desc="儿童行为问卷" group="E" id="E48_1"/>无<input type="checkbox" id="E48_2"/>稍有<input type="checkbox" id="E48_3"/>相当多<input type="checkbox" id="E48_4"/>很多</div></div>'
+                            '<div><div>48.有大便问题(腹泻,排便不规则,便秘)</div><div><input type="checkbox" parent="48" desc="儿童行为问卷" group="E" id="E48_1"/>无<input type="checkbox" id="E48_2"/>稍有<input type="checkbox" id="E48_3"/>相当多<input type="checkbox" id="E48_4"/>很多</div></div>',
+                        show: false
                     },
                     {
                         html: '<p><h3>感谢您参与本次问卷调查，意向征求：</h3></p>' +
@@ -408,13 +432,15 @@
                             '②如果腕表式筛查仪提示可能存在睡眠问题，是否愿意到医院进行完善的睡眠监测（前200名儿童免费）？' +
                             '<div><input type="checkbox" parent="2" desc="意向征求" group="F" id="F2_1"/>是<input type="checkbox" id="F2_2"/>否</div>' +
                             '③是否愿意留取儿童的无创口腔拭子？' +
-                            '<div><input type="checkbox" parent="3" desc="意向征求" group="F" id="F3_1"/>是<input type="checkbox" id="F3_2"/>否</div>'
+                            '<div><input type="checkbox" parent="3" desc="意向征求" group="F" id="F3_1"/>是<input type="checkbox" id="F3_2"/>否</div>',
+                        show: false
                     }
                 ],
             },
             methods: {
                 next: function () { //下一题
-                    //checkNeed();
+                    if (checkNeed(this.pageIndex)) return false;
+
                     if (this.pageIndex == 0) {
                         if (!$('#confirm').prop('checked')) {
                             alert('请确认您以否同意知情同意书！');
@@ -466,6 +492,7 @@
                     var hasClass = checkbox.hasClass("check");
                     itemDiv.find('input[type="checkbox"]').prop("checked", "");
                     itemDiv.find('input[type="checkbox"]').removeClass("check");
+
                     if (!hasClass) {
                         checkbox.prop("checked", "checked");
                         checkbox.addClass("check");
@@ -473,11 +500,119 @@
                 });
             });
 
-        function checkNeed() {
+        function checkNeed(index) {
             //当前界面下任何一组没有一个对选框则提示
-            var hascheckbox = $('#content div[show="true"]').find('input[type="checkbox"]');
-            var itemchecked = $('#content div[show="true"]').find('input[type="checkbox"]:checked').prop('checked');
-            if (hascheckbox.length > 0 && !itemchecked) { alert('出错啦') }
+            //var hascheckbox = $('#content div[show="true"]').find('input[type="checkbox"]');
+            //var itemchecked = $('#content div[show="true"]').find('input[type="checkbox"]:checked').prop('checked');
+            //if (hascheckbox.length > 0 && !itemchecked) { alert('出错啦') }
+
+            var flag = false;
+
+            switch (index) {
+                case 1:
+                    break;
+                    var obj = $('div[show="true"]').find('input,select').not('[name="stdno"]');
+                    var o = needchecktext(obj);
+
+                    if (o) {
+                        flag = true;
+                        o.focus();
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 2:
+                    break;
+                    //选项多选一,选中后，有后续内容必填
+
+                    var objs = [{ group: '#A1_1,#A1_2,#A1_4', aftersel: ['#A1_2|#A1_3', '#A1_4|#A1_5,#A1_6'] }, { group: '#A1_7,#A1_8', aftersel: ['#A1_8|#A1_9'] }];
+
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 3: break;
+                    var objs = [{ group: '#A2_1,#A2_3,#A2_5,#A2_7,#A2_8', aftersel: ['#A2_1|#A2_2', '#A2_3|#A2_4', '#A2_5|#A2_6'] }]
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 4:
+                    break;
+                    var objs = [{ group: '#A3_1,#A3_2', aftersel: ['#A3_1|#A3_3,#A3_7,#A3_10,#A3_13,#A3_18', '#A3_13|#A3_14,#A3_15,#A3_16', '#A3_13|#A3_17', '#A3_3|#A3_4,#A3_5,#A3_6', '#A3_7|#A3_8,#A3_9', '#A3_10|#A3_11,#A3_12', '#A3_18|#A3_19,#A3_20'] },]
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 5:
+                    var objs = [{ group: '#A4_1,#A4_2' }, { group: '#A4_3,#A4_4' }, { group: '#A4_5,#A4_6' }];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                default:
+            }
+
+            return flag;
+        }
+
+        function needcheckckbox(objs) {
+            var o = false;
+
+            $.each(objs,
+                function () {
+                    if (!$('div[show = "true"]').find(this.group).is(':checked')) {
+                        o = true;
+                        return false;
+                    } else {
+                        $.each(this.aftersel,
+                            function () {
+                                var ischeck = this.substring(0, this.indexOf('|'));
+                                var after = this.substring(this.indexOf('|') + 1);
+
+                                if ($('div[show = "true"]').find(ischeck).is(':checked')) {
+                                    $.each($('div[show = "true"]').find(after), function () {
+                                        if ($(this).attr('type') == 'checkbox' && $(this).is(':checked')) {
+                                            o = false;
+                                            return false;
+                                        }
+                                        else if ($(this).attr('type') == 'checkbox' && !$(this).is(':checked')) {
+                                            o = true;
+                                        }
+                                        else if ($(this).val() == '') {
+                                            o = true;
+                                            return false;
+                                        }
+                                    })
+                                }
+                            });
+                    }
+                });
+
+            return o;
+        }
+
+        function needchecktext(obj) {
+            var o;
+            $.each(obj,
+                function () {
+                    if ($(this).val() == '') {
+                        o = $(this);
+                        return false;
+                    }
+                });
+            return o;
         }
 
         function save() {

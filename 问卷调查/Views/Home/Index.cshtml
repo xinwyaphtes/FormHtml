@@ -221,6 +221,7 @@
                     $('#btnMode').addClass('hidden');
                     $('#hd_tId').val(id);
                     $('#hd_tName').val(name);
+                    $('#hd_mainId').val('');
                 });
         }
 
@@ -444,6 +445,7 @@
                         function () {
                             //绑定checkbox、redio
                             var obj = $('#' + this.dataSign);
+
                             if (obj.attr("id").indexOf('checkbox') > -1) {
                                 obj.prop('checked', this.attribution);
 
