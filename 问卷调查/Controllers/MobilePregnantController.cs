@@ -12,5 +12,10 @@ namespace 问卷调查.Controllers
         {
             return View();
         }
+
+        public IActionResult IndexShowId()
+        {
+            return View();
+        }
     }
 }
