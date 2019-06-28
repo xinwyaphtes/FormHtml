@@ -21,14 +21,14 @@
                 <div v-show="item.show" v-html="item.html" v-bind:show="item.show"></div>
             </div>
             <div class="margin-top-50">
-                <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev">{{btPrev}}</button>
-                <button type="button" class="btn btn-primary  pull-right" @@click="next">{{btNext}}</button>
+                <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev" style="width: 100px;height:40px">{{btPrev}}</button>
+                <button style="width: 100px; height: 40px" type="button" class="btn btn-primary  pull-right" @@click="next">{{btNext}}</button>
             </div>
         </div>
     </div>
 </div>
 @section Scripts
-{
+    {
 <script>
     // checkbox：<input type="checkbox" id="1_1" parent="1"/>
     // text : <input id="1_3" type="text" style="width:50px;" />
@@ -70,16 +70,19 @@
                 {
                     html:
                         '<p>姓名：<input name="name" type="text" style="width:100px;" /></p>' +
-                        '<p>年龄：<input name="birthday" type="date" style="width:150px;" /></p>' +
+                        '<p>年龄：<input name="age" type="number" style="width:50px;" />岁</p>' +
+                        '<p>手机号：<input name="telNo" type="number" style="width:150px;" /></p>' +
                         '<p>孕周：<input name="desc" type="text" style="width:100px;" /></p>' +
-                        '<p>建卡号：<input name="stdno" type="number" style="width:100px;" /></p>',
+                        '<p><div><div class="circle"><span style="font-size:18px">孕期：</span><input type="checkbox" name="early" value="早期">早期<input type="checkbox" name="middle" value="中期">中期<input type="checkbox" name="last" value="晚期">晚期</div></div></p>' +
+                        '<p>建卡号：<input name="stdno" type="number" style="width:200px;" /></p>' +
+                        '<p>建卡医院：<select name="cardhospital"style="width:200px;" /><option value="">请选择...</option><option>国妇婴</option><option>上海第六人民医院</option><option>上海第八人民医院</option></select></p>',
                     show: false,
                 },
                 {
                     html: '<p><h3>一、匹兹堡睡眠问卷</h3></p><p>下面一些问题是关于您最近1个月的睡眠情况，请选择或填写最符合您近1个月实际情况的答案。请回答下列问题：</p>' +
-                        '<div>1. 近1个月，晚上上床睡觉通常<input style="width:100px" type="text" id="A1_1" parent="1" desc="最近1个月的睡眠情况" group="A" />点钟。</div>' +
+                        '<div>1. 近1个月，晚上上床睡觉通常<select style="width:100px" id="A1_1" parent="1" desc="最近1个月的睡眠情况" group="A" ><option value="">请选择...</option><option>00:00</option><option>01:00</option><option>02:00</option><option>03:00</option><option>04:00</option><option>05:00</option><option>06:00</option><option>07:00</option><option>08:00</option><option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option><option>22:00</option><option>23:00</option></select>点钟。</div>' +
                         '<div>2. 近1个月，从上床到入睡通常需要<input style="width:100px" type="text" id="A1_2" />分钟。</div>' +
-                        '<div>3. 近1个月，通常早上<input style="width:100px" type="text" id="A1_3" />点起床。</div>' +
+                        '<div>3. 近1个月，通常早上<select style="width:100px" id="A1_3" /><option value="">请选择...</option><option>00:00</option><option>01:00</option><option>02:00</option><option>03:00</option><option>04:00</option><option>05:00</option><option>06:00</option><option>07:00</option><option>08:00</option><option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option><option>22:00</option><option>23:00</option></select>点起床。</div>' +
                         '<div>4.近1个月，每夜通常实际睡眠<input style="width:100px" type="text" id="A1_4" />小时（不等于卧床时间）。</div>',
                     show: false
                 },
@@ -166,8 +169,8 @@
                     show: false
                 },
                 {
-                    html: '<div>10.你是否有床伴或室友：</div>' +
-                        '<div><div>(1)&nbsp;<input type="checkbox" id="A10_1" parent="10" desc="你是否有床伴或室友" group="A" >没有</div>' +
+                    html: '<div>10.你是否有床伴或室友（若没有则跳至下一页）：</div>' +
+                        '<div><div>(1)&nbsp;<input type="checkbox" id="A10_1" parent="10" desc="你是否有床伴或室友" group="A" onclick="jumpnext(this);" class="speckbox">没有</div>' +
                         '<div>(2)&nbsp;<input type="checkbox" id="A10_2">在另外一个房间</div>' +
                         '<div>(3)&nbsp;<input type="checkbox" id="A10_3">同房但是分床</div>' +
                         '<div>(4)&nbsp;<input type="checkbox" id="A10_4">同床</div></div>' +
@@ -196,37 +199,37 @@
                         '<div><div>(1)&nbsp;<input type="checkbox" id="A10_21" parent="10" desc="睡眠时是否有其他烦躁不安表现" group="A">无</div>' +
                         '<div>(2)&nbsp;<input type="checkbox" id="A10_22"> <1次/周</div>' +
                         '<div>(3)&nbsp;<input type="checkbox" id="A10_23">1-2次/周</div>' +
-                        '<div>(4)&nbsp;<input type="checkbox" id="A10_24">≥ 3次/周</div></div>' +
-                        '<div>如果有请描述：<input type="text" id="A10_25" style="width:200px"></div>',
+                        '<div>(4)&nbsp;<input type="checkbox" id="A10_24">≥ 3次/周</div>' +
+                        '<div>如果有请描述：<input type="text" id="A10_25" style="width:200px"></div></div>',
                     show: false
                 },
                 {
                     html: '<p><h3>二、柏林问卷</h3></p><p>第一部分 打鼾频率及响度</p>' +
-                        '<div>1.您睡觉打呼噜吗？(最好问家人或同屋的人)</div>' +
+                        '<div>1.您睡觉打呼噜吗？(最好问家人或同屋的人，若没有则跳至下一页)' +
                         '<div><input type="checkbox" id="B1_1" desc="您睡觉打呼噜吗" parent="1" group="B">A.是' +
-                        '<input type="checkbox" id="B1_2">B.否' +
-                        '<input type="checkbox" id="B1_3" >C.不知道</div>' +
-                        '<div>2.如果您睡觉打呼噜——您的鼾声有多响亮？</div>' +
-                        '<div><div><input type="checkbox" id="B2_1" desc="如果您睡觉打呼噜——您的鼾声有多响亮" parent="2" group="B">A.比正常呼吸时响</div>' +
+                        '<input type="checkbox" class="speckbox" onclick="jumpnext(this);" id="B1_2">B.否' +
+                        '<input type="checkbox" class="speckbox" onclick="jumpnext(this);" id="B1_3" >C.不知道</div></div>' +
+                        '<div>2.如果您睡觉打呼噜——您的鼾声有多响亮？' +
+                        '<div><input type="checkbox" id="B2_1" desc="如果您睡觉打呼噜——您的鼾声有多响亮" parent="2" group="B">A.比正常呼吸时响</div>' +
                         '<div><input type="checkbox" id="B2_2">B.同说话时一样声响</div>' +
                         '<div><input type="checkbox" id="B2_3">C.比说话更声响</div>' +
                         '<div><input type="checkbox" id="B2_4">D.非常响，其他房间都能听到</div>' +
                         '<div><input type="checkbox" id="B2_5">E.不知道</div></div>' +
-                        '<div>3.您打呼噜的次数多吗？</div>' +
-                        '<div><div><input type="checkbox" id="B3_1" desc="您打呼噜的次数多吗" parent="3" group="B">A.几乎每天</div>' +
+                        '<div>3.您打呼噜的次数多吗？' +
+                        '<div><input type="checkbox" id="B3_1" desc="您打呼噜的次数多吗" parent="3" group="B">A.几乎每天</div>' +
                         '<div><input type="checkbox" id="B3_2">B.一周3-4次</div>' +
                         '<div><input type="checkbox" id="B3_3">C.一周1-2次</div>' +
                         '<div><input type="checkbox" id="B3_4">D.一个月1-2次</div>' +
                         '<div><input type="checkbox" id="B3_5">E.没有或几乎没有/不知道</div></div>' +
-                        '<div>4.您的鼾声影响其他人吗？</div>' +
+                        '<div>4.您的鼾声影响其他人吗？' +
                         '<div><input type="checkbox" id="B4_1" desc="您的鼾声影响其他人吗" parent="4" group="B">A.几乎每天' +
                         '<input type="checkbox" id="B4_2">B.不影响' +
-                        '<input type="checkbox" id="B4_3">C.不知道</div>' +
-                        '<div>5.在您睡觉时，您的爱人、家属或朋友注意到您有呼吸间歇/停止现象吗？</div>' +
-                        '<div><div><input type="checkbox" id="B5_1" desc="您有呼吸间歇/停止现象吗" parent="5" group="B">A.几乎每天都有</div>' +
+                        '<input type="checkbox" id="B4_3">C.不知道</div></div>' +
+                        '<div>5.在您睡觉时，您的爱人、家属或朋友注意到您有呼吸间歇/停止现象吗？' +
+                        '<div><input type="checkbox" id="B5_1" desc="您有呼吸间歇/停止现象吗" parent="5" group="B">A.几乎每天都有</div>' +
                         '<div><input type="checkbox" id="B5_2">B.一周3-4次</div>' +
-                        '<div><input type="checkbox" id="B5_3">C.一个月1-2次</div>' +
-                        '<div><input type="checkbox" id="B5_4">D.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B5_3">C.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B5_4">D.一个月1-2次</div>' +
                         '<div><input type="checkbox" id="B5_5">E.没有或几乎没有/不知道</div></div>',
                     show: false
                 },
@@ -241,31 +244,31 @@
                         '<div>7.白天您还会有疲劳，乏力或精力不够吗？</div>' +
                         '<div><div><input type="checkbox" id="B7_1" desc="白天您还会有疲劳，乏力或精力不够吗" parent="7" group="B">A.几乎每天都有</div>' +
                         '<div><input type="checkbox" id="B7_2">B.一周3-4次</div>' +
-                        '<div><input type="checkbox" id="B7_3">C.一个月1-2次</div>' +
-                        '<div><input type="checkbox" id="B7_4">D.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B7_3">C.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B7_4">D.一个月1-2次</div>' +
                         '<div><input type="checkbox" id="B7_5">E.没有或几乎没有/不知道</div></div>' +
-                        '<div>8.当你在等待付水电煤气费、医院就诊排队等候中、在家坐在椅子上看电视时会睡着么？</div>' +
+                        '<div>8.当你在等待付水电煤气费、医院就诊排队等候中、在家坐在椅子上看电视时会睡着么？（若没有则跳至下一页）</div>' +
                         '<div><input type="checkbox" id="B8_1" desc="做无聊事时候会不会睡着" parent="8" group="B">A.是' +
-                        '<input type="checkbox" id="B8_2">B.否</div>' +
+                        '<input type="checkbox" id="B8_2" onclick="jumpnext(this);" class="speckbox">B.否</div>' +
                         '<div>如果是</div>' +
                         '<div>9.这种现象多吗？</div>' +
                         '<div><div><input type="checkbox" id="B9_1" desc="这种现象多吗" parent="9" group="B">A.几乎每天都有</div>' +
                         '<div><input type="checkbox" id="B9_2">B.一周3-4次</div>' +
-                        '<div><input type="checkbox" id="B9_3">C.一个月1-2次</div>' +
-                        '<div><input type="checkbox" id="B9_4">D.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B9_3">C.一周1-2次</div>' +
+                        '<div><input type="checkbox" id="B9_4">D.一个月1-2次</div>' +
                         '<div><input type="checkbox" id="B9_5">E.没有或几乎没有/不知道</div></div>',
                     show: false
                 },
-                {
-                    html: '<p>第三部分 高血压病史或肥胖史</p>' +
-                        '<div>10.您有高血压吗？</div>' +
-                        '<input type="checkbox" id="B10_1" desc="您有高血压吗" parent="10" group="B">A.是</div>' +
-                        '<input type="checkbox" id="B10_2">B.否</div>' +
-                        '<div>您目前的体重?<input type="text" id="B10_3" style="width:100px"/>Kg</div>' +
-                        '<div>您的身高?<input type="text" id="B10_4" style="width:100px"/>Kg</div>' +
-                        '<div>BMI[体块指数，计算方法为体重(kg)/身高的平方(m2)]<input type="text" id="B10_5" style="width:100px"/>kg/m2</div>',
-                    show: false
-                },
+                //{
+                //    html: '<p>第三部分 高血压病史或肥胖史</p>' +
+                //        '<div>10.您有高血压吗？</div>' +
+                //        '<input type="checkbox" id="B10_1" desc="您有高血压吗" parent="10" group="B">A.是</div>' +
+                //        '<input type="checkbox" id="B10_2">B.否</div>' +
+                //        '<div>您目前的体重?<input type="text" id="B10_3" style="width:100px"/>Kg</div>' +
+                //        '<div>您的身高?<input type="text" id="B10_4" style="width:100px"/>Kg</div>' +
+                //        '<div>BMI[体块指数，计算方法为体重(kg)/身高的平方(m2)]<input type="text" id="B10_5" style="width:100px"/>kg/m2</div>',
+                //    show: false
+                //},
                 {
                     html: '<p><h3>三、Epworth嗜睡量表</h3></p><p>在以下不同情况中您打瞌睡的频率：</p>' +
                         '<p>坐着阅读时</p>' +
@@ -362,7 +365,8 @@
         },
         methods: {
             next: function () { //下一题
-                //checkNeed();
+                if (checkNeed(this.pageIndex)) return false;
+
                 if (this.pageIndex == 0) {
                     if (!$('#confirm').prop('checked')) {
                         alert('请确认您以否同意知情同意书！');
@@ -385,6 +389,7 @@
                 this.data[this.pageIndex + 1].show = true;
 
                 this.pageIndex += 1;
+                scrollTo(0, 0);
             },
             prev: function () {
                 if (this.pageIndex - 1 == 0) {
@@ -420,23 +425,97 @@
             });
         });
 
-    function checkNeed() {
-        //当前界面下任何一组没有一个对选框则提示
-        var hascheckbox = $('#content div[show="true"]').find('input[type="checkbox"]');
-        var itemchecked = $('#content div[show="true"]').find('input[type="checkbox"]:checked').prop('checked');
-        if (hascheckbox.length > 0 && !itemchecked) {
-            alert('出错啦')
+    function jumpnext(obj) {
+        if ($(obj).is(':checked')) {
+            $('.btn.btn-primary.pull-right').trigger("click");
+
+            //$('div[show="true"]').find('input[type="checkbox"]').not('#'+obj.getAttribute("id")).prop("checked", "");
+            //$('div[show="true"]').find('input[type="checkbox"]').removeClass("check");
+            //$('div[show="true"]').find('input[type="text"]').val('');
+        } 
+    }
+
+    function checkNeed(index) {
+        var flag = false;
+
+        switch (index) {
+            case 1: case 2:
+                flag = needcheckalltext();
+                break;
+            default:
+                flag = needcheckallckbox();
+                if (flag) {
+                    alert('请完善全部内容后点击下一页');
+                }
         }
+
+        return flag;
+    }
+
+    function needcheckallckbox() {
+        $('div[show="true"] .text-danger').removeClass('text-danger');
+        var ckdiv = $('div[show="true"]').children('div');
+        var o = false;
+
+        if ($('div[show="true"] .speckbox').length > 0 && $('div[show="true"] .speckbox').is(':checked')) {
+            return false;
+        }
+
+        $.each(ckdiv, function () {
+            if ($(this).find('input').length == 0) {
+                return true;
+            }
+
+            //特殊ckbox后面的inputtext必填处理
+            if ((!$(this).find('input').is(':checked')) || ($(this).find('input[type="text"]').val() == '') && $('#A5_40').is(':checked') || ($(this).find('input[type="text"]').val() == '') && $('#A10_24').is(':checked')) {
+                o = true;
+                $(this).find('input').parent().addClass('text-danger');
+                return false;
+            }
+        });
+
+        return o;
+    }
+
+    function needcheckalltext() {
+        $('div[show="true"] .text-danger').removeClass('text-danger');
+
+        var input = $('div[show="true"]').find('input,select');
+        var o = false;
+
+        if ($('div[show="true"] input[type = "checkbox"]').length > 0 && !$('div[show="true"] .circle input[type = "checkbox"]').is(':checked')) {
+            o = true;
+            alert('请完善全部内容后点击下一页');
+            $('.circle').addClass("text-danger");
+            return true;
+        }
+
+        $.each(input, function () {
+            if ($(this).val() == "") {
+                o = true;
+                alert('请完善全部内容后点击下一页');
+                $(this).parent().addClass("text-danger");
+                //text-danger
+                return false;
+            }
+        });
+
+        return o;
     }
 
     function save() {
+        if (checkNeed(this.pageIndex)) return false;
+
         var tableData = [];
         var pregnantInfo = {
             Name: $('input[name="name"]').val(),
             Type: 3,
             Description: $('input[name="desc"]').val(),
+            Description2:$('.circle input:checked').val(),
+            TelPhoneNo: $('input[name="telNo"]').val(),
             EmployeeNo: $('input[name="stdno"]').val(),
-            Birthday: $('input[name="birthday"]').val()
+            Company: $('select[name="cardhospital"]').val(),
+            Age: $('input[name="age"]').val()
         }
 
         $.each($('[parent]'),

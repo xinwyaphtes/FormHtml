@@ -21,8 +21,8 @@
                 <div style="position:relative" v-show="item.show" v-html="item.html" v-bind:show="item.show"></div>
             </div>
             <div class="margin-top-50">
-                <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev">{{btPrev}}</button>
-                <button type="button" class="btn btn-primary  pull-right" @@click="next">{{btNext}}</button>
+                <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev" style="width: 100px;height:40px">{{btPrev}}</button>
+                <button type="button" class="btn btn-primary pull-right" @@click="next" style="width: 100px;height:40px">{{btNext}}</button>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                     {
                         html:
                             '<p>儿童姓名：<input name="name" type="text" style="width:100px;" /></p><p>学校：<input name="school" type="text" style="width:150px;" /><p>' +
-                            '<p>①年级：<select name="dept"><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
+                            '<p>①年级：<select name="dept"><option value="">请选择...</option><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
                             '<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:200px;" /></p>',
                         show: false,
                     },
@@ -203,50 +203,50 @@
                     {
                         html:
                             '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>1.（睡眠问题）在最近4周中，您的孩子发生下列情况的频率 *</p>' +
-                            '<div>①有响亮的鼾声</div><div><input type="checkbox" id="C1_1" parent="1" desc="儿童OSA-18睡眠问卷" group="C"/>从不（0次/周）<div><input type="checkbox" id="C1_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_7"/>每天（约7次/周）</div></div></div>' +
-                            '<div>②晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C1_8"  />从不（0次/周）<div><input type="checkbox" id="C1_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_14"/>每天（约7次/周）</div></div></div>' +
-                            '<div>③睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C1_15"  />从不（0次/周）<div><input type="checkbox" id="C1_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_21"/>每天（约7次/周）</div></div></div>' +
-                            '<div>④睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C1_22"  />从不（0次/周）<div><input type="checkbox" id="C1_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C1_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C1_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C1_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C1_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C1_28"/>每天（约7次/周）</div></div></div>',
+                            '<div>①有响亮的鼾声<div><input type="checkbox" id="C1_1" parent="1" desc="儿童OSA-18睡眠问卷" group="C"/>从不（0次/周）</div><div><input type="checkbox" id="C1_2"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C1_3"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C1_4"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C1_5"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C1_6"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C1_7"/>每天（约7次/周）</div></div>' +
+                            '<div>②晚上睡觉时屏住呼吸或出现呼吸暂停<div><input type="checkbox" id="C1_8"  />从不（0次/周）</div><div><input type="checkbox" id="C1_9"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C1_10"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C1_11"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C1_12"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C1_13"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C1_14"/>每天（约7次/周）</div></div>' +
+                            '<div>③睡觉时出现窒息或呼吸困难<div><input type="checkbox" id="C1_15"  />从不（0次/周）</div><div><input type="checkbox" id="C1_16"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C1_17"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C1_18"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C1_19"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C1_20"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C1_21"/>每天（约7次/周）</div></div>' +
+                            '<div>④睡眠不安或经常从睡眠中醒来<div><input type="checkbox" id="C1_22"  />从不（0次/周）</div><div><input type="checkbox" id="C1_23"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C1_24"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C1_25"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C1_26"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C1_27"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C1_28"/>每天（约7次/周）</div></div>',
                         show: false
                     },
                     {
                         html:
                             '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>2.（身体不适）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>①由于鼻塞需要张口呼吸<div><input type="checkbox" id="C2_1" parent="2" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C2_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_7"/>每天（约7次/周）</div></div></div>' +
-                            '<div>②反复感冒或上呼吸道感染<div><input type="checkbox" id="C2_8"  />从不（0次/周）<div><input type="checkbox" id="C2_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_14"/>每天（约7次/周）</div></div></div>' +
-                            '<div>③有鼻腔分泌物或流鼻涕<div><input type="checkbox" id="C2_15"  />从不（0次/周）<div><input type="checkbox" id="C2_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_21"/>每天（约7次/周）</div></div></div>' +
-                            '<div>④吞咽食物困难<div><input type="checkbox" id="C2_22"  />从不（0次/周）<div><input type="checkbox" id="C2_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C2_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C2_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C2_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C2_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C2_28"/>每天（约7次/周）</div></div></div>',
+                            '<div>①由于鼻塞需要张口呼吸<div><input type="checkbox" id="C2_1" parent="2" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）</div><div><input type="checkbox" id="C2_2"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C2_3"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C2_4"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C2_5"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C2_6"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C2_7"/>每天（约7次/周）</div></div>' +
+                            '<div>②反复感冒或上呼吸道感染<div><input type="checkbox" id="C2_8"  />从不（0次/周）</div><div><input type="checkbox" id="C2_9"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C2_10"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C2_11"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C2_12"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C2_13"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C2_14"/>每天（约7次/周）</div></div>' +
+                            '<div>③有鼻腔分泌物或流鼻涕<div><input type="checkbox" id="C2_15"  />从不（0次/周）</div><div><input type="checkbox" id="C2_16"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C2_17"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C2_18"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C2_19"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C2_20"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C2_21"/>每天（约7次/周）</div></div>' +
+                            '<div>④吞咽食物困难<div><input type="checkbox" id="C2_22"  />从不（0次/周）</div><div><input type="checkbox" id="C2_23"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C2_24"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C2_25"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C2_26"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C2_27"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C2_28"/>每天（约7次/周）</div></div>',
                         show: false
                     },
                     {
                         html:
                             '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>3.（情绪问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>①情绪波动或发脾气<div><input type="checkbox" id="C3_1" parent="3" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C3_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_7"/>每天（约7次/周）</div></div></div>' +
-                            '<div>②攻击性行为或多动<div><input type="checkbox" id="C3_8"  />从不（0次/周）<div><input type="checkbox" id="C3_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_14"/>每天（约7次/周）</div></div></div>' +
-                            '<div>③违反纪律<div><input type="checkbox" id="C3_15"  />从不（0次/周）<div><input type="checkbox" id="C3_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C3_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C3_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C3_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C3_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C3_21"/>每天（约7次/周）</div></div></div>',
+                            '<div>①情绪波动或发脾气<div><input type="checkbox" id="C3_1" parent="3" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）</div><div><input type="checkbox" id="C3_2"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C3_3"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C3_4"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C3_5"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C3_6"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C3_7"/>每天（约7次/周）</div></div>' +
+                            '<div>②攻击性行为或多动<div><input type="checkbox" id="C3_8"  />从不（0次/周）</div><div><input type="checkbox" id="C3_9"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C3_10"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C3_11"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C3_12"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C3_13"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C3_14"/>每天（约7次/周）</div></div>' +
+                            '<div>③违反纪律<div><input type="checkbox" id="C3_15"  />从不（0次/周）</div><div><input type="checkbox" id="C3_16"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C3_17"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C3_18"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C3_19"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C3_20"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C3_21"/>每天（约7次/周）</div></div>',
                         show: false
                     },
                     {
                         html:
                             '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>4.（日间问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>①嗜睡或过多的打瞌睡<div><input type="checkbox" id="C4_1" parent="4" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C4_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_7"/>每天（约7次/周）</div></div></div>' +
-                            '<div>②无法集中注意力<div><input type="checkbox" id="C4_8"  />从不（0次/周）<div><input type="checkbox" id="C4_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_14"/>每天（约7次/周）</div></div></div>' +
-                            '<div>③早上起床困难<div><input type="checkbox" id="C4_15"  />从不（0次/周）<div><input type="checkbox" id="C4_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C4_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C4_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C4_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C4_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C4_21"/>每天（约7次/周）</div></div></div>',
+                            '<div>①嗜睡或过多的打瞌睡<div><input type="checkbox" id="C4_1" parent="4" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）</div><div><input type="checkbox" id="C4_2"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C4_3"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C4_4"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C4_5"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C4_6"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C4_7"/>每天（约7次/周）</div></div>' +
+                            '<div>②无法集中注意力<div><input type="checkbox" id="C4_8"  />从不（0次/周）</div><div><input type="checkbox" id="C4_9"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C4_10"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C4_11"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C4_12"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C4_13"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C4_14"/>每天（约7次/周）</div></div>' +
+                            '<div>③早上起床困难<div><input type="checkbox" id="C4_15"  />从不（0次/周）</div><div><input type="checkbox" id="C4_16"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C4_17"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C4_18"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C4_19"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C4_20"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C4_21"/>每天（约7次/周）</div></div>',
                         show: false
                     },
                     {
                         html:
                             '<p><h3>儿童OSA-18睡眠问卷（说明：对下列问题，请您根据您孩子最近4周的情况进行回答，根据每项问题出现的频率，在相应的格子内打钩）</h3></p><p>5.（照护者关心的问题）在最近4周中，您的孩子发生下列情况的频率 *' +
-                            '<div>①您为您孩子的健康问题担心<div><input type="checkbox" id="C5_1" parent="5" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）<div><input type="checkbox" id="C5_2"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_3"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_4"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_5"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_6"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_7"/>每天（约7次/周）</div></div></div>' +
-                            '<div>②您担心您的孩子夜间呼吸不畅<div><input type="checkbox" id="C5_8"  />从不（0次/周）<div><input type="checkbox" id="C5_9"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_10"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_11"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_12"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_13"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_14"/>每天（约7次/周）</div></div></div>' +
-                            '<div>③影响您的日常工作或家务<div><input type="checkbox" id="C5_15"  />从不（0次/周）<div><input type="checkbox" id="C5_16"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_17"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_18"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_19"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_20"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_21"/>每天（约7次/周）</div></div></div>' +
-                            '<div>④因上述问题而焦虑<div><input type="checkbox" id="C5_22"  />从不（0次/周）<div><input type="checkbox" id="C5_23"/>几乎没有（约1-2次/周）<div><input type="checkbox" id="C5_24"/>很少时候（约2-3次/周）<div><input type="checkbox" id="C5_25"/>有时（约3-4次/周）<div><input type="checkbox" id="C5_26"/>较多的时候（约4-5次/周）<div><input type="checkbox" id="C5_27"/>几乎每天（约5-6次/周）<div><input type="checkbox" id="C5_28"/>每天（约7次/周）</div></div></div>',
+                            '<div>①您为您孩子的健康问题担心<div><input type="checkbox" id="C5_1" parent="5" desc="儿童OSA-18睡眠问卷" group="C" />从不（0次/周）</div><div><input type="checkbox" id="C5_2"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C5_3"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C5_4"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C5_5"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C5_6"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C5_7"/>每天（约7次/周）</div></div>' +
+                            '<div>②您担心您的孩子夜间呼吸不畅<div><input type="checkbox" id="C5_8"  />从不（0次/周）</div><div><input type="checkbox" id="C5_9"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C5_10"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C5_11"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C5_12"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C5_13"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C5_14"/>每天（约7次/周）</div></div>' +
+                            '<div>③影响您的日常工作或家务<div><input type="checkbox" id="C5_15"  />从不（0次/周）</div><div><input type="checkbox" id="C5_16"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C5_17"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C5_18"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C5_19"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C5_20"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C5_21"/>每天（约7次/周）</div></div>' +
+                            '<div>④因上述问题而焦虑<div><input type="checkbox" id="C5_22"  />从不（0次/周）</div><div><input type="checkbox" id="C5_23"/>几乎没有（约1-2次/周）</div><div><input type="checkbox" id="C5_24"/>很少时候（约2-3次/周）</div><div><input type="checkbox" id="C5_25"/>有时（约3-4次/周）</div><div><input type="checkbox" id="C5_26"/>较多的时候（约4-5次/周）</div><div><input type="checkbox" id="C5_27"/>几乎每天（约5-6次/周）</div><div><input type="checkbox" id="C5_28"/>每天（约7次/周）</div></div>',
                         show: false
                     },
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>填写人与小孩关系：<input type="checkbox" id="1_1" desc="addtion" group="D"/>父亲<input type="checkbox" id="1_2" desc="addtion" group="D"/>母亲<input type="checkbox" id="1_3" desc="addtion" group="D"/>其它</div>' +
-                            '<div>您孩子晚上就寝时间：</div><div>平时：<select id="1_4" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select><div>周末：<select id="1_5" desc="addtion" group="D"><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select></div>',
+                            '<div>您孩子晚上就寝时间：</div><div>平时：<select id="1_4" desc="addtion" group="D"><option value="">请选择...</option><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select><div>周末：<select id="1_5" desc="addtion" group="D"><option value="">请选择...</option><option>20:00-20:30</option><option>20:30-21:00</option><option>21:00-21:30</option><option>21:30-22:00</option><option>22:00-22:30</option><option>22:30-23:30</option><option>23:30-00:00</option><option>00:00后</option></select></div>',
                         show: false
                     },
                     {
@@ -348,13 +348,13 @@
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>在过去一周中，您孩子在如下情形时是否经常打瞌睡或几乎每次都入睡？</div>' +
-                            '<div>①穿衣服</div><div><div><input type="checkbox" id="1_8" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_9" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_10" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>②独自玩耍</div><div><div><input type="checkbox" id="1_11" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_12" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_13" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>③和别人玩耍</div><div><div><input type="checkbox" id="1_14" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_15" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_16" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>④看电视</div><div><div><input type="checkbox" id="1_17" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_18" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_19" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>⑤坐车</div><div><div><input type="checkbox" id="1_20" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_21" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_22" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>⑥吃饭</div><div><div><input type="checkbox" id="1_23" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_24" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_25" desc="addtion" group="D">几乎每次都入睡</div>' +
-                            '<div>⑦洗澡</div><div><div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡<div><input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡<div><input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div>',
+                            '<div>①穿衣服<div><input type="checkbox" id="1_8" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_9" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_10" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>②独自玩耍<div><input type="checkbox" id="1_11" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_12" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_13" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>③和别人玩耍<div><input type="checkbox" id="1_14" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_15" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_16" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>④看电视<div><input type="checkbox" id="1_17" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_18" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_19" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>⑤坐车<div><input type="checkbox" id="1_20" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_21" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_22" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>⑥吃饭<div><input type="checkbox" id="1_23" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_24" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_25" desc="addtion" group="D">几乎每次都入睡</div></div>' +
+                            '<div>⑦洗澡<div><input type="checkbox" id="1_26" desc="addtion" group="D">不瞌睡</div><div><input type="checkbox" id="1_27" desc="addtion" group="D">经常打瞌睡</div><div><input type="checkbox" id="1_28" desc="addtion" group="D">几乎每次都入睡</div></div>',
                         show: false
                     },
                     {
@@ -463,6 +463,7 @@
                     this.data[this.pageIndex + 1].show = true;
 
                     this.pageIndex += 1;
+                    scrollTo(0, 0);
                 },
                 prev: function () {
                     if (this.pageIndex - 1 == 0) {
@@ -478,6 +479,7 @@
                     this.data[this.pageIndex - 1].show = true;
 
                     this.pageIndex -= 1;
+                    scrollTo(0, 0);
                 }
             }
         });
@@ -501,16 +503,10 @@
             });
 
         function checkNeed(index) {
-            //当前界面下任何一组没有一个对选框则提示
-            //var hascheckbox = $('#content div[show="true"]').find('input[type="checkbox"]');
-            //var itemchecked = $('#content div[show="true"]').find('input[type="checkbox"]:checked').prop('checked');
-            //if (hascheckbox.length > 0 && !itemchecked) { alert('出错啦') }
-
             var flag = false;
 
             switch (index) {
                 case 1:
-                    break;
                     var obj = $('div[show="true"]').find('input,select').not('[name="stdno"]');
                     var o = needchecktext(obj);
 
@@ -521,10 +517,12 @@
                     }
                     break;
                 case 2:
-                    break;
                     //选项多选一,选中后，有后续内容必填
 
-                    var objs = [{ group: '#A1_1,#A1_2,#A1_4', aftersel: ['#A1_2|#A1_3', '#A1_4|#A1_5,#A1_6'] }, { group: '#A1_7,#A1_8', aftersel: ['#A1_8|#A1_9'] }];
+                    var objs = [
+                        { group: '#A1_1,#A1_2,#A1_4', aftersel: ['#A1_2|#A1_3', '#A1_4|#A1_5,#A1_6'] },
+                        { group: '#A1_7,#A1_8', aftersel: ['#A1_8|#A1_9'] }
+                    ];
 
                     var o = needcheckckbox(objs);
 
@@ -533,8 +531,10 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
-                case 3: break;
-                    var objs = [{ group: '#A2_1,#A2_3,#A2_5,#A2_7,#A2_8', aftersel: ['#A2_1|#A2_2', '#A2_3|#A2_4', '#A2_5|#A2_6'] }]
+                case 3:
+                    var objs = [
+                        { group: '#A2_1,#A2_3,#A2_5,#A2_7,#A2_8', aftersel: ['#A2_1|#A2_2', '#A2_3|#A2_4', '#A2_5|#A2_6'] }
+                    ]
                     var o = needcheckckbox(objs);
 
                     if (o) {
@@ -543,8 +543,16 @@
                     }
                     break;
                 case 4:
-                    break;
-                    var objs = [{ group: '#A3_1,#A3_2', aftersel: ['#A3_1|#A3_3,#A3_7,#A3_10,#A3_13,#A3_18', '#A3_13|#A3_14,#A3_15,#A3_16', '#A3_13|#A3_17', '#A3_3|#A3_4,#A3_5,#A3_6', '#A3_7|#A3_8,#A3_9', '#A3_10|#A3_11,#A3_12', '#A3_18|#A3_19,#A3_20'] },]
+                    var objs = [
+                        {
+                            group: '#A3_1,#A3_2',
+                            aftersel: [
+                                '#A3_1|#A3_3,#A3_7,#A3_10,#A3_13,#A3_18', '#A3_13|#A3_14,#A3_15,#A3_16', '#A3_13|#A3_17',
+                                '#A3_3|#A3_4,#A3_5,#A3_6', '#A3_7|#A3_8,#A3_9', '#A3_10|#A3_11,#A3_12',
+                                '#A3_18|#A3_19,#A3_20'
+                            ]
+                        },
+                    ]
                     var o = needcheckckbox(objs);
 
                     if (o) {
@@ -561,10 +569,138 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
+                case 6:
+                    var objs = [
+                        { group: '#A7_1,#A7_2', aftersel: ['#A7_2|#A7_3'] },
+                        { group: '#A7_10,#A7_11', aftersel: ['#A7_11|#A7_12'] },
+                        { group: '#A7_13,#A7_14', aftersel: ['#A7_14|#A7_15'] },
+                        { group: '#A7_4,#A7_5', aftersel: ['#A7_5|#A7_6'] },
+                        { group: '#A7_7,#A7_8', aftersel: ['#A7_8|#A7_9'] },
+                        { group: '#A7_16,#A7_17', aftersel: ['#A7_17|#A7_18'] },
+                        { group: '#A7_19,#A7_20', aftersel: ['#A7_20|#A7_22'] },
+                        { group: '#A7_23,#A7_24', aftersel: ['#A7_24|#A7_26'] },
+                        { group: '#A7_27,#A7_28', aftersel: ['#A7_28|#A7_30'] },
+                        { group: '#A7_31,#A7_32', aftersel: ['#A7_32|#A7_34'] },
+                        { group: '#A7_35,#A7_36', aftersel: ['#A7_36|#A7_38'] },
+                        { group: '#A7_39,#A7_40', aftersel: ['#A7_40|#A7_41,#A7_42'] },
+                        { group: '#A7_43,#A7_44', aftersel: ['#A7_44|#A7_45,#A7_46'] },
+                        { group: '#A7_47,#A7_48', aftersel: ['#A7_48|#A7_49,#A7_50'] },
+                        { group: '#A7_51,#A7_52', aftersel: ['#A7_52|#A7_53,#A7_54'] },
+                        { group: '#A7_55,#A7_56', aftersel: ['#A7_56|#A7_57,#A7_58'] },
+                        { group: '#A7_59,#A7_60', aftersel: ['#A7_60|#A7_61,#A7_62'] },
+                        { group: '#A7_63,#A7_64', aftersel: ['#A7_64|#A7_65,#A7_66'] },
+                    ];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 7: case 8:
+                    var o = needcheckalltext();
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 9: case 10: case 11:
+                    var o = needcheckallckbox();
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 12:
+                    var objs = [{ group: '#A13_1,#A13_3', aftersel: ['#A13_1|#A13_2'] }];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21:
+                case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 31: case 32:
+                case 34: case 35: case 36: case 37: case 38: case 39: case 40:
+                    var o = needcheckallckbox();
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 22:
+                    var objs = [{ group: '#1_1,#1_2,#1_3', aftersel: ['#1_1,#1_2,#1_3|#1_4,#1_5'] }];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 30:
+                    var objs = [{ group: '#D36_1,#D36_2,#D36_3' },
+                        { group: '#D37_1,#D37_2,#D37_3', aftersel: ['#D37_1,#D37_2|#D39_1,#D39_2'] },
+                        { group: '#D38_1,#D38_2,#D38_3', aftersel: ['#D38_1,#D38_2|#D39_1,#D39_2']},
+                                { group: '#D40_1,#D40_2,#D40_3' },
+                        ];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 33:
+                    var obj = $('div[show="true"]').find('input');
+                    var o = needchecktext(obj);
+
+                    if (o) {
+                        flag = true;
+                        o.focus();
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
                 default:
             }
 
             return flag;
+        }
+
+        function needcheckallckbox() {
+            var ckdiv = $('div[show="true"]').children('div');
+            var o = false;
+
+            $.each(ckdiv, function () {
+                if ($(this).find('input').length == 0) {
+                    return true;
+                }
+
+                if (!$(this).find('input').is(':checked')) {
+                    o = true;
+                    return false;
+                }
+            });
+
+            return o;
+        }
+
+        function needcheckalltext(exce) {
+            var input = $('div[show="true"] input');
+            var o = false;
+
+            $.each(input, function () {
+                if ($(this).val() == "") {
+                    o = true;
+                    return false;
+                }
+
+            });
+
+            return o;
         }
 
         function needcheckckbox(objs) {
@@ -582,19 +718,18 @@
                                 var after = this.substring(this.indexOf('|') + 1);
 
                                 if ($('div[show = "true"]').find(ischeck).is(':checked')) {
-                                    $.each($('div[show = "true"]').find(after), function () {
-                                        if ($(this).attr('type') == 'checkbox' && $(this).is(':checked')) {
-                                            o = false;
-                                            return false;
-                                        }
-                                        else if ($(this).attr('type') == 'checkbox' && !$(this).is(':checked')) {
-                                            o = true;
-                                        }
-                                        else if ($(this).val() == '') {
-                                            o = true;
-                                            return false;
-                                        }
-                                    })
+                                    $.each($('div[show = "true"]').find(after),
+                                        function () {
+                                            if ($(this).attr('type') == 'checkbox' && $(this).is(':checked')) {
+                                                o = false;
+                                                return false;
+                                            } else if ($(this).attr('type') == 'checkbox' && !$(this).is(':checked')) {
+                                                o = true;
+                                            } else if ($(this).val() == '') {
+                                                o = true;
+                                                return false;
+                                            }
+                                        })
                                 }
                             });
                     }
@@ -616,6 +751,8 @@
         }
 
         function save() {
+            if (checkNeed(this.pageIndex)) return false;
+
             var tableData = [];
             var childInfo = {
                 Name: $('input[name="name"]').val(),

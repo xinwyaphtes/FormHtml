@@ -12,12 +12,15 @@ namespace 问卷调查.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string VisitID { get; set; }
+        public string TelPhoneNo { get; set; }
         public int Sex { get; set; }
+        public int Age { get; set; }
         public int Type { get; set; }
         public string Company { get; set; }
         public string Department { get; set; }
         public string EmployeeNo { get; set; }
         public string Birthday { get; set; }
         public string Description { get; set; }
+        public string Description2 { get; set; }
     }
 }
