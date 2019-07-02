@@ -54,7 +54,7 @@
         ]
     });
 
-    new Vue({
+  var myapp =  new Vue({
         el: '#app',
         data: {
             btNext: '确定',
@@ -74,7 +74,7 @@
                         '<p>手机号：<input name="telNo" type="number" style="width:150px;" /></p>' +
                         '<p>孕周：<input name="desc" type="text" style="width:100px;" /></p>' +
                         '<p><div><div class="circle"><span style="font-size:18px">孕期：</span><input type="checkbox" name="early" value="早期">早期<input type="checkbox" name="middle" value="中期">中期<input type="checkbox" name="last" value="晚期">晚期</div></div></p>' +
-                        '<p>建卡号：<input name="stdno" type="number" style="width:200px;" /></p>' +
+                        '<p>建卡号：<input name="stdno" type="text" style="width:200px;" /></p>' +
                         '<p>建卡医院：<select name="cardhospital"style="width:200px;" /><option value="">请选择...</option><option>国妇婴</option><option>上海第六人民医院</option><option>上海第八人民医院</option></select></p>',
                     show: false,
                 },
@@ -153,9 +153,9 @@
                         '<div>(4)&nbsp;<input type="checkbox" id="A6_4">很差</div></div>' +
                         '<p>7.近1个月，您用药物催眠的情况：</p>' +
                         '<div><div>(1)&nbsp;<input type="checkbox" id="A7_1" parent="7" desc="近1个月，您用药物催眠的情况" group="A" >无</div>' +
-                        '<div>(2)&nbsp;<input type="checkbox" id="A6_2"><1次/周</div>' +
-                        '<div>(3)&nbsp;<input type="checkbox" id="A6_3">1-2次/周</div>' +
-                        '<div>(4)&nbsp;<input type="checkbox" id="A6_4">≥3次/周</div></div>' +
+                        '<div>(2)&nbsp;<input type="checkbox" id="A7_2"><1次/周</div>' +
+                        '<div>(3)&nbsp;<input type="checkbox" id="A7_3">1-2次/周</div>' +
+                        '<div>(4)&nbsp;<input type="checkbox" id="A7_4">≥3次/周</div></div>' +
                         '<p>8.近1个月，您常感到困倦吗：</p>' +
                         '<div><div>(1)&nbsp;<input type="checkbox" id="A8_1" parent="8" desc="近1个月，您用药物催眠的情况" group="A" >无</div>' +
                         '<div>(2)&nbsp;<input type="checkbox" id="A8_2"><1次/周</div>' +
@@ -249,7 +249,7 @@
                         '<div><input type="checkbox" id="B7_5">E.没有或几乎没有/不知道</div></div>' +
                         '<div>8.当你在等待付水电煤气费、医院就诊排队等候中、在家坐在椅子上看电视时会睡着么？（若没有则跳至下一页）</div>' +
                         '<div><input type="checkbox" id="B8_1" desc="做无聊事时候会不会睡着" parent="8" group="B">A.是' +
-                        '<input type="checkbox" id="B8_2" onclick="jumpnext(this);" class="speckbox">B.否</div>' +
+                        '<input type="checkbox" id="B8_2" class="speckbox">B.否</div>' +
                         '<div>如果是</div>' +
                         '<div>9.这种现象多吗？</div>' +
                         '<div><div><input type="checkbox" id="B9_1" desc="这种现象多吗" parent="9" group="B">A.几乎每天都有</div>' +
@@ -427,11 +427,24 @@
 
     function jumpnext(obj) {
         if ($(obj).is(':checked')) {
-            $('.btn.btn-primary.pull-right').trigger("click");
+            if (obj.id == 'B8_2') {
+                var ckdiv = $('#B6_1').closest('div');
+                var ckdiv1 = $('#B7_1').closest('div');
+                if (!$(ckdiv).parent().find('input').is(':checked')) {
+                    alert('请完善全部内容后点击下一页');
+                    ckdiv.parent().addClass('text-danger');
+                    $('#B8_2').attr('checked', '');
+                    return false;
+                }
+                if (!$(ckdiv1).parent().find('input').is(':checked')) {
+                    alert('请完善全部内容后点击下一页');
+                    ckdiv1.parent().addClass('text-danger');
+                    $('#B8_2').attr('checked', '');
+                    return false;
+                }
+            }
 
-            //$('div[show="true"]').find('input[type="checkbox"]').not('#'+obj.getAttribute("id")).prop("checked", "");
-            //$('div[show="true"]').find('input[type="checkbox"]').removeClass("check");
-            //$('div[show="true"]').find('input[type="text"]').val('');
+            myapp.next();
         } 
     }
 
@@ -525,7 +538,7 @@
                 var pDesc = $(this).attr('desc');
                 var pGroup = $(this).attr('group');
 
-                var items = $('input[id^=' + pGroup + pIndex + '_]');
+                var items = $('[id^=' + pGroup + pIndex + '_]');
 
                 $.each(items,
                     function () {

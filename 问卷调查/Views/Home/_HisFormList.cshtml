@@ -1,0 +1,22 @@
+﻿@model List<HistoryData>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <td>填表时间</td>
+        <td>患者姓名</td>
+        <td>建卡号码</td>
+        <td>操作</td>
+    </tr>
+    @foreach (HistoryData m in Model)
+    {
+        <tr>
+            <td>@m.UpdateDT</td>
+            <td>@m.Name</td>
+            <td>@m.EmployeeNo</td>
+            <td><a href="#" onclick="showHisData(@m.Id)">查看</a></td>
+        </tr>
+    }
+</table>

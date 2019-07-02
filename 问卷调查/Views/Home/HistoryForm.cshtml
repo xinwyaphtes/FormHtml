@@ -1,0 +1,65 @@
+﻿@model List<HistoryData>
+@{
+    ViewData["Title"] = "HistoryForm";
+    Layout = "~/Views/Shared/_HistoryFormLayout.cshtml";
+}
+<link href="~/css/dashboard.css" rel="stylesheet" />
+<style>
+    #container {
+        font-size: 18px;
+    }
+</style>
+<div class="container-fluid" id="left_menu">
+    <div class="">
+        <div class="col-sm-2 sidebar">
+            <div style="margin-top: 10px;" id="div_mainlist">
+                <ul class="nav nav-sidebar">
+                    <li><a href="#">孕妇问卷</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <div id="container" class="" style="margin-top: 20px;">
+                @Html.Partial("_HisFormList", Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                @Html.Partial("_HisFormContent")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+@section scripts{
+    <script>
+        function showHisData(id) {
+            $.get('/Home/ShowHisDataById', { id: id }, function (data) {
+                $('#historyModal').modal('show');
+                $('#historyModal input[type="checkbox"]').removeAttr('checked');
+                $('#historyModal select').val('');
+
+                $.each(data, function () {
+                    if (this.attribution == '') {
+                        $('#historyModal #' + this.dataSign).val(this.itemValue);
+                    }
+                    else {
+                        $('#historyModal #' + this.dataSign).attr(this.attribution,'true');
+                    }
+
+                })
+            });
+        }
+    </script>
+}
