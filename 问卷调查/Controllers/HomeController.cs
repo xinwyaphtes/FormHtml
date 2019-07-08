@@ -51,7 +51,7 @@ namespace 问卷调查.Controllers
         {
             using (var db = DBHelp.QueryDB())
             {
-                var t = db.Queryable<Patient>().Select(x => new { name = x.Name, visitId = x.VisitID }).ToList();
+                var t = db.Queryable<Patient>().Where(x=>x.Type!=3).Select(x => new { name = x.Name, visitId = x.VisitID }).ToList();
 
                 return JsonConvert.SerializeObject(new { value = t });
             }

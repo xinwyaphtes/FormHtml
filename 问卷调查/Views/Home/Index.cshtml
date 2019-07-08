@@ -163,22 +163,22 @@
                 function (e, selectedData, selectedRawData) {
                     visitID = selectedData.key;
                 }).on('onHideDropdown',
-                function (e, data) {
-                    var flag = true; //是错误的患者号
-                    $.each(data,
-                        function () {
-                            if (this.visitId == e.target.value) {
-                                flag = false;
-                                return false;
-                            }
-                        })
+                    function (e, data) {
+                        var flag = true; //是错误的患者号
+                        $.each(data,
+                            function () {
+                                if (this.visitId == e.target.value) {
+                                    flag = false;
+                                    return false;
+                                }
+                            })
 
-                    if (flag) {
-                        visitID = ''
-                    } else {
-                        visitID = e.target.value;
-                    }
-                });
+                        if (flag) {
+                            visitID = ''
+                        } else {
+                            visitID = e.target.value;
+                        }
+                    });
         }
 
         function DesSuggest() {
@@ -209,12 +209,21 @@
             }
         }
 
-        function OpenForm(id, name) {
+        function OpenForm(id, name, type) {
             $.get('/Settings/GetFormHtml/' + id,
                 function (data) {
                     $('#container').html(data);
-                    Bindcheckboxs(); //绑定单选
-                    BindSum(); //绑定合计
+
+                    switch (type) {
+                        case 1:
+                            Bindcheckboxs(); //绑定单选
+                            BindSum(); //绑定合计
+                            break;
+                        case 2:
+                            BindCheckboxsOfChildForm();
+                            break;
+                        default: break;
+                    }
 
                     $('#FormModal').modal('hide');
                     $('#btnSave').removeClass('hidden');
@@ -301,6 +310,18 @@
                 $('#container .calcsum').text(sum);
                 dataResult = sum;
             });
+        }
+
+        function BindCheckboxsOfChildForm() {
+            $.each($('#container input[type="checkbox"]'),
+                function () {
+                    var checkbox = $(this);
+                    $(this).click(function () {
+                        var groupdiv = checkbox.closest('div[isunique="true"]');
+                        groupdiv.find('input[type="checkbox"]').prop("checked", "");
+                        checkbox.prop("checked", "checked");
+                    });
+                });
         }
 
         function Check() {
