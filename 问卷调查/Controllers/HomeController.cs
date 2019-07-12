@@ -24,6 +24,26 @@ namespace 问卷调查.Controllers
             return View();
         }
 
+        public IActionResult IndexShowId()
+        {
+            return View();
+        }
+
+        public IActionResult ShowPage(int id)
+        {
+            switch (id)
+            { 
+                case 1: return PartialView("/Template/量表---基本信息.html");
+                case 2: return PartialView("/Template/量表---匹兹堡睡眠问卷.html");
+                case 3: return PartialView("/Template/量表---Epworth嗜睡.html");
+                case 4: return PartialView("/Template/量表---SF-36健康调查简表.html");
+                case 5: return PartialView("/Template/量表---简易智能精神状态（MMSE）.html");
+                case 6: return PartialView("/Template/量表---MoCA.html");
+                default:
+                    return PartialView("/Template/量表---基本信息.html");
+            }
+        }
+
         [HttpGet]
         public IActionResult GetFormList()
         {
@@ -51,7 +71,7 @@ namespace 问卷调查.Controllers
         {
             using (var db = DBHelp.QueryDB())
             {
-                var t = db.Queryable<Patient>().Where(x=>x.Type!=3).Select(x => new { name = x.Name, visitId = x.VisitID }).ToList();
+                var t = db.Queryable<Patient>().Where(x => x.Type != Enums.Type.孕妇).OrderBy(x => x.Type).Select(x => new { name = x.Name, visitId = x.VisitID}).ToList();
 
                 return JsonConvert.SerializeObject(new { value = t });
             }

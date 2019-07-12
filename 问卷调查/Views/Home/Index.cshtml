@@ -68,7 +68,7 @@
                     请填写病人信息
                 </h4>
             </div>
-            <div class="modal-body" style="height: 200px">
+            <div class="modal-body">
 
             </div>
             <div class="modal-footer">
@@ -84,520 +84,641 @@
 </div>
 
 @section scripts{
-<script src="~/lib/bootstrap/dist/js/bootstrap-suggest.min.js"></script>
-<script>
-    var pagesize = 10;
-    var visitID = '';
-    var dataResult = '';
-    //var dataList = { value: [] }, i = 5;
-    //while (i--) {
-    //    dataList.value.push({
-    //        name: 'xxx',
-    //        shortname: 'xxx',
-    //        visitId: '123',
-    //    });
-    //}
-    $(function () {
-        InitSuggest();
+    <script src="~/lib/bootstrap/dist/js/bootstrap-suggest.min.js"></script>
+    <script>
+        var pagesize = 10;
+        var visitID = '';
+        var dataResult = '';
+        //var dataList = { value: [] }, i = 5;
+        //while (i--) {
+        //    dataList.value.push({
+        //        name: 'xxx',
+        //        shortname: 'xxx',
+        //        visitId: '123',
+        //    });
+        //}
+        $(function () {
+            InitSuggest();
 
-        $('#FormModal').on('show.bs.modal',
-            function () {
-                if (!Check()) {
-                    return false;
-                } else {
-                    $.get('/Home/GetFormList',
-                        function (data) {
-                            $('#FormModal .modal-body').html(data);
-                        })
-                }
-            })
-
-        $('#patientInfoModal').on('show.bs.modal',
-            function () {
-                var html = '<div class="container-fluid">';
-                html +=
-                    '<div class="row"><div class="col-sm-6"><div class="form-group">患者号<input type="text" class="form-control" name="visitId" style="width:180px"/></div></div><div class="col-sm-6"><div class="form-group">患者姓名<input type="text" class="form-control" name="name" style="width:180px"/></div></div></div>';
-
-                html +=
-                    '<div class="row"><div class="col-sm-6"><div class="form-group">出生年月<input type="date" class="form-control" name="birthday" style="width:180px"/></div></div><div class="col-sm-6"><div class="form-group">性别<select style="width:100px" class="form-control" name="sex"><option value="1">男</option><option value="2">女</option></select></div></div></div>';
-
-                html += "</div>";
-
-                $('#patientInfoModal .modal-body').html(html);
-            })
-    });
-
-    function AddPatient() {
-        var visitId = $('#patientInfoModal input[name="visitId"]').val();
-        var name = $('#patientInfoModal input[name="name"]').val();
-        var birthday = $('#patientInfoModal input[name="birthday"]').val();
-        var sex = $('#patientInfoModal select[name="sex"]').val();
-
-        if (visitId == '') {
-            alert('患者号不能为空！');
-            return false;
-        }
-        if (name == '') {
-            alert('患者姓名不能为空！');
-            return false;
-        }
-
-        $.post('/Settings/AddPatient',
-            { visitId: visitId, name: name, birthday: birthday, sex: sex },
-            function () {
-                alert('提交成功！');
-                window.location.reload();
-            });
-    }
-
-    function InitSuggest() {
-        $("#txt_visitId").bsSuggest({
-            //data: dataList,
-            url: '/Home/GetPatientList',
-            showHeader: true,
-            effectiveFieldsAlias: { visitId: '患者号', name: '姓名' },
-            inputWarnColor: 'white',
-            indexKey: 1,
-            hideOnSelect: true
-        }).on('onSetSelectValue',
-            function (e, selectedData, selectedRawData) {
-                visitID = selectedData.key;
-            }).on('onHideDropdown',
-                function (e, data) {
-                    var flag = true; //是错误的患者号
-                    $.each(data,
-                        function () {
-                            if (this.visitId == e.target.value) {
-                                flag = false;
-                                return false;
-                            }
-                        })
-
-                    if (flag) {
-                        visitID = ''
+            $('#FormModal').on('show.bs.modal',
+                function () {
+                    if (!Check()) {
+                        return false;
                     } else {
-                        visitID = e.target.value;
+                        $.get('/Home/GetFormList',
+                            function (data) {
+                                $('#FormModal .modal-body').html(data);
+                            })
                     }
-                });
-    }
+                })
 
-    function DesSuggest() {
-        $("#txt_visitId").bsSuggest("destroy");
-    }
+            $('#patientInfoModal').on('show.bs.modal',
+                function () {
+                    var html = '<div class="container-fluid">';
+                    html +=
+                        '<div class="row"><div class="col-sm-6"><div class="form-group">患者号<input type="text" class="form-control" name="visitId" style="width:180px"/></div></div><div class="col-sm-6"><div class="form-group">患者姓名<input type="text" class="form-control" name="name" style="width:180px"/></div></div></div>';
 
-    function VisitIdSelected(visitid) {
-        $.get('Home/GetPatientInfo',
-            { visitID: visitid },
-            function (data) {
-                $('#patinfo').html(data);
-            })
-    }
+                    html +=
+                        '<div class="row"><div class="col-sm-6"><div class="form-group">出生年月<input type="date" class="form-control" name="birthday" style="width:180px"/></div></div><div class="col-sm-6"><div class="form-group">性别<select style="width:100px" class="form-control" name="sex"><option value="1">男</option><option value="2">女</option></select></div></div></div>';
 
-    function ExchangeMode(obj) {
-        if ($(obj).hasClass('btn-default')) {
-            //编辑模式
-            $(obj).removeClass('btn-default').addClass('btn-primary').html(
-                '<span class="glyphicon glyphicon-pencil"></span><span style="padding-left: 10px">编辑</span>');
-            $('#container input,select').removeAttr('disabled');
-            $('#btnSave').removeClass('hidden');
-        } else {
-            //只读模式
-            $(obj).removeClass('btn-primary').addClass('btn-default').html(
-                '<span class="glyphicon glyphicon-eye-open"></span><span style="padding-left: 10px">预览</span>');
-            $('#container input,select').attr('disabled', 'true');
-            $('#btnSave').addClass('hidden');
-        }
-    }
+                    html += '<div class="row"><div class="col-sm-6"><div class="form-group"><span><input type="checkbox" name="ischild" onclick="SwitchChildInfo(this)"/></span><span>儿童</span></div></div></div>'
 
-    function OpenForm(id, name, type) {
-        $.get('/Settings/GetFormHtml/' + id,
-            function (data) {
-                $('#container').html(data);
+                    html +=
+                        '<div class="row childinfo" style="display:none"><div class="col-sm-6"><div class="form-group">学校<input type="text" class="form-control" name="school" style="width:180px"/></div></div><div class="col-sm-6"><div class="form-group">学号（如无可不填）<input type="text" class="form-control" name="stuno" style="width:180px"/></div></div></div>';
+                    html +=
+                        '<div class="row childinfo" style="display:none"><div class="col-sm-6"><div class="form-group">年级<select style="width:100px" class="form-control" name="grade"><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级</option></select></div></div><div class="col-sm-6"><div class="form-group">班级<input type="text" class="form-control" name="class" style="width:180px"/></div></div></div>';
 
-                switch (type) {
-                    case 1:
-                        Bindcheckboxs(); //绑定单选
-                        BindSum(); //绑定合计
-                        break;
-                    case 2:
-                        BindCheckboxsOfChildForm();
-                        break;
-                    default: break;
-                }
 
-                $('#FormModal').modal('hide');
-                $('#btnSave').removeClass('hidden');
-                $('#btnMode').addClass('hidden');
-                $('#hd_tId').val(id);
-                $('#hd_tName').val(name);
-                $('#hd_mainId').val('');
-            });
-    }
+                    html += "</div>";
 
-    function Bindcheckboxs() {
-        //所有父节点设置唯一值的子checkbox设置为互斥
-        $.each($('[isuniq="true"]'),
-            function () {
-                var pindex = $(this).attr('parent');
-                var checkboxs = $('#container input[id^=checkbox_' + pindex + '_]');
+                    $('#patientInfoModal .modal-body').html(html);
+                })
+        });
 
-                $.each(checkboxs,
-                    function () {
-                        $(this).click(function () {
-                            checkboxs.prop("checked", '');
-                            $(this).prop("checked", 'true');
-                        });
-                    });
-            });
-    }
+        function AddPatient() {
+            var visitId = $('#patientInfoModal input[name="visitId"]').val();
+            var name = $('#patientInfoModal input[name="name"]').val();
+            var birthday = $('#patientInfoModal input[name="birthday"]').val();
+            var sex = $('#patientInfoModal select[name="sex"]').val();
 
-    function BindSum() {
-        //绑定radio
-        $("#container input:checkbox").click(function () {
-            var sum = 0;
+            var school = $('#patientInfoModal input[name="school"]').val();
+            var grade = $('#patientInfoModal select[name="grade"]').val();
+            var _class = $('#patientInfoModal input[name="class"]').val();
+            var stuno = $('#patientInfoModal input[name="stuno"]').val();
 
-            if ($('span.tdsum').length > 0) {
-                var trcheckednum = 0;
-                var tr = $(this).closest('tr');
+            var type = $('#patientInfoModal input[name="ischild"]').is(':checked') ? 2 : 1;
 
-                trcheckednum = tr.find('input:checkbox:checked').length;
-                //连续减7特殊计算
-                if ($(this).attr('desc').indexOf('连续减7') > -1) {
-                    switch (trcheckednum) {
-                        case 5:
-                            trcheckednum = 3;
-                            break;
-                        case 4:
-                            trcheckednum = 3;
-                            break;
-                        case 3:
-                            trcheckednum = 1;
-                            break;
-                        case 2:
-                            trcheckednum = 1;
-                            break;
-                        case 1:
-                            trcheckednum = 0;
-                            break;
-                    }
-                }
-
-                if ($(this).attr('id') == 'checkbox_5_1' || $(this).attr('id') == 'checkbox_5_2') {
-                    if ($('#checkbox_5_1').is(':checked') && $('#checkbox_5_2').is(':checked')) {
-                        trcheckednum = 2
-                    } else if ($('#checkbox_5_1').is(':checked') || $('#checkbox_5_2').is(':checked')) {
-                        trcheckednum = 1;
-                    } else {
-                        trcheckednum = 0;
-                    }
-
-                    if ($(this).attr('id') == 'checkbox_5_2')
-                        tr = tr.prev();
-                }
-                tr.find('span.tdsum').html(trcheckednum);
-                $.each($('span.tdsum'),
-                    function () {
-                        sum += Number($(this).html());
-                    })
-            } else {
-                $.each($("#container input:checkbox:checked"),
-                    function () {
-                        //该行选中的个数
-                        sum += $(this).val() == '' ? 1 : Number($(this).val());
-                    });
+            if (visitId == '') {
+                alert('患者号不能为空！');
+                return false;
+            }
+            if (name == '') {
+                alert('患者姓名不能为空！');
+                return false;
             }
 
-            $('#container .calcsum').text(sum);
-            dataResult = sum;
-        });
-    }
+            if ($('#patientInfoModal input[name="ischild"]').is(':checked') ) {
+                if (school == '') {
+                    alert('学校不能为空！');
+                    return false;
+                }
+                if (grade == '') {
+                    alert('年级不能为空！'); return false;
+                }
+                if (_class == '') {
+                    alert('班级不能为空！'); return false;
+                }
+            }
 
-    function BindCheckboxsOfChildForm() {
-        $.each($('#container input[type="checkbox"]'),
-            function () {
-                var checkbox = $(this);
-                $(this).click(function () {
-                    var groupdiv = checkbox.closest('div[isunique="true"]');
-                    groupdiv.find('input[type="checkbox"]').prop("checked", "");
-                    checkbox.prop("checked", "checked");
+            $.post('/Settings/AddPatient',
+                {
+                    visitId: visitId,
+                    name: name,
+                    birthday: birthday,
+                    sex: sex,
+                    Type: type,
+                    Company: school,
+                    Department: grade + _class,
+                    EmployeeNo: stuno,
+                },
+                function () {
+                    alert('提交成功！');
+                    window.location.reload();
                 });
-            });
-    }
-
-    function Check() {
-        if (visitID == '') {
-            popshow();
-            return false;
         }
 
-        return true;
-    }
-
-    function CheckNeedPZB() {
-        //匹兹堡睡眠必填
-        var flag = true;
-        var r = /^\+?[1-9][0-9]*$/; //正整数
-        //1-4必填
-        if ($('#text_1_1').val() == '') {
-            alert('请填写序号1内容');
-            return false;
-        }
-        if ($('#text_1_2').val() == '') {
-            alert('请填写序号2内容');
-            return false;
-        } else if (!r.test($('#text_1_2').val())) {
-            alert('序号2内容必须为非负整数');
-            return false;
-        }
-        if ($('#text_1_3').val() == '') {
-            alert('请填写序号3内容');
-            return false;
-        }
-        if ($('#text_1_4').val() == '') {
-            alert('请填写序号4内容');
-            return false;
-        }
-        if ($('#text_1_5').val() == '') {
-            alert('请填写序号4内容');
-            return false;
+        function SwitchChildInfo(obj) {
+            if ($(obj).is(':checked')) {
+                $('.childinfo.row').show();
+            }
+            else {
+                $('.childinfo.row').hide();
+            }
         }
 
-        //对勾
-        $.each($('span[isuniq=true]'),
-            function () {
-                var itemdesc = $(this).attr("desc");
-                var itemgroup = $(this).attr("group");
-
-                if ($(this).find('input[type="checkbox"]:checked').length > 0) {
-                    return true;
-                } else {
-                    flag = false;
-                    alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
-                    return false;
-                }
-            })
-
-        return flag;
-    }
-
-    function CheckNeedSF36() {
-        var flag = true;
-        //对勾
-        $.each($('span[isuniq=true]'),
-            function () {
-                var itemdesc = $(this).attr("desc");
-                var itemgroup = $(this).attr("group");
-                var itemparent = $(this).attr("parent");
-
-                if ($('input[type="checkbox"][id^="checkbox_' + itemparent + '_"]:checked').length > 0) {
-                    return true;
-                } else {
-                    flag = false;
-                    alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
-                    return false;
-                }
-            })
-
-        return flag;
-    }
-
-    function CheckNeedJYZL() {
-        var flag = true;
-        //对勾
-        $.each($('span[isuniq=true],p[isuniq=true]'),
-            function () {
-                var itemdesc = $(this).attr("desc");
-                var itemgroup = $(this).attr("group");
-                var itemparent = $(this).attr("parent");
-
-                if ($('input[type="checkbox"][id^="checkbox_' + itemparent + '_"]:checked').length > 0) {
-                    return true;
-                } else {
-                    flag = false;
-                    alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
-                    return false;
-                }
-            })
-
-        return flag;
-    }
-
-    function popshow() {
-        $('#txt_visitId').popover('show');
-
-        setTimeout(function () {
-            $('#txt_visitId').popover('hide');
-            $('#txt_visitId').popover('destroy');
-        },
-            1000);
-    }
-
-    function search() {
-        if (!Check()) return;
-
-        $.get('Home/GetPatientInfo',
-            { visitID: visitID },
-            function (data) {
-                $('#patinfo').html(data);
-            })
-
-        $.get('/Home/SearchPatientForm/',
-            { visitId: visitID },
-            function (data) {
-                $('#div_mainlist').html(data);
-                $('#container').html('');
-                $('#btnMode').addClass('hidden')
-                $('#btnSave').addClass('hidden');
-            });
-    }
-
-    function print() {
-        $.print("#container" /*, options*/);
-    }
-
-    function edit(id) {
-        $('#hd_mainId').val(id);
-        $.get('/FormData/Edit/' + id,
-            function (data) {
-                $('#container').html(data.source);
-
-                //绑定radio
-                $.each(data.formData,
-                    function () {
-                        //绑定checkbox、redio
-                        var obj = $('#' + this.dataSign);
-
-                        if (obj.attr("id").indexOf('checkbox') > -1) {
-                            obj.prop('checked', this.attribution);
-
-                            if ($('span.tdsum').length > 0) {
-                                var trcheckednum = 0;
-                                var tr = obj.closest('tr');
-
-                                trcheckednum = tr.find('input:checkbox:checked').length;
-                                //连续减7特殊计算
-                                if (obj.attr('desc').indexOf('连续减7') > -1) {
-                                    switch (trcheckednum) {
-                                        case 5:
-                                            trcheckednum = 3;
-                                            break;
-                                        case 4:
-                                            trcheckednum = 3;
-                                            break;
-                                        case 3:
-                                            trcheckednum = 1;
-                                            break;
-                                        case 2:
-                                            trcheckednum = 1;
-                                            break;
-                                        case 1:
-                                            trcheckednum = 0;
-                                            break;
-                                    }
+        function InitSuggest() {
+            $("#txt_visitId").bsSuggest({
+                //data: dataList,
+                url: '/Home/GetPatientList',
+                showHeader: true,
+                effectiveFieldsAlias: { visitId: '患者号', name: '姓名' },
+                inputWarnColor: 'white',
+                indexKey: 1,
+                hideOnSelect: true
+            }).on('onSetSelectValue',
+                function (e, selectedData, selectedRawData) {
+                    visitID = selectedData.key;
+                }).on('onHideDropdown',
+                    function (e, data) {
+                        var flag = true; //是错误的患者号
+                        $.each(data,
+                            function () {
+                                if (this.visitId == e.target.value) {
+                                    flag = false;
+                                    return false;
                                 }
+                            })
 
-                                if (obj.attr('id') == 'checkbox_5_1' || obj.attr('id') == 'checkbox_5_2') {
-                                    if ($('#checkbox_5_1').is(':checked') && $('#checkbox_5_2').is(':checked')) {
-                                        trcheckednum = 2
-                                    } else if ($('#checkbox_5_1').is(':checked') ||
-                                        $('#checkbox_5_2').is(':checked')) {
-                                        trcheckednum = 1;
-                                    } else {
-                                        trcheckednum = 0;
-                                    }
-
-                                    if (obj.attr('id') == 'checkbox_5_2')
-                                        tr = tr.prev();
-                                }
-                                tr.find('span.tdsum').html(trcheckednum);
-                            }
-
+                        if (flag) {
+                            visitID = ''
                         } else {
-                            obj.val(this.itemValue);
+                            visitID = e.target.value;
                         }
-                        //绑定text
                     });
+        }
 
-                Bindcheckboxs();
-                BindSum();
-                $('#container .calcsum').text(data.result);
+        function DesSuggest() {
+            $("#txt_visitId").bsSuggest("destroy");
+        }
 
-                $('#btnMode').removeClass('hidden').removeClass('btn-primary').removeClass('btn-default')
-                    .addClass('btn-default')
-                    .html(
-                        '<span class="glyphicon glyphicon-eye-open"></span><span style="padding-left: 10px">预览</span>');
+        function VisitIdSelected(visitid) {
+            $.get('Home/GetPatientInfo',
+                { visitID: visitid },
+                function (data) {
+                    $('#patinfo').html(data);
+                })
+        }
+
+        function ExchangeMode(obj) {
+            if ($(obj).hasClass('btn-default')) {
+                //编辑模式
+                $(obj).removeClass('btn-default').addClass('btn-primary').html(
+                    '<span class="glyphicon glyphicon-pencil"></span><span style="padding-left: 10px">编辑</span>');
+                $('#container input,select').removeAttr('disabled');
+                $('#btnSave').removeClass('hidden');
+            } else {
+                //只读模式
+                $(obj).removeClass('btn-primary').addClass('btn-default').html(
+                    '<span class="glyphicon glyphicon-eye-open"></span><span style="padding-left: 10px">预览</span>');
+                $('#container input,select').attr('disabled', 'true');
                 $('#btnSave').addClass('hidden');
-                $('#container input,select').attr('disabled', 'true');
-            });
-    }
+            }
+        }
 
-    function save() {
-        var tableData = [];
-        var tid = $('#hd_tId').val();
-        if (tid == 7 && !CheckNeedPZB()) return;
-        if (tid == 11 && !CheckNeedSF36()) return;
-        if (tid == 9 && !CheckNeedJYZL()) return;
+        function OpenForm(id, name, type) {
+            $.get('/Settings/GetFormHtml/' + id,
+                function (data) {
+                    $('#container').html(data);
 
-        var type = $('#hd_pattype').val();
-        //绑定checkbox、text
-        $.each($('[parent]'),
-            function () {
-                var pIndex = $(this).attr('parent');
-                var pDesc = $(this).attr('desc');
-                var pGroup = $(this).attr('group');
+                    switch (type) {
+                        case 1:
+                            Bindcheckboxs(); //绑定单选
+                            BindSum(); //绑定合计
+                            break;
+                        case 2:
+                            BindCheckboxsOfChildForm();
+                            break;
+                        default: break;
+                    }
 
-                var items = type == '1' ? $('#container [id*=_' + pIndex + '_]') : $('#container [id*=' + pGroup + pIndex + '_]');
-                $.each(items,
-                    function () {
-                        var type = $(this).attr('type');
-                        var item = $(this);
-                        var itemid = item.attr('id');
-                        var itemAttribution = type === 'text' ? '' : $(this).prop('checked') ? 'checked' : '';
-                        var itemDesc = item.attr('desc');
-                        var itemValue = item.val();
-                        tableData.push({
-                            ParentIndex: pIndex,
-                            ParentDesc: pDesc,
-                            ParentGroup: pGroup,
+                    $('#FormModal').modal('hide');
+                    $('#btnSave').removeClass('hidden');
+                    $('#btnMode').addClass('hidden');
+                    $('#hd_tId').val(id);
+                    $('#hd_tName').val(name);
+                    $('#hd_mainId').val('');
+                });
+        }
 
-                            DataSign: itemid,
-                            Attribution: itemAttribution,
-                            ItemDesc: itemDesc,
-                            ItemValue: itemValue
+        function Bindcheckboxs() {
+            //所有父节点设置唯一值的子checkbox设置为互斥
+            $.each($('[isuniq="true"]'),
+                function () {
+                    var pindex = $(this).attr('parent');
+                    var checkboxs = $('#container input[id^=checkbox_' + pindex + '_]');
+
+                    $.each(checkboxs,
+                        function () {
+                            $(this).click(function () {
+                                checkboxs.prop("checked", '');
+                                $(this).prop("checked", 'true');
+                            });
                         });
+                });
+        }
+
+        function BindSum() {
+            //绑定radio
+            $("#container input:checkbox").click(function () {
+                var sum = 0;
+
+                if ($('span.tdsum').length > 0) {
+                    var trcheckednum = 0;
+                    var tr = $(this).closest('tr');
+
+                    trcheckednum = tr.find('input:checkbox:checked').length;
+                    //连续减7特殊计算
+                    if ($(this).attr('desc').indexOf('连续减7') > -1) {
+                        switch (trcheckednum) {
+                            case 5:
+                                trcheckednum = 3;
+                                break;
+                            case 4:
+                                trcheckednum = 3;
+                                break;
+                            case 3:
+                                trcheckednum = 1;
+                                break;
+                            case 2:
+                                trcheckednum = 1;
+                                break;
+                            case 1:
+                                trcheckednum = 0;
+                                break;
+                        }
+                    }
+
+                    if ($(this).attr('id') == 'checkbox_5_1' || $(this).attr('id') == 'checkbox_5_2') {
+                        if ($('#checkbox_5_1').is(':checked') && $('#checkbox_5_2').is(':checked')) {
+                            trcheckednum = 2
+                        } else if ($('#checkbox_5_1').is(':checked') || $('#checkbox_5_2').is(':checked')) {
+                            trcheckednum = 1;
+                        } else {
+                            trcheckednum = 0;
+                        }
+
+                        if ($(this).attr('id') == 'checkbox_5_2')
+                            tr = tr.prev();
+                    }
+                    tr.find('span.tdsum').html(trcheckednum);
+                    $.each($('span.tdsum'),
+                        function () {
+                            sum += Number($(this).html());
+                        })
+                } else {
+                    $.each($("#container input:checkbox:checked"),
+                        function () {
+                            //该行选中的个数
+                            sum += $(this).val() == '' ? 1 : Number($(this).val());
+                        });
+                }
+
+                $('#container .calcsum').text(sum);
+                dataResult = sum;
+            });
+        }
+
+        function BindCheckboxsOfChildForm() {
+            $.each($('#container input[type="checkbox"]'),
+                function () {
+                    var checkbox = $(this);
+                    $(this).click(function () {
+                        var groupdiv = checkbox.closest('div[isunique="true"]');
+                        groupdiv.find('input[type="checkbox"]').prop("checked", "");
+                        checkbox.prop("checked", "checked");
                     });
-            });
+                });
+        }
 
-        $.post('/FormData/SaveBindData',
-            {
-                visitID: visitID,
-                name: $('#hd_tName').val(),
-                templateId: tid,
-                key: $('#hd_mainId').val(),
-                data: JSON.stringify(tableData),
-                dataResult: dataResult
+        function Check() {
+            if (visitID == '') {
+                popshow();
+                return false;
+            }
+
+            return true;
+        }
+
+        function CheckNeedPZB() {
+            //匹兹堡睡眠必填
+            var flag = true;
+            var r = /^\+?[1-9][0-9]*$/; //正整数
+            //1-4必填
+            if ($('#text_1_1').val() == '') {
+                alert('请填写序号1内容');
+                return false;
+            }
+            if ($('#text_1_2').val() == '') {
+                alert('请填写序号2内容');
+                return false;
+            } else if (!r.test($('#text_1_2').val())) {
+                alert('序号2内容必须为非负整数');
+                return false;
+            }
+            if ($('#text_1_3').val() == '') {
+                alert('请填写序号3内容');
+                return false;
+            }
+            if ($('#text_1_4').val() == '') {
+                alert('请填写序号4内容');
+                return false;
+            }
+            if ($('#text_1_5').val() == '') {
+                alert('请填写序号4内容');
+                return false;
+            }
+
+            //对勾
+            $.each($('span[isuniq=true]'),
+                function () {
+                    var itemdesc = $(this).attr("desc");
+                    var itemgroup = $(this).attr("group");
+
+                    if ($(this).find('input[type="checkbox"]:checked').length > 0) {
+                        return true;
+                    } else {
+                        flag = false;
+                        alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
+                        return false;
+                    }
+                })
+
+            return flag;
+        }
+
+        function CheckNeedSF36() {
+            var flag = true;
+            //对勾
+            $.each($('span[isuniq=true]'),
+                function () {
+                    var itemdesc = $(this).attr("desc");
+                    var itemgroup = $(this).attr("group");
+                    var itemparent = $(this).attr("parent");
+
+                    if ($('input[type="checkbox"][id^="checkbox_' + itemparent + '_"]:checked').length > 0) {
+                        return true;
+                    } else {
+                        flag = false;
+                        alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
+                        return false;
+                    }
+                })
+
+            return flag;
+        }
+
+        function CheckNeedJYZL() {
+            var flag = true;
+            //对勾
+            $.each($('span[isuniq=true],p[isuniq=true]'),
+                function () {
+                    var itemdesc = $(this).attr("desc");
+                    var itemgroup = $(this).attr("group");
+                    var itemparent = $(this).attr("parent");
+
+                    if ($('input[type="checkbox"][id^="checkbox_' + itemparent + '_"]:checked').length > 0) {
+                        return true;
+                    } else {
+                        flag = false;
+                        alert('请选择：' + (itemgroup == '' ? '' : itemgroup + '-') + itemdesc);
+                        return false;
+                    }
+                })
+
+            return flag;
+        }
+
+        function CheckNeedChildCkbox() {
+            //IsUnique 下必须选择一项
+            var result = false;
+            var tid = $('#hd_tId').val();
+            if (!$('#ck_agreeon').is(':checked') && tid == '15') {
+                alert('请阅读同意书并选择√开始问卷');
+                return true;
+            }
+            $.each($('[isunique="true"]'), function () {
+                if (!($(this).find('input').is(':checked')) && ($($(this).attr('pElement')).length == 0 || $($(this).attr('pElement')).is(':checked'))/*有父节点并选择*/) {
+                    result = true;
+                    alert('请填完所有内容后提交');
+                    $(this).css('color', 'red');
+                }
+                $.each($(this).find('input:checked').nextAll(), function () {
+                    if ($(this).attr('type') == 'checkbox') return false;
+                    if ($(this).val() == "") {
+                        result = true;
+                        alert('请填完所有内容后提交');
+                        $(this).closest('div').css('color', 'red');
+                        return false;
+                    }
+                })
+                if (result) return false;
+            })
+
+            return result;
+        }
+
+        function checkNeddChildText() {
+            var result = false;
+            $('#A8_1,#A8_2,#A9_1,#A9_2').closest('div').css('color', '');
+            $.each($('#A8_1,#A8_2,#A9_1,#A9_2'), function () {
+                if ($(this).val() == "") {
+                    result = true;
+                    alert('请填完所有内容后提交');
+                    $(this).closest('div').css('color', 'red');
+                    return false;
+                }
+            })
+
+            $('#1_4').closest('div').css('color', '');
+            $('#1_5').closest('div').css('color', '');
+            $('#1_6,#1_7').closest('div').css('color', '');
+
+            $.each($('#1_4,#1_5,#1_6,#1_7'), function () {
+                if ($(this).val() == "") {
+                    result = true;
+                    alert('请填完所有内容后提交');
+                    $(this).closest('div').css('color', 'red');
+                    return false;
+                }
+            })
+            return result;
+        }
+
+        function popshow() {
+            $('#txt_visitId').popover('show');
+
+            setTimeout(function () {
+                $('#txt_visitId').popover('hide');
+                $('#txt_visitId').popover('destroy');
             },
-            function (data) {
-                $('#div_mainlist').html(data);
-                $('#hd_mainId').val('');
-                $('#container input,select').attr('disabled', 'true');
-                $('#btnSave,#btnMode').addClass('hidden');
-            });
+                1000);
+        }
 
-    }
+        function search() {
+            if (!Check()) return;
 
-    function del(id) {
-        var pageNum = $('#pageLimit').bootstrapPaginator("getPages").current;
-        $.post('/FormData/Del/' + id,
-            { pageNum: pageNum },
-            function (data) {
-                $('#container').html(data);
-                $('button.btn-show').removeClass('btn-show').addClass('hidden');
-            });
-    }
+            $.get('Home/GetPatientInfo',
+                { visitID: visitID },
+                function (data) {
+                    $('#patinfo').html(data);
+                })
 
-    function execform() {
+            $.get('/Home/SearchPatientForm/',
+                { visitId: visitID },
+                function (data) {
+                    $('#div_mainlist').html(data);
+                    $('#container').html('');
+                    $('#btnMode').addClass('hidden')
+                    $('#btnSave').addClass('hidden');
+                });
+        }
 
-    }
-</script>
+        function print() {
+            $.print("#container" /*, options*/);
+        }
+
+        function edit(id) {
+            $('#hd_mainId').val(id);
+            var type = $('#hd_pattype').val();
+            $.get('/FormData/Edit/' + id,
+                function (data) {
+                    $('#container').html(data.source);
+
+                    if (type == 1) {
+                        //绑定radio
+                        $.each(data.formData,
+                            function () {
+                                //绑定checkbox、redio
+                                var obj = $('#' + this.dataSign);
+
+                                if (obj.attr("id").indexOf('checkbox') > -1) {
+                                    obj.prop('checked', this.attribution);
+
+                                    if ($('span.tdsum').length > 0) {
+                                        var trcheckednum = 0;
+                                        var tr = obj.closest('tr');
+
+                                        trcheckednum = tr.find('input:checkbox:checked').length;
+                                        //连续减7特殊计算
+                                        if (obj.attr('desc').indexOf('连续减7') > -1) {
+                                            switch (trcheckednum) {
+                                                case 5:
+                                                    trcheckednum = 3;
+                                                    break;
+                                                case 4:
+                                                    trcheckednum = 3;
+                                                    break;
+                                                case 3:
+                                                    trcheckednum = 1;
+                                                    break;
+                                                case 2:
+                                                    trcheckednum = 1;
+                                                    break;
+                                                case 1:
+                                                    trcheckednum = 0;
+                                                    break;
+                                            }
+                                        }
+
+                                        if (obj.attr('id') == 'checkbox_5_1' || obj.attr('id') == 'checkbox_5_2') {
+                                            if ($('#checkbox_5_1').is(':checked') && $('#checkbox_5_2').is(':checked')) {
+                                                trcheckednum = 2
+                                            } else if ($('#checkbox_5_1').is(':checked') ||
+                                                $('#checkbox_5_2').is(':checked')) {
+                                                trcheckednum = 1;
+                                            } else {
+                                                trcheckednum = 0;
+                                            }
+
+                                            if (obj.attr('id') == 'checkbox_5_2')
+                                                tr = tr.prev();
+                                        }
+                                        tr.find('span.tdsum').html(trcheckednum);
+                                    }
+
+                                } else {
+                                    obj.val(this.itemValue);
+                                }
+                                //绑定text
+                            });
+                        Bindcheckboxs();
+                        BindSum();
+                        $('#container .calcsum').text(data.result);
+                    } else {
+                        $('#ck_agreeon').prop('checked', 'checked');
+                        $.each(data.formData, function () {
+                            var obj = $('#' + this.dataSign);
+                            if (obj.attr("type") == 'checkbox') {
+                                obj.prop('checked', this.attribution);
+                            } else {
+                                obj.val(this.itemValue);
+                            }
+                        })
+                        BindCheckboxsOfChildForm();
+                    }
+
+                    $('#btnMode').removeClass('hidden').removeClass('btn-primary').removeClass('btn-default')
+                        .addClass('btn-default')
+                        .html(
+                            '<span class="glyphicon glyphicon-eye-open"></span><span style="padding-left: 10px">预览</span>');
+                    $('#btnSave').addClass('hidden');
+                    $('#container input,select').attr('disabled', 'true');
+                });
+        }
+
+        function save() {
+            var tableData = [];
+            var tid = $('#hd_tId').val();
+            if (tid == 7 && !CheckNeedPZB()) return;
+            if (tid == 11 && !CheckNeedSF36()) return;
+            if (tid == 9 && !CheckNeedJYZL()) return;
+
+            var type = $('#hd_pattype').val();
+            if (type == '2') {
+                $('[isunique="true"]').css('color', '');
+                $('[isunique="true"] div').css('color', '');
+                if (CheckNeedChildCkbox() || checkNeddChildText())
+                    return false;
+            }
+            //绑定checkbox、text
+            $.each($('[parent]'),
+                function () {
+                    var pIndex = $(this).attr('parent');
+                    var pDesc = $(this).attr('desc');
+                    var pGroup = $(this).attr('group');
+
+                    var items = type == '1' ? $('#container [id*=_' + pIndex + '_]') : $('#container [id*=' + pGroup + pIndex + '_]');
+                    $.each(items,
+                        function () {
+                            var type = $(this).attr('type');
+                            var item = $(this);
+                            var itemid = item.attr('id');
+                            var itemAttribution = type === 'text' ? '' : $(this).prop('checked') ? 'checked' : '';
+                            var itemDesc = item.attr('desc');
+                            var itemValue = item.val();
+                            tableData.push({
+                                ParentIndex: pIndex,
+                                ParentDesc: pDesc,
+                                ParentGroup: pGroup,
+
+                                DataSign: itemid,
+                                Attribution: itemAttribution,
+                                ItemDesc: itemDesc,
+                                ItemValue: itemValue
+                            });
+                        });
+                });
+
+            $.post('/FormData/SaveBindData',
+                {
+                    visitID: visitID,
+                    name: $('#hd_tName').val(),
+                    templateId: tid,
+                    key: $('#hd_mainId').val(),
+                    data: JSON.stringify(tableData),
+                    dataResult: dataResult
+                },
+                function (data) {
+                    $('#div_mainlist').html(data);
+                    $('#hd_mainId').val('');
+                    $('#container input,select').attr('disabled', 'true');
+                    $('#btnSave,#btnMode').addClass('hidden');
+                });
+
+        }
+
+        function del(id) {
+            var pageNum = $('#pageLimit').bootstrapPaginator("getPages").current;
+            $.post('/FormData/Del/' + id,
+                { pageNum: pageNum },
+                function (data) {
+                    $('#container').html(data);
+                    $('button.btn-show').removeClass('btn-show').addClass('hidden');
+                });
+        }
+
+        function execform() {
+
+        }
+    </script>
 }

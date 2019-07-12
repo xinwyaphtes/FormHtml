@@ -15,7 +15,7 @@ namespace 问卷调查.Models
         public string TelPhoneNo { get; set; }
         public int Sex { get; set; }
         public int Age { get; set; }
-        public int Type { get; set; }
+        public Enums.Type Type { get; set; }
         public string Company { get; set; }
         public string Department { get; set; }
         public string EmployeeNo { get; set; }

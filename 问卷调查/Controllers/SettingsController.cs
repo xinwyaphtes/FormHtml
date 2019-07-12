@@ -82,20 +82,24 @@ namespace 问卷调查.Controllers
         }
 
         [HttpPost]
-        public void AddPatient(string visitId, string name, string birthday, int sex)
+        public void AddPatient(string visitId, string name, string birthday, int sex, int Type,string Company,string Department,string EmployeeNo)
         {
             var p = new Patient
             {
                 Name = name,
                 Birthday = birthday,
                 Sex = sex,
-                Type= 1,
-                VisitID = visitId
+                Type = (Enums.Type)Type,
+                VisitID = visitId,
+                Company = Company,
+                Department = Department,
+                EmployeeNo=EmployeeNo,
+                
             };
 
             using (var db = DBHelp.QueryDB())
             {
-                var singlePat = db.Queryable<Patient>().First(x=>x.VisitID== visitId);
+                var singlePat = db.Queryable<Patient>().First(x => x.VisitID == visitId);
 
                 if (singlePat != null)
                 {

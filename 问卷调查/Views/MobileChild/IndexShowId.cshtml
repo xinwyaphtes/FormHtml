@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "_MobileLayout";
+}
+<link href="~/css/dashboard.css" rel="stylesheet" />
+<style>
+    #container {
+        font-size: 18px;
+    }
+</style>
+<nav class="navbar-fixed-top navbar-inverse navbar">
+    <div class="container-fluid">
+        <div class="row" style="margin-top:15px">
+            @*<div class="col-xs-4"><span class="glyphicon glyphicon-chevron-left"></span></div>*@
+            <div class="col-xs-8">儿童问卷</div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" id="left_menu">
+    <div class="">
+        <div class="col-sm-2 sidebar">
+            <div style="margin-top: 10px" id="div_mainlist">
+                <ul>
+                    <li><a href="#" onclick="showpage(1);">基本信息</a></li>
+                    <li><a href="#" onclick="showpage(2);">PSQ睡眠问卷</a></li>
+                    <li><a href="#" onclick="showpage(3);">OSA-18睡眠问卷</a></li>
+                    <li><a href="#" onclick="showpage(4);">睡眠习惯问卷</a></li>
+                    <li><a href="#" onclick="showpage(5);">行为问卷</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <div id="container" class="" style="margin-top: 20px;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function showpage(pagenum) {
+            $.get('/MobileChild/ShowPage', { id: pagenum }, function (data) {
+                $('#container').html(data);
+
+                $.each($('#container [id],[name]'), function () {
+                    if ($(this).is('input') && this.type != "checkbox") {
+                        var id = this.id;
+                        var name = this.name
+                        $(this).val(id == '' ? name : id);
+                        this.style.textAlign = "center";
+                        this.style.color = "red";
+                    }
+                    if ($(this).is('select') | this.type == "checkbox") {
+                        var id = this.id;
+                        var name = this.name;
+                        $(this).after('<font color="red">' + (id == '' ? name : id) + '</font>');
+                    }
+                })
+            })
+
+        }
+    </script>
+}

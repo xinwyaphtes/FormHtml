@@ -1,9 +1,10 @@
 ﻿@model Patient
 
-<input type="hidden" value="@Model.Type" id="hd_pattype"/>
+<input type="hidden" value="@((int)Model.Type)" id="hd_pattype"/>
 <div class="row">
-    <div class="col-sm-4">住院号：<span name="visitId">@Model.VisitID</span></div>
-    <div class="col-sm-3">姓名：<span name="name">@Model.Name</span></div>
+    <div class="col-sm-3">住院号：<span name="visitId">@Model.VisitID</span></div>
+    <div class="col-sm-2">姓名：<span name="name">@Model.Name</span></div>
+    <div class="col-sm-2">类型：<span name="name">@Model.Type</span></div>
     <div class="col-sm-2">性别：<span name="sex">@(Model.Sex == 1 ? "男" : "女")</span></div>
     <div class="col-sm-2">年龄：<span name="age">@((DateTime.Now - (string.IsNullOrEmpty(Model.Birthday) ? DateTime.Now : DateTime.Parse(Model.Birthday))).Days / 365)</span></div>
     <div class="col-sm-12">
