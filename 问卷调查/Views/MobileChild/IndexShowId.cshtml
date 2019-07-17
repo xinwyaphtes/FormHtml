@@ -37,27 +37,88 @@
 </div>
 
 @section scripts{
-    <script>
-        function showpage(pagenum) {
-            $.get('/MobileChild/ShowPage', { id: pagenum }, function (data) {
-                $('#container').html(data);
+<script>
+    function showpage(pagenum) {
+        $.get('/MobileChild/ShowPage', { id: pagenum }, function (data) {
+            $('#container').html(data);
 
-                $.each($('#container [id],[name]'), function () {
-                    if ($(this).is('input') && this.type != "checkbox") {
-                        var id = this.id;
-                        var name = this.name
-                        $(this).val(id == '' ? name : id);
-                        this.style.textAlign = "center";
-                        this.style.color = "red";
+            $.each($('#container [id],[name]'), function () {
+                if ($(this).is('input') && this.type != "checkbox") {
+                    var id = this.id;
+                    var name = this.name
+                    $(this).val(id == '' ? name : id);
+                    this.style.textAlign = "center";
+                    this.style.color = "red";
+                }
+                if ($(this).is('select') | this.type == "checkbox") {
+                    var id = this.id;
+                    var name = this.name;
+                    $(this).after('<font color="red">' + (id == '' ? name : id) + '</font>');
+                }
+            })
+        })
+
+    }
+    var data = [];
+    function GetDimData() {
+        var contents = $('[title]');
+
+        if (contents.length > 0) {
+            $.each(contents, function () {
+                var title = $(this).attr('title');
+                $.each($(this).find('[id]'), function () {
+                    var parent = $(this).closest('[isunique="true"]');
+
+                    if (parent.length == 0) {
+                        var obj = { templatename: '儿童OSA-18睡眠问卷', templateid: '18', datasign: $(this).attr('id'), title: title, desc: title };
+                        data.push(obj);
+                    } else {
+                        var desc = parent.contents()[0].data;
+
+                        if (desc == undefined) {
+                            desc = parent.prev().innerText;
+                        }
+                        if (desc != undefined) {
+                            desc = desc.replace(/\ +/g, "").replace(/[\r\n]/g, "");
+                        } else {
+                            desc = title;
+                        }
+
+                        var obj = { TemplateName: '儿童OSA-18睡眠问卷', TemplateId: '18', DataSign: $(this).attr('id'), Title: title, Desc: desc == '' ? title : desc };
+                        data.push(obj);
                     }
-                    if ($(this).is('select') | this.type == "checkbox") {
-                        var id = this.id;
-                        var name = this.name;
-                        $(this).after('<font color="red">' + (id == '' ? name : id) + '</font>');
-                    }
+                })
+            })
+        } else {
+            $.each($('[isunique="true"]'), function () {
+                var contents = $(this).children('div')[0];
+                var title;
+                if (contents != undefined) {
+                    title = contents.innerText;
+                }
+                else {
+                    contents = $(this).contents()[0];
+                    if (contents != undefined) { title = contents.data; }
+                }
+                $.each($(this).find('[id]'), function () {
+                    var obj = { TemplateName: '儿童行为问卷', TemplateId: '21', DataSign: $(this).attr('id'), Title: title, Desc: title };
+                    data.push(obj);
                 })
             })
 
         }
-    </script>
+
+        //console.log(data);
+        //$.post('/Home/AddDic', { dataList: data });
+    }
+
+
+                            //title groupname
+                            //isunique 不存在 所有的id都对应title
+                            //isunique 存在
+                              //如果content()[0].id 为空 取content()[0]
+                              //如果content()[0].id 不为空 取isunique prev（）innertext内容
+
+                           //data[] = {templatename:,templateid:,datasign:,title:,desc}
+</script>
 }

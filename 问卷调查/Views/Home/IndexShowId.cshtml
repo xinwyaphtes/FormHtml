@@ -39,26 +39,37 @@
 </div>
 
 @section scripts{
-    <script>
-        function showpage(pagenum) {
-            $.get('/Home/ShowPage', { id: pagenum }, function (data) {
-                $('#container').html(data);
+<script>
+    function showpage(pagenum) {
+        $.get('/Home/ShowPage', { id: pagenum }, function (data) {
+            $('#container').html(data);
 
-                $.each($('#container [id],[name]'), function () {
-                    if ($(this).is('input') && this.type != "checkbox") {
-                        var id = this.id;
-                        var name = this.name
-                        $(this).val(id == '' ? name : id);
-                        this.style.textAlign = "center";
-                        this.style.color = "red";
-                    }
-                    if ($(this).is('select') | this.type == "checkbox" | this.type == "number" | this.type == "time") {
-                        var id = this.id;
-                        var name = this.name;
-                        $(this).after('<font color="red">' + (id == '' ? name : id) + '</font>');
-                    }
-                })
+            $.each($('#container [id],[name]'), function () {
+                if ($(this).is('input') && this.type != "checkbox") {
+                    var id = this.id;
+                    var name = this.name
+                    $(this).val(id == '' ? name : id);
+                    this.style.textAlign = "center";
+                    this.style.color = "red";
+                }
+                if ($(this).is('select') | this.type == "checkbox" | this.type == "number" | this.type == "time") {
+                    var id = this.id;
+                    var name = this.name;
+                    $(this).after('<font color="red">' + (id == '' ? name : id) + '</font>');
+                }
             })
-        }
-    </script>
+        })
+    }
+
+    function GetDimData() {
+        var data = [];
+
+        $.each($('[id]'), function () {
+            var obj = { TemplateName: '蒙特利尔认知评估量表', TemplateId: '12', DataSign: $(this).attr('id') };
+            data.push(obj);
+        })
+        //console.log(data);
+        $.post('/Home/AddDic', { dataList: data });
+    }
+</script>
 }

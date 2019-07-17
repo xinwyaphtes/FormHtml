@@ -32,7 +32,7 @@ namespace 问卷调查.Controllers
         public IActionResult ShowPage(int id)
         {
             switch (id)
-            { 
+            {
                 case 1: return PartialView("/Template/量表---基本信息.html");
                 case 2: return PartialView("/Template/量表---匹兹堡睡眠问卷.html");
                 case 3: return PartialView("/Template/量表---Epworth嗜睡.html");
@@ -71,7 +71,7 @@ namespace 问卷调查.Controllers
         {
             using (var db = DBHelp.QueryDB())
             {
-                var t = db.Queryable<Patient>().Where(x => x.Type != Enums.Type.孕妇).OrderBy(x => x.Type).Select(x => new { name = x.Name, visitId = x.VisitID}).ToList();
+                var t = db.Queryable<Patient>().Where(x => x.Type != Enums.Type.孕妇).OrderBy(x => x.Type).Select(x => new { name = x.Name, visitId = x.VisitID }).ToList();
 
                 return JsonConvert.SerializeObject(new { value = t });
             }
@@ -130,6 +130,15 @@ namespace 问卷调查.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public void AddDic(List<Dim_Element> dataList)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                db.Insertable(dataList).ExecuteCommand();
+            }
         }
     }
 }
