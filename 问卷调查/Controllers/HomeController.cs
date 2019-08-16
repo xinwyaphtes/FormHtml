@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SqlSugar;
@@ -13,14 +16,35 @@ namespace 问卷调查.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string username, string pwd, bool logout = false)
         {
-            //using (var db = DBHelp.QueryDB())
-            //{
-            //    var t = db.Queryable<Template>().Where(x => x.Status).ToList();
+            if (logout || string.IsNullOrEmpty(username))
+            {
+                HttpContext.Session.SetString("user", "");
+            }
+            else
+            {
+                MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+                byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(username + '-' + pwd));
+                StringBuilder sBuilder = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+                var appSettingsJson = AppSettingsJson.GetAppSettings();
+                var userpwd = appSettingsJson["userpwd"];//admin12345
 
-            //    return View(t);
-            //}
+                if (userpwd == sBuilder.ToString())
+                {
+                    HttpContext.Session.SetString("user", "admin");
+                    ViewBag.Username = "管理员";
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "用户名密码错误";
+                }
+            }
+
             return View();
         }
 

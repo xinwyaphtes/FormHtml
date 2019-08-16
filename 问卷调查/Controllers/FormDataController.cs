@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using 问卷调查.Models;
 using 问卷调查.Util;
+using Microsoft.AspNetCore.Http;
 
 namespace 问卷调查.Controllers
 {
@@ -64,7 +65,7 @@ namespace 问卷调查.Controllers
                 childInfo.VisitID = p;
                 db.Insertable(childInfo).ExecuteCommand();
 
-                string g = Guid.NewGuid().ToString("D"); 
+                string g = Guid.NewGuid().ToString("D");
                 var m = new Main
                 {
                     Guid = g,
@@ -131,6 +132,7 @@ namespace 问卷调查.Controllers
         {
             try
             {
+                var user = HttpContext.Session.GetString("user");
                 // 创建一个 StreamReader 的实例来读取文件 
                 // using 语句也能关闭 StreamReader
                 using (var db = DBHelp.QueryDB())
@@ -156,7 +158,8 @@ namespace 问卷调查.Controllers
                             {
                                 FormData = data,
                                 Source = htmlStr,
-                                Result = t.Result
+                                Result = t.Result,
+                                HasAuthority = !(user == "admin")
                             };
 
                             return new JsonResult(c);

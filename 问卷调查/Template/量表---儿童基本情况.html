@@ -1,0 +1,121 @@
+﻿<style>
+    input {
+        border-bottom: 1px solid #dbdbdb;
+        border-top: 0px;
+        border-left: 0px;
+        border-right: 0px;
+    }
+</style>
+<h3 class="text-center">知情同意书</h3><br>
+<p>尊敬的同学家长您好！</p>
+<p>&emsp;&emsp;睡眠障碍严重影响儿童健康，特别是睡眠时打鼾、憋气等所导致的睡眠效率下降及睡眠缺氧，不仅可导致儿童的生长发育迟缓，而且能够影响儿童神经认知功能的发育，从而对儿童的学习成绩等产生长期影响。</p>
+<p>&emsp;&emsp;为了早期发现儿童睡眠问题的影响，为政府部门相关卫生决策提供依据，由<strong><i>上海市教育委员会创新计划项目支持</i></strong>，上海交通大学附属第六人民医院耳鼻咽喉头颈外科（国家临床重点专科）、上海市睡眠呼吸障碍重点实验室及上海市第八人民医院体检中心共同承担，将在上海市徐汇区幼儿园及小学儿童中开展“儿童睡眠及学习行为能力的调查”</p>
+<p>&emsp;&emsp;本次调查共分为3步：①进行睡眠健康及学习、行为问题方面的问卷调查，留取无创口腔拭子样本。②根据问卷结果，选取一部分学生进行家用腕表式睡眠筛查。③对于家用腕表式睡眠筛查仍提示可能存在睡眠相关问题的同学，上海交通大学附属第六人民医院睡眠中心将提供<strong><i>免费金标准睡眠检测</i></strong>（医院内多导睡眠检测，限200名免费）。所有项目均无损伤，所有同学的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p>
+<p>（联系方式：您如果有关本项调查的任何问题，请通过电话18930170062与调查人员联系，我们将解答您的疑问。）</p><div style="color:red"><input type="checkbox" id="ck_agreeon">已阅读知情同意书，同意开始进行第一步问卷调查</div>
+<div id="div_childinfo">
+    <div style="position: relative">
+        <p></p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3><p></p>
+        <p>1.您的孩子在睡眠时是否打鼾？</p>
+        <div isunique="true">
+            <div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A">几乎从未发生过</div>
+            <div><input type="checkbox" id="A1_2">目前睡眠时有，发生年龄：<input id="A1_3" type="text" style="width:50px">岁至今</div>
+            <div><input type="checkbox" id="A1_4">曾经有，发生年龄：<input id="A1_5" type="text" style="width:50px">岁至<input id="A1_6" type="text" style="width:50px">岁</div>
+        </div>
+        <p>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</p>
+        <div isunique="true" pElement="#A1_2,#A1_4">
+            <div><input type="checkbox" id="A1_7">否</div>
+            <div><input type="checkbox" id="A1_8">是，发现憋气有<input id="A1_9" type="text" style="width:50px">年</div>
+        </div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>2.您的孩子是否有扁桃体或腺样体肥大的病史？</p>
+        <div isunique="true">
+            <div><input type="checkbox" id="A2_1" parent="2" desc="基本健康情况" group="A">只有扁桃体肥大病史 ，发现年龄：<input id="A2_2" type="text" style="width:50px"></div>
+            <div><input type="checkbox" id="A2_3">只有腺样体肥大病史，发现年龄：<input id="A2_4" type="text" style="width:50px"></div>
+            <div><input type="checkbox" id="A2_5">扁桃体及腺样体均有肥大病史，发现年龄：<input id="A2_6" type="text" style="width:50px"></div>
+            <div><input type="checkbox" id="A2_7">扁桃体及腺样体均无肥大病史</div>
+            <div><input type="checkbox" id="A2_8">不清楚</div>
+        </div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p>
+        <div isunique="true"><input type="checkbox" id="A3_1" parent="3" desc="基本健康情况" group="A">是<input type="checkbox" id="A3_2">否</div>
+        <div>-如是，治疗方法为：</div>
+        <div isunique="true" pElement="#A3_1">
+            <div><input type="checkbox" id="A3_3">药物，药物名：<input id="A3_4" type="text" style="width:100px">何时开始？<input id="A3_5" type="text" style="width:100px">治疗持续多久？<input id="A3_6" type="text" style="width:100px"></div>
+            <div><input type="checkbox" id="A3_7">矫正口腔畸形，何时开始？<input id="A3_8" type="text" style="width:100px">治疗持续多久？<input id="A3_9" type="text" style="width:100px"></div>
+            <div><input type="checkbox" id="A3_10">佩戴呼吸机，何时开始？<input id="A3_11" type="text" style="width:100px">治疗持续多久？<input id="A3_12" type="text" style="width:100px"></div>
+            <div><input type="checkbox" id="A3_13">手术，请勾选：-手术时年龄：<input id="A3_17" type="text" style="width:50px;">岁？</div>
+            <div style="position:absolute;bottom:0"><input type="checkbox" id="A3_18">其他治疗方式：<input id="A3_19" type="text" style="width:150px;">治疗时间：<input id="A3_20" type="text" style="width:50px;"></div>
+        </div>
+        <div isunique="true" pElement="#A3_13">
+            <div><input type="checkbox" id="A3_14">扁桃体切除术</div>
+            <div><input type="checkbox" id="A3_15">腺样体切除术</div>
+            <div><input type="checkbox" id="A3_16">扁桃体+腺样体切除术</div>
+        </div>
+        <br />
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>4.儿童出生史？</p>
+        <div>①是否早产？</div>
+        <div isunique="true"><input type="checkbox" id="A4_1" parent="4" desc="基本健康情况" group="A">是<input type="checkbox" id="A4_2">否</div>
+        <div>②是否低体重儿（小于1000g）？</div>
+        <div isunique="true"><input type="checkbox" id="A4_3">是<input type="checkbox" id="A4_4">否</div>
+        <div>③是否母乳喂养？</div>
+        <div isunique="true"><input type="checkbox" id="A4_5">以母乳为主<input type="checkbox" id="A4_6">以奶粉为主</div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>5.既往病史及治疗史：</p>
+        <div isunique="true">①中耳炎：<input type="checkbox" id="A7_1" parent="7" desc="基本健康情况" group="A">无<input type="checkbox" id="A7_2">有，治疗方法<input id="A7_3" type="text" style="width:80px"></div>
+        <div isunique="true">②化脓性扁桃体炎：<input type="checkbox" id="A7_10">无<input type="checkbox" id="A7_11">有，治疗方法<input id="A7_12" type="text" style="width:80px"></div>
+        <div isunique="true">鼻窦炎：<input type="checkbox" id="A7_13">无<input type="checkbox" id="A7_14">有，治疗方法<input id="A7_15" type="text" style="width:80px"></div>
+        <div isunique="true">③鼻窦炎：<input type="checkbox" id="A7_4">无<input type="checkbox" id="A7_5">有，治疗方法<input id="A7_6" type="text" style="width:80px"></div>
+        <div isunique="true">哮喘：<input type="checkbox" id="A7_7">无<input type="checkbox" id="A7_8">有，治疗方法<input id="A7_9" type="text" style="width:80px"></div>
+        <div isunique="true">④过敏性鼻炎：<input type="checkbox" id="A7_16">无<input type="checkbox" id="A7_17">有，治疗方法<input id="A7_18" type="text" style="width:80px"></div>
+        <div isunique="true">⑤哮喘 ：<input type="checkbox" id="A7_19">无<input type="checkbox" id="A7_20">有，治疗方法<input id="A7_22" type="text" style="width:80px"></div>
+        <div isunique="true">⑥急性喉炎：<input type="checkbox" id="A7_23">无<input type="checkbox" id="A7_24">有，治疗方法<input id="A7_26" type="text" style="width:80px"></div>
+        <div isunique="true">⑦血糖异常：<input type="checkbox" id="A7_27">无<input type="checkbox" id="A7_28">有，治疗方法<input id="A7_30" type="text" style="width:80px"></div>
+        <div isunique="true">⑧血脂异常：<input type="checkbox" id="A7_31">无<input type="checkbox" id="A7_32">有，治疗方法<input id="A7_34" type="text" style="width:80px"></div>
+        <div isunique="true">⑨血压异常：<input type="checkbox" id="A7_35">无<input type="checkbox" id="A7_36">有，治疗方法<input id="A7_38" type="text" style="width:80px"></div>
+        <div isunique="true">⑩心血管疾病：<input type="checkbox" id="A7_39">无<input type="checkbox" id="A7_40">有，疾病名：<input id="A7_41" type="text" style="width:80px">,治疗方法<input id="A7_42" type="text" style="width:80px"></div>
+        <div isunique="true">⑪肾脏疾病：<input type="checkbox" id="A7_43">无<input type="checkbox" id="A7_44">有，疾病名：<input id="A7_45" type="text" style="width:80px">,治疗方法<input id="A7_46" type="text" style="width:80px"></div>
+        <div isunique="true">⑫肝脏疾病：<input type="checkbox" id="A7_47">无<input type="checkbox" id="A7_48">有，疾病名：<input id="A7_49" type="text" style="width:80px">,治疗方法<input id="A7_50" type="text" style="width:80px"></div>
+        <div isunique="true">⑬神经系统疾病：<input type="checkbox" id="A7_51">无<input type="checkbox" id="A7_52">有，疾病名：<input id="A7_53" type="text" style="width:80px">,治疗方法<input id="A7_54" type="text" style="width:80px"></div>
+        <div isunique="true">⑭除血糖异常外的内分泌系统疾病：<input type="checkbox" id="A7_55">无<input type="checkbox" id="A7_56">有，疾病名：<input id="A7_57" type="text" style="width:80px">,治疗方法<input id="A7_58" type="text" style="width:80px"></div>
+        <div isunique="true">⑮除哮喘外的其他呼吸系统疾病：<input type="checkbox" id="A7_59">无<input type="checkbox" id="A7_60">有，疾病名：<input id="A7_61" type="text" style="width:80px">,治疗方法<input id="A7_62" type="text" style="width:80px"></div>
+        <div isunique="true">⑯其他特殊病史：<input type="checkbox" id="A7_63">无<input type="checkbox" id="A7_64">有，疾病名：<input id="A7_65" type="text" style="width:80px">,治疗方法<input id="A7_66" type="text" style="width:80px"></div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <div>6.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A">&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"></div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <div>7.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A">&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"></div>
+    </div>
+    <div style="position: relative" isunique="true">
+        <p></p>
+        <p>8.与儿童同住的家中是否有经常吸烟者？</p>
+        <div isunique="true"><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A">是<input type="checkbox" id="A10_2">否</div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>9.与儿童同住的家中是否有打鼾者？</p>
+        <div isunique="true"><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A">是<input type="checkbox" id="A11_2">否</div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>10.您孩子是否与父母同住？</p>
+        <div isunique="true"><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A">是<input type="checkbox" id="A12_2">否</div>
+    </div>
+    <div style="position: relative">
+        <p></p>
+        <p>11.您孩子是否有兄弟姐妹？</p>
+        <div isunique="true"><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A">是<input id="A13_2" type="text" style="width:80px">人<input type="checkbox" id="A13_3">否</div>
+    </div>
+    <p></p>
+</div>

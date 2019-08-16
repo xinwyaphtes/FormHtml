@@ -22,5 +22,10 @@ namespace 问卷调查.Models
         public string Birthday { get; set; }
         public string Description { get; set; }
         public string Description2 { get; set; }
+        public string Nation { get; set; }
+        public string Citizen { get; set; }
+        public string Marriage { get; set; }
+        public string Height { get; set; }
+        public string Weight { get; set; }
     }
 }

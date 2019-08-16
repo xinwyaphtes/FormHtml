@@ -2,6 +2,11 @@
 
 <input type="hidden" value="@((int)Model.Type)" id="hd_pattype"/>
 <div class="row">
+    <input type="hidden" name="nation" value="@Model.Nation" />
+    <input type="hidden" name="marriage" value="@Model.Marriage" />
+    <input type="hidden" name="weight" value="@Model.Weight" />
+    <input type="hidden" name="height" value="@Model.Height" />
+    <input type="hidden" name="tele" value="@Model.TelPhoneNo" />
     <div class="col-sm-3">住院号：<span name="visitId">@Model.VisitID</span></div>
     <div class="col-sm-2">姓名：<span name="name">@Model.Name</span></div>
     <div class="col-sm-2">类型：<span name="name">@Model.Type</span></div>

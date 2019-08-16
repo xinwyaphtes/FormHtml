@@ -10,7 +10,29 @@
 <div class="container-fluid" id="left_menu">
     <div class="">
         <div class="col-sm-2 sidebar">
-            <div>
+            <form action="/Home/Index">
+                @if (string.IsNullOrEmpty(ViewBag.Username))
+                {
+                <table>
+                    <tr>
+                        <td style="width:80px">用户名:</td>
+                        <td><input style="width:150px" type="text" name="username" /></td>
+                    </tr>
+                    <tr>
+                        <td>密码:</td>
+                        <td><input style="width:150px" type="password" name="pwd" /></td>
+                    </tr>
+                </table>
+                <div style="margin-top: 10px"><button type="submit" class="btn btn-sm">登陆</button><font color="red">@ViewBag.ErrorMsg</font></div>
+
+                }
+                else
+                {
+                <input type="hidden" name="logout" value="ture" />
+                <div>@ViewBag.Username<button type="submit" class="btn btn-sm">登出</button></div>
+                }
+            </form>
+            <div style="margin-top: 10px">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormModal"><span class="glyphicon glyphicon-plus"></span><span style="padding-left: 10px">执行量表</span></button>
             </div>
             <div style="margin-top: 10px" id="div_mainlist">
@@ -157,7 +179,7 @@
                 return false;
             }
 
-            if ($('#patientInfoModal input[name="ischild"]').is(':checked') ) {
+            if ($('#patientInfoModal input[name="ischild"]').is(':checked')) {
                 if (school == '') {
                     alert('学校不能为空！');
                     return false;
@@ -232,7 +254,7 @@
         }
 
         function VisitIdSelected(visitid) {
-            $.get('Home/GetPatientInfo',
+            $.get('/Home/GetPatientInfo',
                 { visitID: visitid },
                 function (data) {
                     $('#patinfo').html(data);
@@ -380,7 +402,7 @@
         }
 
         function CheckNeedPZB() {
-            //匹兹堡睡眠必填
+            ////匹兹堡睡眠必填
             var flag = true;
             var r = /^\+?[1-9][0-9]*$/; //正整数
             //1-4必填
@@ -413,6 +435,12 @@
                 function () {
                     var itemdesc = $(this).attr("desc");
                     var itemgroup = $(this).attr("group");
+                    var parent = $(this).attr("parent");
+
+                    //判断如果床伴选择无(10)
+                    if ($('#checkbox_17_1').is(':checked') && (parent == 18 || parent == 19 || parent == 20 || parent == 21 || parent == 22)) {
+                        return true;
+                    }
 
                     if ($(this).find('input[type="checkbox"]:checked').length > 0) {
                         return true;
@@ -537,7 +565,7 @@
         function search() {
             if (!Check()) return;
 
-            $.get('Home/GetPatientInfo',
+            $.get('/Home/GetPatientInfo',
                 { visitID: visitID },
                 function (data) {
                     $('#patinfo').html(data);
@@ -637,7 +665,7 @@
                         BindCheckboxsOfChildForm();
                     }
 
-                    $('#btnMode').removeClass('hidden').removeClass('btn-primary').removeClass('btn-default')
+                    $('#btnMode').removeClass('hidden').removeClass('btn-primary').removeClass('btn-default').attr('disabled', data.hasAuthority)
                         .addClass('btn-default')
                         .html(
                             '<span class="glyphicon glyphicon-eye-open"></span><span style="padding-left: 10px">预览</span>');
