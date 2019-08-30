@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using 问卷调查.Models;
 using 问卷调查.Util;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace 问卷调查.Controllers
 {
@@ -176,6 +177,41 @@ namespace 问卷调查.Controllers
                 // 向用户显示出错消息
                 //return e.Message;
                 return new JsonResult($"错误：{e}");
+            }
+        }
+
+        [HttpPost]
+        public string SyncPatient()
+        {
+            try
+            {
+                Process p = new Process();
+                //设置要启动的应用程序
+                var appSettingsJson = AppSettingsJson.GetAppSettings();
+                var processpath = appSettingsJson["syncpatientapppath"];//admin12345
+                p.StartInfo.FileName = processpath;
+                //是否使用操作系统shell启动
+                p.StartInfo.UseShellExecute = false;
+                // 接受来自调用程序的输入信息
+                p.StartInfo.RedirectStandardInput = true;
+                //输出信息
+                p.StartInfo.RedirectStandardOutput = true;
+                // 输出错误
+                p.StartInfo.RedirectStandardError = true;
+                //不显示程序窗口
+                p.StartInfo.CreateNoWindow = false;
+                //启动程序
+                p.Start();
+                p.StandardInput.AutoFlush = true;
+                //等待程序执行完退出进程
+                p.WaitForExit();
+                p.Close();
+                return "同步成功";
+            }
+            catch (Exception)
+            {
+
+                return "同步失败";
             }
         }
     }

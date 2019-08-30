@@ -156,7 +156,11 @@
                     $('#patientInfoModal .modal-body').html(html);
                 })
         });
-
+        function SyncPatient() {
+            $.post('/FormData/SyncPatient', function (r) {
+                alert(r);
+            });
+        }
         function AddPatient() {
             var visitId = $('#patientInfoModal input[name="visitId"]').val();
             var name = $('#patientInfoModal input[name="name"]').val();
