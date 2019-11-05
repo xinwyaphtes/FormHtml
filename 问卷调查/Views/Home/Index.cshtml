@@ -13,24 +13,28 @@
             <form action="/Home/Index">
                 @if (string.IsNullOrEmpty(ViewBag.Username))
                 {
-                <table>
-                    <tr>
-                        <td style="width:80px">用户名:</td>
-                        <td><input style="width:150px" type="text" name="username" /></td>
-                    </tr>
-                    <tr>
-                        <td>密码:</td>
-                        <td><input style="width:150px" type="password" name="pwd" /></td>
-                    </tr>
-                </table>
-                <div style="margin-top: 10px"><button type="submit" class="btn btn-sm">登陆</button><font color="red">@ViewBag.ErrorMsg</font></div>
+                    <table>
+                        <tr>
+                            <td style="width:80px">用户名:</td>
+                            <td><input style="width:150px" type="text" name="username" /></td>
+                        </tr>
+                        <tr>
+                            <td>密码:</td>
+                            <td><input style="width:150px" type="password" name="pwd" /></td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 10px"><button type="submit" class="btn btn-sm">登陆</button><font color="red">@ViewBag.ErrorMsg</font></div>
 
                 }
                 else
                 {
-                <input type="hidden" name="logout" value="ture" />
-                <div>@ViewBag.Username<button type="submit" class="btn btn-sm">登出</button></div>
+                    <input type="hidden" name="logout" value="ture" />
+                    <div>@ViewBag.Username<button type="submit" class="btn btn-sm">登出</button></div>
                 }
+                <div>
+                    <input type="date" id="fromdt" onchange="searchlist()" value="@(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"))" />
+                    <input type="date" id="todt" onchange="searchlist()" value="@(DateTime.Now.ToString("yyyy-MM-dd"))" />
+                </div>
             </form>
             <div style="margin-top: 10px">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormModal"><span class="glyphicon glyphicon-plus"></span><span style="padding-left: 10px">执行量表</span></button>
@@ -121,7 +125,7 @@
         //}
         $(function () {
             InitSuggest();
-
+            searchlist();
             $('#FormModal').on('show.bs.modal',
                 function () {
                     if (!Check()) {
@@ -596,6 +600,12 @@
                 function (data) {
                     $('#container').html(data.source);
 
+                    $.get('/Home/GetPatientInfo',
+                        { visitID: data.visitId },
+                        function (data) {
+                            $('#patinfo').html(data);
+                        })
+
                     if (type == 1) {
                         //绑定radio
                         $.each(data.formData,
@@ -751,6 +761,28 @@
 
         function execform() {
 
+        }
+
+        function searchlist() {
+            var from = $('#fromdt').val();
+            var to = $('#todt').val();
+
+            if (isdate(from) && isdate(to)) {
+                $.get('/Home/SearchListByDate/',
+                    { from: from, to: to },
+                    function (data) {
+                        $('#div_mainlist').html(data);
+                        $('#container').html('');
+                        $('#btnMode').addClass('hidden')
+                        $('#btnSave').addClass('hidden');
+                    });
+            }
+        }
+
+        function isdate(date) {
+            if (isNaN(date) && !isNaN(Date.parse(date))) {
+                return true;
+            } else { return false; }
         }
     </script>
 }

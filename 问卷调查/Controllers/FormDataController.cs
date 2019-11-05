@@ -8,6 +8,7 @@ using 问卷调查.Models;
 using 问卷调查.Util;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace 问卷调查.Controllers
 {
@@ -160,6 +161,7 @@ namespace 问卷调查.Controllers
                                 FormData = data,
                                 Source = htmlStr,
                                 Result = t.Result,
+                                VisitId = t.VisitID,
                                 HasAuthority = !(user == "admin")
                             };
 
@@ -213,6 +215,24 @@ namespace 问卷调查.Controllers
 
                 return "同步失败";
             }
+        }
+
+        [HttpPost]
+        public string LoadCache(string phone, string childInfo, string tableData)
+        {
+            var result = _cache.Get("tableData");
+            if (result == null || result.ToString() == "")
+            {
+                _cache.Set(phone + "_1", tableData);
+            }
+            //_cache.Remove("key");
+            return result.ToString(); ;
+        }
+
+        private IMemoryCache _cache;
+        public FormDataController(IMemoryCache memoryCache)
+        {
+            _cache = memoryCache;
         }
     }
 }

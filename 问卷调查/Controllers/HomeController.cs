@@ -112,6 +112,32 @@ namespace 问卷调查.Controllers
             }
         }
 
+        public IActionResult SearchListByDate(DateTime from, DateTime to)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                if (to.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+                    to = to.AddSeconds(24 * 3600 - 1);
+
+                List<Main> m = db.Queryable<Main, Patient>((main, pat) => new object[] { JoinType.Inner, main.VisitID == pat.VisitID }).Where(main => main.CreateDT >= from && main.CreateDT <= to).Select<Main>((main, pat) => new Main
+                {
+                    Id = main.Id,
+                    Guid = main.Guid,
+                    VisitID = pat.Name,
+                    Name = main.Name,
+                    TemplateId = main.TemplateId,
+                    CreateDT = main.CreateDT,
+                    UpdateDT = main.UpdateDT,
+                    Result = main.Result,
+                    IsDeleted = main.IsDeleted
+                }).ToList();
+
+                ViewBag.RecordsCount = m.Count;
+
+                return PartialView("MainList", m);
+            }
+        }
+
         public IActionResult HistoryForm(string cardNo, string name)
         {
             using (var db = DBHelp.QueryDB())

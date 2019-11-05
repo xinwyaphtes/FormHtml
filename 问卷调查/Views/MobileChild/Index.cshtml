@@ -65,7 +65,7 @@
                 data: [
                     {
                         html:
-                            '<h3 class= "text-center">知情同意书</h3><br/><p>&emsp;&emsp;上海市睡眠呼吸障碍疾病重点实验室正在开展一项儿童睡眠健康与认知行为能力的调查，此调查受到上海市教育委员会自然科学重大项目批准与资助，目的为探究儿童鼾症等睡眠问题对儿童注意力、记忆力、情绪、执行能力、行为能力等认知行为功能的影响，并探索可能机制。</p><p>&emsp;&emsp;该调查将持续跟踪儿童的睡眠与认知行为功能在小学5年期间的变化。第1年，我们将进行问卷普查，对儿童扁桃体肥大情况及口腔菌群进行统一体检，并招募一批志愿者免费接受睡眠监测及认知行为能力测评。之后每隔2年，我们将进行与第1年内容相同的调查，动态监测儿童睡眠健康及认知行为能力变化。</p><p>&emsp;&emsp;所有项目均无损伤，所有参与者的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p><p>（联系方式：您如果有关于本项调查的任何问题，请通过电话18930170062，也可通过微信方式与调查人员联系，微信号与手机号同号，我们将解答您的疑问）</p><div style="color:red"><input type="checkbox" id="confirm"/>已阅读知情同意书，同意开始进行问卷调查</div>',
+                            '<h3 class= "text-center">知情同意书</h3><br/><p>&emsp;&emsp;上海市睡眠呼吸障碍疾病重点实验室正在开展一项儿童睡眠健康与认知行为能力的调查，此调查受到上海市教育委员会自然科学重大项目批准与资助，目的为探究儿童鼾症等睡眠问题对儿童注意力、记忆力、情绪、执行能力、行为能力等认知行为功能的影响，并探索可能机制。</p><p>&emsp;&emsp;该调查将持续跟踪儿童的睡眠与认知行为功能在小学5年期间的变化。第1年，我们将进行问卷普查，对儿童扁桃体肥大情况及口腔菌群进行统一体检，并招募一批志愿者免费接受睡眠监测及认知行为能力测评。之后每隔2年，我们将进行与第1年内容相同的调查，动态监测儿童睡眠健康及认知行为能力变化。</p><p>&emsp;&emsp;所有项目均无损伤，所有参与者的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p><p>（联系方式：您如果有关于本项调查的任何问题，请通过电话18930170062，也可通过微信方式与调查人员联系，微信号与手机号同号，我们将解答您的疑问）</p><div style="color:red"><input type="checkbox" id="confirm"/>已阅读知情同意书，同意开始进行问卷调查</div>' + '<div style="font-weight:bold">请填写手机号<input id="number_Tel" type="number"/>(手机号将作为您问卷保存的唯一代码)</div>',
                         show: true,
                     },
                     {
@@ -101,7 +101,7 @@
                             '<div><div class="paddingleft40">a）<input type="checkbox" id="A3_6" />牙齿矫正，开始时间:<input id="A3_7" type="text" style="width:100px"/>,结束时间<input id="A3_8" type="text" style="width:100px"/></div>' +
                             '<div class="paddingleft40">b）<input type="checkbox" id="A3_9" />扩弓治疗，开始时间:<input id="A3_10" type="text" style="width:100px"/>,结束时间<input id="A3_11" type="text" style="width:100px"/></div>' +
                             '<div class="paddingleft40">c）<input type="checkbox" id="A3_12" />其他口腔矫正方法：<input id="A3_13" type="text" style="width:100px"/></div></div><br>' +
-                            '<div class="boldquestion">④<input type="checkbox" id="A3_14" />佩戴呼吸机</div>'+
+                            '<div class="boldquestion">④<input type="checkbox" id="A3_14" />佩戴呼吸机</div>' +
                             '<div class="paddingleft40">a）开始时间:<input id="A3_15" type="text" style="width:100px"/></div>' +
                             '<div class="paddingleft40">b）结束时间<input id="A3_16" type="text" style="width:100px"/></div><br>' +
                             '<div class="boldquestion">⑤<input type="checkbox" id="A3_17" />手术治疗</div>' +
@@ -109,7 +109,7 @@
                             '<div><div class="paddingleft40">a）请勾选术式:</div><div class="paddingleft40"><input type="checkbox" id="A3_18" />扁桃体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_19" />腺样体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_20" />扁桃体+腺样体切除术</div></div>' +
                             '<div class="paddingleft40">b）手术时间：<input id="A3_21" type="month" style="width:150px"/></div><br>' +
                             '<div class="boldquestion">⑥<input type="checkbox" id="A3_22" />其它方法：<input id="A3_23" type="text" style="width:100px"/></div><br>',
-                            show: false
+                        show: false
                     },
                     {
                         html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.儿童出生史？</p>' +
@@ -446,6 +446,19 @@
                             alert('请确认您以否同意知情同意书！');
                             return false;
                         }
+                        var tel = $('#number_Tel').val();
+                        if (tel == '') {
+                            alert('请填写手机号！');
+                            return false;
+                        }
+                        if (!(/^1[34578]\d{9}$/.test(tel))) {
+                            alert("手机号码有误，请重填");
+                            return false;
+                        }
+
+                        if (!loadcache(tel)) {
+                            alert('没有找到匹配的问卷内容，请填写新的问卷');
+                        };
 
                         this.btNext = '下一页';
                     }
@@ -464,6 +477,8 @@
 
                     this.pageIndex += 1;
                     scrollTo(0, 0);
+
+                    //保存数据缓存
                 },
                 prev: function () {
                     if (this.pageIndex - 1 == 0) {
@@ -592,7 +607,7 @@
                         { group: '#A7_63,#A7_64', aftersel: ['#A7_64|#A7_65,#A7_66'] },
                     ];
                     var o = needcheckckbox(objs);
-                    
+
                     if (o) {
                         flag = true;
                         alert('请完善全部内容后点击下一页');
@@ -682,6 +697,8 @@
 
                 if (!$(this).find('input').is(':checked')) {
                     o = true;
+                    $('.warningcontent').removeClass('warningcontent');
+                    $(this).parent().addClass('warningcontent');
                     return false;
                 }
             });
@@ -696,6 +713,8 @@
             $.each(input, function () {
                 if ($(this).val() == "") {
                     o = true;
+                    $('.warningcontent').removeClass('warningcontent');
+                    $(this).parent().addClass('warningcontent');
                     return false;
                 }
 
@@ -706,14 +725,14 @@
 
         function needcheckckbox(objs) {
             var o = false;
-
+            var input;
             $.each(objs,
                 function () {
+                    input = this;
                     if (!$('div[show = "true"]').find(this.group).is(':checked')) {
                         o = true;
                         return false;
                     } else {
-                        console.log(this.group);
                         $.each(this.aftersel,
                             function () {
                                 var ischeck = this.substring(0, this.indexOf('|'));
@@ -736,6 +755,13 @@
                             });
                     }
                 });
+
+
+            if (o) {
+                console.log(input);
+                $('.warningcontent').removeClass('warningcontent');
+                $(input).parent().addClass('warningcontent');
+            }
             return o;
         }
 
@@ -745,6 +771,8 @@
                 function () {
                     if ($(this).val() == '') {
                         o = $(this);
+                        $('.warningcontent').removeClass('warningcontent');
+                        $(this).parent().addClass('warningcontent');
                         return false;
                     }
                 });
@@ -754,7 +782,26 @@
         function save() {
             if (checkNeed(this.pageIndex)) return false;
 
-            var tableData = [];
+            var tableData = loaddata();
+            var childInfo = loadchildinfo();
+
+            $.post('/FormData/SaveChildData',
+                {
+                    //visitID: visitID,
+                    //name: $('#left_menu li.active a').html(),
+                    //templateId: $('#left_menu li.active a').data('tid'),
+                    //key: $('#hd_mainId').val(),
+                    childInfo: childInfo,
+                    data: JSON.stringify(tableData),
+                    //dataResult: dataResult
+                },
+                function (data) {
+                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>");
+                });
+
+        }
+
+        function loadchildinfo() {
             var childInfo = {
                 Name: $('input[name="name"]').val(),
                 Type: 2,
@@ -763,6 +810,12 @@
                 EmployeeNo: $('input[name="stdno"]').val(),
                 Birthday: $('input[name="birthday"]').val(),
             }
+
+            return childInfo;
+        }
+
+        function loaddata() {
+            var tableData = [];
 
             $.each($('[parent]'),
                 function () {
@@ -816,20 +869,16 @@
                     });
                 });
 
-            $.post('/FormData/SaveChildData',
-                {
-                    //visitID: visitID,
-                    //name: $('#left_menu li.active a').html(),
-                    //templateId: $('#left_menu li.active a').data('tid'),
-                    //key: $('#hd_mainId').val(),
-                    childInfo: childInfo,
-                    data: JSON.stringify(tableData),
-                    //dataResult: dataResult
-                },
-                function (data) {
-                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>");
-                });
+            return tableData;
+        }
 
+        function loadcache(tel) {
+            var childInfo = loadchildinfo();
+            var tableData = loaddata();
+
+            $.post('/FormData/LoadCache', { phone: tel, childInfo: JSON.stringify(childInfo), tableData: JSON.stringify(tableData) }, function (d) {
+                console.log(d);
+            })
         }
     </script>
 }

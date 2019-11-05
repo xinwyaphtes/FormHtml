@@ -1,18 +1,36 @@
 ﻿@model List<Main>
-
-<ul class="nav nav-sidebar">
-    @foreach (Main m in Model.OrderByDescending(x => x.UpdateDT))
-        {
-    <li>
-        <a href="#" onclick="edit('@m.Id')">
-            <div>
-                @m.Name
+@foreach (var item in Model.GroupBy(x => x.VisitID))
+{
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="@("#collapse"+item.Key)">
+                        @item.Key
+                    </a>
+                </h4>
             </div>
-            <div>
-                @(m.UpdateDT.Value.ToString("yyyy/MM/dd HH:mm"))
+            <div id="@("collapse"+item.Key)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav nav-sidebar">
+                        @foreach (Main m in item.OrderByDescending(x => x.UpdateDT))
+                        {
+                            <li>
+                                <a href="#" onclick="edit('@m.Id')">
+                                    <div>
+                                        @m.Name
+                                    </div>
+                                    <div>
+                                        @(m.UpdateDT.Value.ToString("yyyy/MM/dd HH:mm"))
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </a>
-    </li>
-        }
-</ul>
+        </div>
+    </div>
+}
 
