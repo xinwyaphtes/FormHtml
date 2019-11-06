@@ -18,6 +18,7 @@ namespace 问卷调查.Controllers
     {
         public IActionResult Index(string username, string pwd, bool logout = false)
         {
+            //user admin12345
             if (logout || string.IsNullOrEmpty(username))
             {
                 HttpContext.Session.SetString("user", "");

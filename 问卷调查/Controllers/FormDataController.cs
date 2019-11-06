@@ -130,6 +130,18 @@ namespace 问卷调查.Controllers
             }
         }
 
+        public void Delitem(int id)
+        {
+            using (var db = DBHelp.QueryDB())
+            {
+                var m = db.Queryable<Main>().InSingle(id);
+                if (m != null)
+                {
+                    db.Deleteable(m).ExecuteCommand();
+                }
+            }
+        }
+
         public JsonResult Edit(int id)
         {
             try

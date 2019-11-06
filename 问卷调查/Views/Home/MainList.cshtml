@@ -23,6 +23,8 @@
                                     </div>
                                     <div>
                                         @(m.UpdateDT.Value.ToString("yyyy/MM/dd HH:mm"))
+
+                                        <span class="pull-right" style="color:red" onclick="delItem('@m.Id',this)">删除</span>
                                     </div>
                                 </a>
                             </li>
