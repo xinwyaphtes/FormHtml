@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_MobileLayout";
 }
+
 <nav class="navbar-fixed-top navbar-inverse navbar">
     <div class="container-fluid">
         <div class="row" style="margin-top:15px">
@@ -27,17 +28,15 @@
     </div>
 </div>
 
-
 @section Scripts
     {
     <script>
         // checkbox：<input type="checkbox" id="1_1" parent="1"/>
         // text : <input id="1_3" type="text" style="width:50px;" />
-
         BootstrapDialog.show({
             title: '微信悬浮框设置步骤',
             message:
-                '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">填写问卷时候注意请勿点击屏幕下方返回箭头并且请设置悬浮窗，否则再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/><td><img src="/images/buyaodian.png" width="75px" /></td></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
+                '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">如不设置悬浮窗，再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
             buttons: [
                 {
                     id: 'btn-ok',
@@ -66,111 +65,109 @@
                 data: [
                     {
                         html:
-                            '<div style="color:red">亲爱的用户，如您点击知情同意书中【确认】按钮无效，请将网页滑动到底部点击【原网页】<img src="/images/yuanwangye.png" width="150px"/></div><h3 class= "text-center">知情同意书</h3><br/><p>&emsp;&emsp;上海市睡眠呼吸障碍疾病重点实验室正在开展一项儿童睡眠健康与认知行为能力的调查，此调查受到上海市教育委员会自然科学重大项目批准与资助，目的为探究儿童鼾症等睡眠问题对儿童注意力、记忆力、情绪、执行能力、行为能力等认知行为功能的影响，并探索可能机制。</p><p>&emsp;&emsp;该调查将持续跟踪儿童的睡眠与认知行为功能在小学5年期间的变化。第1年，我们将进行问卷普查，对儿童扁桃体肥大情况及口腔菌群进行统一体检，并招募一批志愿者免费接受睡眠监测及认知行为能力测评。之后每隔2年，我们将进行与第1年内容相同的调查，动态监测儿童睡眠健康及认知行为能力变化。</p><p>&emsp;&emsp;所有项目均无损伤，所有参与者的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p><p>（联系方式：您如果有关于本项调查的任何问题，请通过电话18930170062，也可通过微信方式与调查人员联系，微信号与手机号同号，我们将解答您的疑问）</p><div style="color:red"><input type="checkbox" id="confirm"/>已阅读知情同意书，同意开始进行问卷调查</div>',
+                            '<h3 class= "text-center">知情同意书</h3><br/><p>&emsp;&emsp;上海市睡眠呼吸障碍疾病重点实验室正在开展一项儿童睡眠健康与认知行为能力的调查，此调查受到上海市教育委员会自然科学重大项目批准与资助，目的为探究儿童鼾症等睡眠问题对儿童注意力、记忆力、情绪、执行能力、行为能力等认知行为功能的影响，并探索可能机制。</p><p>&emsp;&emsp;该调查将持续跟踪儿童的睡眠与认知行为功能在小学5年期间的变化。第1年，我们将进行问卷普查，对儿童扁桃体肥大情况及口腔菌群进行统一体检，并招募一批志愿者免费接受睡眠监测及认知行为能力测评。之后每隔2年，我们将进行与第1年内容相同的调查，动态监测儿童睡眠健康及认知行为能力变化。</p><p>&emsp;&emsp;所有项目均无损伤，所有参与者的信息也将严格保密。希望得到同学和家长的支持与配合，谢谢！</p><p>（联系方式：您如果有关于本项调查的任何问题，请通过电话18930170062，也可通过微信方式与调查人员联系，微信号与手机号同号，我们将解答您的疑问）</p><div style="color:red"><input type="checkbox" id="confirm"/>已阅读知情同意书，同意开始进行问卷调查</div>' + '<div style="font-weight:bold">请填写手机号<input id="number_Tel" type="number"/>(手机号将作为您问卷保存的唯一代码)</div>',
                         show: true,
                     },
                     {
                         html:
-                            /*'<p>儿童姓名：<input name="name" type="text" style="width:100px;" /></p><p>学校：<input name="school" type="text" style="width:150px;" /><p>'*/
-                            '<p>出生日期：<input name="birthday" type="date" style="width:200px;" />' +
-                            '<p>①年级：<select name="dept"><option value="">请选择...</option><option>幼儿园小班</option><option>中班</option><option>大班</option><option>小学一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级</option><option>初中六年级</option><option>七年级</option><option>八年级</option><option>九年级</option><select/></p>' +
-                            '<p>住院号：<input name="visitid" type="text" style="width:200px;" /></p>',
-                        //'<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:200px;" /></p>',
+                            '<p>儿童姓名：<input name="name" type="text" style="width:100px;" /></p><p>学校：<input name="school" type="text" style="width:150px;" /><p>' +
+                            '<p>①年级：<select name="dept"><option value="">请选择...</option><option>小班</option><option>中班</option><option>大班</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级<select/></p>' +
+                            '<p>②班级：<input name="class" type="text" style="width:100px;" /></p><p>学号（如无可不填写）：<input name="stdno" type="number" style="width:100px;" /></p><p>出生日期：<input name="birthday" type="date" style="width:200px;" /></p>',
                         show: false,
                     },
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>几乎从未发生过</div><div><input type="checkbox" id="A1_2" />目前睡眠时有，发生年龄：<input id="A1_3" type="number" style="width:50px"/>岁至今</div><div><input type="checkbox" id="A1_4" />曾经有，发生年龄：<input id="A1_5" type="number" style="width:50px"/>岁至<input id="A1_6" type="number" style="width:50px"/>岁</div></div><br><div>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</div><div><div><input type="checkbox" id="A1_7" />否</div><div><input type="checkbox" id="A1_8" />是，发现憋气有<input id="A1_9" type="number" style="width:50px"/>年</div></div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.您的孩子是否有扁桃体或腺样体肥大的病史？</p>' +
-                    //        '<div><div><input type="checkbox" id="A2_1" parent="2" desc="基本健康情况" group="A"/>只有扁桃体肥大病史 ，发现年龄：<input id="A2_2" type="number" style="width:50px"/></div>' +
-                    //        '<div><input type="checkbox" id="A2_3"/>只有腺样体肥大病史，发现年龄：<input id="A2_4" type="number" style="width:50px"/></div>' +
-                    //        '<div><input type="checkbox" id="A2_5"/>扁桃体及腺样体均有肥大病史，发现年龄：<input id="A2_6" type="number" style="width:50px"/></div>' +
-                    //        '<div><input type="checkbox" id="A2_7"/>扁桃体及腺样体均无肥大病史</div>' +
-                    //        '<div><input type="checkbox" id="A2_8"/>不清楚</div></div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p><br><div class="boldquestion">①<input type="checkbox" id="A3_1" parent="3" group="A" onclick="jumpnext();"/>未治疗过</div><br>' +
-                    //        '<div class="boldquestion">②<input type="checkbox" id="A3_2" />药物治疗</div>' +
-                    //        '<div class="paddingleft30">药物治疗方法：</div>' +
-                    //        '<div class="paddingleft40">a）药物名或种类：<input id="A3_3" type="text" style="width:100px"/></div>' +
-                    //        '<div class="paddingleft40">b）用药时间描述：<input id="A3_4" type="text" style="width:100px"/></div><br>' +
-                    //        '<div class="boldquestion">③<input type="checkbox" id="A3_5" />口腔矫正治疗</div>' +
-                    //        '<div class="paddingleft30">口腔矫正治疗方法，请勾选及填写：</div>' +
-                    //        '<div><div class="paddingleft40">a）<input type="checkbox" id="A3_6" />牙齿矫正，开始时间:<input id="A3_7" type="text" style="width:100px"/>,结束时间<input id="A3_8" type="text" style="width:100px"/></div>' +
-                    //        '<div class="paddingleft40">b）<input type="checkbox" id="A3_9" />扩弓治疗，开始时间:<input id="A3_10" type="text" style="width:100px"/>,结束时间<input id="A3_11" type="text" style="width:100px"/></div>' +
-                    //        '<div class="paddingleft40">c）<input type="checkbox" id="A3_12" />其他口腔矫正方法：<input id="A3_13" type="text" style="width:100px"/></div></div><br>' +
-                    //        '<div class="boldquestion">④<input type="checkbox" id="A3_14" />佩戴呼吸机</div>' +
-                    //        '<div class="paddingleft40">a）开始时间:<input id="A3_15" type="text" style="width:100px"/></div>' +
-                    //        '<div class="paddingleft40">b）结束时间<input id="A3_16" type="text" style="width:100px"/></div><br>' +
-                    //        '<div class="boldquestion">⑤<input type="checkbox" id="A3_17" />手术治疗</div>' +
-                    //        '<div class="paddingleft30">手术治疗方法：</div>' +
-                    //        '<div><div class="paddingleft40">a）请勾选术式:</div><div class="paddingleft40"><input type="checkbox" id="A3_18" />扁桃体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_19" />腺样体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_20" />扁桃体+腺样体切除术</div></div>' +
-                    //        '<div class="paddingleft40">b）手术时间：<input id="A3_21" type="month" style="width:150px"/></div><br>' +
-                    //        '<div class="boldquestion">⑥<input type="checkbox" id="A3_22" />其它方法：<input id="A3_23" type="text" style="width:100px"/></div><br>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.儿童出生史？</p>' +
-                    //        '<div class="boldquestion">①是否早产？</div><div><input type="checkbox" id="A4_1" parent="4" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A4_2" />否</div><br>' +
-                    //        '<div class="boldquestion">②是否低体重儿（小于1000g）？</div><div><input type="checkbox" id="A4_3" />是<input type="checkbox" id="A4_4" />否</div><br>' +
-                    //        '<div class="boldquestion">③是否母乳喂养？</div><div><input type="checkbox" id="A4_5" />以母乳为主<input type="checkbox" id="A4_6" />以奶粉为主</div><br>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.既往病史及治疗史：</p>' +
-                    //        '<div><font class="boldquestion">①中耳炎：</font><input type="checkbox" id="A7_1" parent="7" desc="基本健康情况" group="A"/>无<input type="checkbox" id="A7_2" />有，治疗方法<input id="A7_3" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">②化脓性扁桃体炎：</font><input type="checkbox" id="A7_10" />无<input type="checkbox" id="A7_11" />有，治疗方法<input id="A7_12" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">③鼻窦炎：</font><input type="checkbox" id="A7_4" />无<input type="checkbox" id="A7_5" />有，治疗方法<input id="A7_6" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">④过敏性鼻炎：</font><input type="checkbox" id="A7_16" />无<input type="checkbox" id="A7_17" />有，治疗方法<input id="A7_18" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑤哮喘 ：</font><input type="checkbox" id="A7_19" />无<input type="checkbox" id="A7_20" />有，治疗方法<input id="A7_22" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑥急性喉炎：</font><input type="checkbox" id="A7_23" />无<input type="checkbox" id="A7_24" />有，治疗方法<input id="A7_26" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑦血糖异常：</font><input type="checkbox" id="A7_27" />无<input type="checkbox" id="A7_28" />有，治疗方法<input id="A7_30" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑧血脂异常：</font><input type="checkbox" id="A7_31" />无<input type="checkbox" id="A7_32" />有，治疗方法<input id="A7_34" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑨血压异常：</font><input type="checkbox" id="A7_35" />无<input type="checkbox" id="A7_36" />有，治疗方法<input id="A7_38" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑩心血管疾病：</font><input type="checkbox" id="A7_39" />无<input type="checkbox" id="A7_40" />有，疾病名：<input id="A7_41" type="text" style="width:80px"/>,治疗方法<input id="A7_42" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑪肾脏疾病：</font><input type="checkbox" id="A7_43" />无<input type="checkbox" id="A7_44" />有，疾病名：<input id="A7_45" type="text" style="width:80px"/>,治疗方法<input id="A7_46" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑫肝脏疾病：</font><input type="checkbox" id="A7_47" />无<input type="checkbox" id="A7_48" />有，疾病名：<input id="A7_49" type="text" style="width:80px"/>,治疗方法<input id="A7_50" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑬神经系统疾病：</font><input type="checkbox" id="A7_51" />无<input type="checkbox" id="A7_52" />有，疾病名：<input id="A7_53" type="text" style="width:80px"/>,治疗方法<input id="A7_54" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑭除血糖异常外的内分泌系统疾病：</font><input type="checkbox" id="A7_55" />无<input type="checkbox" id="A7_56" />有，疾病名：<input id="A7_57" type="text" style="width:80px"/>,治疗方法<input id="A7_58" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑮除哮喘外的其他呼吸系统疾病：</font><input type="checkbox" id="A7_59" />无<input type="checkbox" id="A7_60" />有，疾病名：<input id="A7_61" type="text" style="width:80px"/>,治疗方法<input id="A7_62" type="text" style="width:80px"/></div><br>' +
-                    //        '<div><font class="boldquestion">⑯其他特殊病史：</font><input type="checkbox" id="A7_63" />无<input type="checkbox" id="A7_64" />有，疾病名：<input id="A7_65" type="text" style="width:80px"/>,治疗方法<input id="A7_66" type="text" style="width:80px"/></div><br>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>6.父亲年龄：<input id="A8_1" type="number" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<select id="A8_2"><option value="">请选择...</option><option>无</option><option>小学</option><option>初中</option><option>高中</option><option>中专</option><option>大专</option><option>本科</option><option>研究生</option></select></div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>7.母亲年龄：<input id="A9_1" type="number" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<select id="A9_2"><option value="">请选择...</option><option>无</option><option>小学</option><option>初中</option><option>高中</option><option>中专</option><option>大专</option><option>本科</option><option>研究生</option></select></div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
-                    //    show: false
-                    //},
-                    //{
-                    //    html:
-                    //        '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
-                    //    show: false
-                    //},
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项，请勿漏项）</h3></p><p>1.您的孩子在睡眠时是否打鼾？</p><div><div><input type="checkbox" id="A1_1" parent="1" desc="基本健康情况" group="A"/>几乎从未发生过</div><div><input type="checkbox" id="A1_2" />目前睡眠时有，发生年龄：<input id="A1_3" type="text" style="width:50px"/>岁至今</div><div><input type="checkbox" id="A1_4" />曾经有，发生年龄：<input id="A1_5" type="text" style="width:50px"/>岁至<input id="A1_6" type="text" style="width:50px"/>岁</div></div><br><div>-如有打鼾，您的孩子打鼾中途是否有憋气现象？</div><div><div><input type="checkbox" id="A1_7" />否</div><div><input type="checkbox" id="A1_8" />是，发现憋气有<input id="A1_9" type="text" style="width:50px"/>年</div></div>',
+                        show: false
+                    },
+                    {
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>2.您的孩子是否有扁桃体或腺样体肥大的病史？</p>' +
+                            '<div><div><input type="checkbox" id="A2_1" parent="2" desc="基本健康情况" group="A"/>只有扁桃体肥大病史 ，发现年龄：<input id="A2_2" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_3"/>只有腺样体肥大病史，发现年龄：<input id="A2_4" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_5"/>扁桃体及腺样体均有肥大病史，发现年龄：<input id="A2_6" type="text" style="width:50px"/></div>' +
+                            '<div><input type="checkbox" id="A2_7"/>扁桃体及腺样体均无肥大病史</div>' +
+                            '<div><input type="checkbox" id="A2_8"/>不清楚</div></div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>3.您的孩子既往是否治疗过打鼾或是扁桃体/腺样体肥大？</p><br><div class="boldquestion">①<input type="checkbox" id="A3_1" parent="3" group="A" onclick="jumpnext();"/>未治疗过</div><br>' +
+                            '<div class="boldquestion">②<input type="checkbox" id="A3_2" />药物治疗</div>' +
+                            '<div class="paddingleft30">药物治疗方法：</div>' +
+                            '<div class="paddingleft40">a）药物名或种类：<input id="A3_3" type="text" style="width:100px"/></div>' +
+                            '<div class="paddingleft40">b）用药时间描述：<input id="A3_4" type="text" style="width:100px"/></div><br>' +
+                            '<div class="boldquestion">③<input type="checkbox" id="A3_5" />口腔矫正治疗</div>' +
+                            '<div class="paddingleft30">口腔矫正治疗方法，请勾选及填写：</div>' +
+                            '<div><div class="paddingleft40">a）<input type="checkbox" id="A3_6" />牙齿矫正，开始时间:<input id="A3_7" type="text" style="width:100px"/>,结束时间<input id="A3_8" type="text" style="width:100px"/></div>' +
+                            '<div class="paddingleft40">b）<input type="checkbox" id="A3_9" />扩弓治疗，开始时间:<input id="A3_10" type="text" style="width:100px"/>,结束时间<input id="A3_11" type="text" style="width:100px"/></div>' +
+                            '<div class="paddingleft40">c）<input type="checkbox" id="A3_12" />其他口腔矫正方法：<input id="A3_13" type="text" style="width:100px"/></div></div><br>' +
+                            '<div class="boldquestion">④<input type="checkbox" id="A3_14" />佩戴呼吸机</div>' +
+                            '<div class="paddingleft40">a）开始时间:<input id="A3_15" type="text" style="width:100px"/></div>' +
+                            '<div class="paddingleft40">b）结束时间<input id="A3_16" type="text" style="width:100px"/></div><br>' +
+                            '<div class="boldquestion">⑤<input type="checkbox" id="A3_17" />手术治疗</div>' +
+                            '<div class="paddingleft30">手术治疗方法：</div>' +
+                            '<div><div class="paddingleft40">a）请勾选术式:</div><div class="paddingleft40"><input type="checkbox" id="A3_18" />扁桃体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_19" />腺样体切除术</div><div class="paddingleft40"><input type="checkbox" id="A3_20" />扁桃体+腺样体切除术</div></div>' +
+                            '<div class="paddingleft40">b）手术时间：<input id="A3_21" type="month" style="width:150px"/></div><br>' +
+                            '<div class="boldquestion">⑥<input type="checkbox" id="A3_22" />其它方法：<input id="A3_23" type="text" style="width:100px"/></div><br>',
+                        show: false
+                    },
+                    {
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>4.儿童出生史？</p>' +
+                            '<div class="boldquestion">①是否早产？</div><div><input type="checkbox" id="A4_1" parent="4" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A4_2" />否</div><br>' +
+                            '<div class="boldquestion">②是否低体重儿（小于1000g）？</div><div><input type="checkbox" id="A4_3" />是<input type="checkbox" id="A4_4" />否</div><br>' +
+                            '<div class="boldquestion">③是否母乳喂养？</div><div><input type="checkbox" id="A4_5" />以母乳为主<input type="checkbox" id="A4_6" />以奶粉为主</div><br>',
+                        show: false
+                    },
+                    {
+                        html: '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>5.既往病史及治疗史：</p>' +
+                            '<div><font class="boldquestion">①中耳炎：</font><input type="checkbox" id="A7_1" parent="7" desc="基本健康情况" group="A"/>无<input type="checkbox" id="A7_2" />有，治疗方法<input id="A7_3" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">②化脓性扁桃体炎：</font><input type="checkbox" id="A7_10" />无<input type="checkbox" id="A7_11" />有，治疗方法<input id="A7_12" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">③鼻窦炎：</font><input type="checkbox" id="A7_4" />无<input type="checkbox" id="A7_5" />有，治疗方法<input id="A7_6" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">④过敏性鼻炎：</font><input type="checkbox" id="A7_16" />无<input type="checkbox" id="A7_17" />有，治疗方法<input id="A7_18" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑤哮喘 ：</font><input type="checkbox" id="A7_19" />无<input type="checkbox" id="A7_20" />有，治疗方法<input id="A7_22" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑥急性喉炎：</font><input type="checkbox" id="A7_23" />无<input type="checkbox" id="A7_24" />有，治疗方法<input id="A7_26" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑦血糖异常：</font><input type="checkbox" id="A7_27" />无<input type="checkbox" id="A7_28" />有，治疗方法<input id="A7_30" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑧血脂异常：</font><input type="checkbox" id="A7_31" />无<input type="checkbox" id="A7_32" />有，治疗方法<input id="A7_34" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑨血压异常：</font><input type="checkbox" id="A7_35" />无<input type="checkbox" id="A7_36" />有，治疗方法<input id="A7_38" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑩心血管疾病：</font><input type="checkbox" id="A7_39" />无<input type="checkbox" id="A7_40" />有，疾病名：<input id="A7_41" type="text" style="width:80px"/>,治疗方法<input id="A7_42" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑪肾脏疾病：</font><input type="checkbox" id="A7_43" />无<input type="checkbox" id="A7_44" />有，疾病名：<input id="A7_45" type="text" style="width:80px"/>,治疗方法<input id="A7_46" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑫肝脏疾病：</font><input type="checkbox" id="A7_47" />无<input type="checkbox" id="A7_48" />有，疾病名：<input id="A7_49" type="text" style="width:80px"/>,治疗方法<input id="A7_50" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑬神经系统疾病：</font><input type="checkbox" id="A7_51" />无<input type="checkbox" id="A7_52" />有，疾病名：<input id="A7_53" type="text" style="width:80px"/>,治疗方法<input id="A7_54" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑭除血糖异常外的内分泌系统疾病：</font><input type="checkbox" id="A7_55" />无<input type="checkbox" id="A7_56" />有，疾病名：<input id="A7_57" type="text" style="width:80px"/>,治疗方法<input id="A7_58" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑮除哮喘外的其他呼吸系统疾病：</font><input type="checkbox" id="A7_59" />无<input type="checkbox" id="A7_60" />有，疾病名：<input id="A7_61" type="text" style="width:80px"/>,治疗方法<input id="A7_62" type="text" style="width:80px"/></div><br>' +
+                            '<div><font class="boldquestion">⑯其他特殊病史：</font><input type="checkbox" id="A7_63" />无<input type="checkbox" id="A7_64" />有，疾病名：<input id="A7_65" type="text" style="width:80px"/>,治疗方法<input id="A7_66" type="text" style="width:80px"/></div><br>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>6.父亲年龄：<input id="A8_1" type="text" style="width:80px" parent="8" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;父亲学历：<input id="A8_2" type="text" style="width:80px"/></div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p><div>7.母亲年龄：<input id="A9_1" type="text" style="width:80px" parent="9" desc="基本健康情况" group="A"/></div><div>&nbsp;&nbsp;&nbsp;母亲学历：<input id="A9_2" type="text" style="width:80px"/></div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>8.与儿童同住的家中是否有经常吸烟者？</p><div><input type="checkbox" id="A10_1" parent="10" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A10_2"/>否</div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>9.与儿童同住的家中是否有打鼾者？</p><div><input type="checkbox" id="A11_1" parent="11" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A11_2"/>否</div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>10.您孩子是否与父母同住？</p><div><input type="checkbox" id="A12_1" parent="12" desc="基本健康情况" group="A"/>是<input type="checkbox" id="A12_2"/>否</div>',
+                        show: false
+                    },
+                    {
+                        html:
+                            '<p><h3>基本健康情况（请在横线上答题，或在□内勾选表示选择此项）</h3></p><p>11.您孩子是否有兄弟姐妹？</p><div><input type="checkbox" id="A13_1" parent="13" desc="基本健康情况" group="A"/>是<input id="A13_2" type="text" style="width:80px"/>人<input type="checkbox" id="A13_3"/>否</div>',
+                        show: false
+                    },
                     {
                         html: '<p><h3>儿童PSQ睡眠问卷（在□内勾选表示选择此项）</h3></p><p>1.呼吸情况</p>' +
                             '<div class="boldquestion">①睡觉打鼾超过睡眠时间的一半<div class="normalquestion"><input type="checkbox" id="B1_1" parent="1" desc="儿童PSQ睡眠问卷" group="B"/>是<input type="checkbox" id="B1_2"/>否</div></div><br>' +
@@ -326,7 +323,7 @@
                             '<div><div class="boldquestion">36.孩子是否会夜间醒来一次？</div><div><input type="checkbox" parent="36" desc="儿童睡眠习惯问卷" group="D" id="D36_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D36_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D36_3"/>偶尔或无（0-1次/周）</div></div><br>' +
                             '<div><div class="boldquestion">37.孩子是否会夜间醒来一次以上？</div><div><input type="checkbox" parent="37" desc="儿童睡眠习惯问卷" group="D" id="D37_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D37_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D37_3"/>偶尔或无（0-1次/周）</div></div><br>' +
                             '<div><div class="boldquestion">38.孩子夜间醒来再次入睡是否需要帮助？</div><div><input type="checkbox" parent="38" desc="儿童睡眠习惯问卷" group="D" id="D38_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D38_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D38_3"/>偶尔或无（0-1次/周）</div></div><br>' +
-                            '<div><div class="boldquestion">39.孩子每次夜醒持续时间通常为：</div><div><input type="number" parent="39" desc="儿童睡眠习惯问卷" group="D" id="D39_1" style="width:80px"/>小时<input type="number" id="D39_2" style="width:80px"/>分钟</div></div><br>' +
+                            '<div><div class="boldquestion">39.孩子每次夜醒持续时间通常为：</div><div><input type="text" parent="39" desc="儿童睡眠习惯问卷" group="D" id="D39_1" style="width:80px"/>小时<input type="text" id="D39_2" style="width:80px"/>分钟</div></div><br>' +
                             '<div><div class="boldquestion">40.孩子早晨是否可自己醒来？</div><div><input type="checkbox" parent="40" desc="儿童睡眠习惯问卷" group="D" id="D40_1"/>经常（5-7次/周）</div><div><input type="checkbox" id="D40_2"/>有时(2-4次/周) </div><div><input type="checkbox" id="D40_3"/>偶尔或无（0-1次/周）</div></div><br>',
                         show: false
                     },
@@ -351,7 +348,7 @@
                     {
                         html: '<p><h3>儿童睡眠习惯问卷（以下问题由孩子父母或代养人等熟悉孩子睡眠习惯者填写，根据每项问题出现的频率，请在相应的选项打钩，或在横线上填写答案）</h3></p>' +
                             '<div>您孩子通常一天睡觉时间（包括晚上和白天的总睡眠）</div>' +
-                            '<div>平时：<input type="number" id="1_6" style="width:50px" desc="addtion" group="D"/>小时，周末：<input type="number" id="1_7" style="width:50px" desc="addtion" group="D"/>小时</div>',
+                            '<div>平时：<input type="text" id="1_6" style="width:50px" desc="addtion" group="D"/>小时，周末：<input type="text" id="1_7" style="width:50px" desc="addtion" group="D"/>小时</div>',
                         show: false
                     },
                     {
@@ -449,6 +446,19 @@
                             alert('请确认您以否同意知情同意书！');
                             return false;
                         }
+                        var tel = $('#number_Tel').val();
+                        if (tel == '') {
+                            alert('请填写手机号！');
+                            return false;
+                        }
+                        if (!(/^1[34578]\d{9}$/.test(tel))) {
+                            alert("手机号码有误，请重填");
+                            return false;
+                        }
+
+                        if (!loadcache(tel)) {
+                            alert('没有找到匹配的问卷内容，请填写新的问卷');
+                        };
 
                         this.btNext = '下一页';
                     }
@@ -467,6 +477,8 @@
 
                     this.pageIndex += 1;
                     scrollTo(0, 0);
+
+                    //保存数据缓存
                 },
                 prev: function () {
                     if (this.pageIndex - 1 == 0) {
@@ -513,7 +525,7 @@
             var flag = false;
             switch (index) {
                 case 1:
-                    var obj = $('div[show="true"]').find('input,select');
+                    var obj = $('div[show="true"]').find('input,select').not('[name="stdno"]');
                     var o = needchecktext(obj);
 
                     if (o) {
@@ -522,32 +534,32 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
-                //case 2:
-                //    //选项多选一,选中后，有后续内容必填
+                case 2:
+                    //选项多选一,选中后，有后续内容必填
 
-                //    var objs = [
-                //        { group: '#A1_1,#A1_2,#A1_4', aftersel: ['#A1_2|#A1_3', '#A1_4|#A1_5,#A1_6'] },
-                //        { group: '#A1_7,#A1_8', aftersel: ['#A1_8|#A1_9'] }
-                //    ];
+                    var objs = [
+                        { group: '#A1_1,#A1_2,#A1_4', aftersel: ['#A1_2|#A1_3', '#A1_4|#A1_5,#A1_6'] },
+                        { group: '#A1_7,#A1_8', aftersel: ['#A1_8|#A1_9'] }
+                    ];
 
-                //    var o = needcheckckbox(objs);
+                    var o = needcheckckbox(objs);
 
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 3:
-                //    var objs = [
-                //        { group: '#A2_1,#A2_3,#A2_5,#A2_7,#A2_8', aftersel: ['#A2_1|#A2_2', '#A2_3|#A2_4', '#A2_5|#A2_6'] }
-                //    ]
-                //    var o = needcheckckbox(objs);
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 3:
+                    var objs = [
+                        { group: '#A2_1,#A2_3,#A2_5,#A2_7,#A2_8', aftersel: ['#A2_1|#A2_2', '#A2_3|#A2_4', '#A2_5|#A2_6'] }
+                    ]
+                    var o = needcheckckbox(objs);
 
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
                 //case 4:
                 //    var objs = [
                 //        {
@@ -566,70 +578,50 @@
                 //        alert('请完善全部内容后点击下一页');
                 //    }
                 //    break;
-                //case 5:
-                //    var objs = [{ group: '#A4_1,#A4_2' }, { group: '#A4_3,#A4_4' }, { group: '#A4_5,#A4_6' }];
-                //    var o = needcheckckbox(objs);
+                case 5:
+                    var objs = [{ group: '#A4_1,#A4_2' }, { group: '#A4_3,#A4_4' }, { group: '#A4_5,#A4_6' }];
+                    var o = needcheckckbox(objs);
 
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 6:
-                //    var objs = [
-                //        { group: '#A7_1,#A7_2', aftersel: ['#A7_2|#A7_3'] },
-                //        { group: '#A7_10,#A7_11', aftersel: ['#A7_11|#A7_12'] },
-                //        { group: '#A7_4,#A7_5', aftersel: ['#A7_5|#A7_6'] },
-                //        { group: '#A7_16,#A7_17', aftersel: ['#A7_17|#A7_18'] },
-                //        { group: '#A7_19,#A7_20', aftersel: ['#A7_20|#A7_22'] },
-                //        { group: '#A7_23,#A7_24', aftersel: ['#A7_24|#A7_26'] },
-                //        { group: '#A7_27,#A7_28', aftersel: ['#A7_28|#A7_30'] },
-                //        { group: '#A7_31,#A7_32', aftersel: ['#A7_32|#A7_34'] },
-                //        { group: '#A7_35,#A7_36', aftersel: ['#A7_36|#A7_38'] },
-                //        { group: '#A7_39,#A7_40', aftersel: ['#A7_40|#A7_41,#A7_42'] },
-                //        { group: '#A7_43,#A7_44', aftersel: ['#A7_44|#A7_45,#A7_46'] },
-                //        { group: '#A7_47,#A7_48', aftersel: ['#A7_48|#A7_49,#A7_50'] },
-                //        { group: '#A7_51,#A7_52', aftersel: ['#A7_52|#A7_53,#A7_54'] },
-                //        { group: '#A7_55,#A7_56', aftersel: ['#A7_56|#A7_57,#A7_58'] },
-                //        { group: '#A7_59,#A7_60', aftersel: ['#A7_60|#A7_61,#A7_62'] },
-                //        { group: '#A7_63,#A7_64', aftersel: ['#A7_64|#A7_65,#A7_66'] },
-                //    ];
-                //    var o = needcheckckbox(objs);
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 6:
+                    var objs = [
+                        { group: '#A7_1,#A7_2', aftersel: ['#A7_2|#A7_3'] },
+                        { group: '#A7_10,#A7_11', aftersel: ['#A7_11|#A7_12'] },
+                        { group: '#A7_4,#A7_5', aftersel: ['#A7_5|#A7_6'] },
+                        { group: '#A7_16,#A7_17', aftersel: ['#A7_17|#A7_18'] },
+                        { group: '#A7_19,#A7_20', aftersel: ['#A7_20|#A7_22'] },
+                        { group: '#A7_23,#A7_24', aftersel: ['#A7_24|#A7_26'] },
+                        { group: '#A7_27,#A7_28', aftersel: ['#A7_28|#A7_30'] },
+                        { group: '#A7_31,#A7_32', aftersel: ['#A7_32|#A7_34'] },
+                        { group: '#A7_35,#A7_36', aftersel: ['#A7_36|#A7_38'] },
+                        { group: '#A7_39,#A7_40', aftersel: ['#A7_40|#A7_41,#A7_42'] },
+                        { group: '#A7_43,#A7_44', aftersel: ['#A7_44|#A7_45,#A7_46'] },
+                        { group: '#A7_47,#A7_48', aftersel: ['#A7_48|#A7_49,#A7_50'] },
+                        { group: '#A7_51,#A7_52', aftersel: ['#A7_52|#A7_53,#A7_54'] },
+                        { group: '#A7_55,#A7_56', aftersel: ['#A7_56|#A7_57,#A7_58'] },
+                        { group: '#A7_59,#A7_60', aftersel: ['#A7_60|#A7_61,#A7_62'] },
+                        { group: '#A7_63,#A7_64', aftersel: ['#A7_64|#A7_65,#A7_66'] },
+                    ];
+                    var o = needcheckckbox(objs);
 
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 7: case 8:
-                //    var o = needcheckalltext();
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 7: case 8:
+                    var o = needcheckalltext();
 
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 9: case 10: case 11:
-                //    var o = needcheckallckbox();
-
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 12:
-                //    var objs = [{ group: '#A13_1,#A13_3', aftersel: ['#A13_1|#A13_2'] }];
-                //    var o = needcheckckbox(objs);
-
-                //    if (o) {
-                //        flag = true;
-                //        alert('请完善全部内容后点击下一页');
-                //    }
-                //    break;
-                //case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21:
-                //case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 31: case 32:
-                //case 34: case 35: case 36: case 37: case 38: case 39: case 40:
-                case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 20: case 21: case 23: case 24: case 25: case 26: case 27: case 28: case 29:
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 9: case 10: case 11:
                     var o = needcheckallckbox();
 
                     if (o) {
@@ -637,7 +629,26 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
-                case 11:
+                case 12:
+                    var objs = [{ group: '#A13_1,#A13_3', aftersel: ['#A13_1|#A13_2'] }];
+                    var o = needcheckckbox(objs);
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21:
+                case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 31: case 32:
+                case 34: case 35: case 36: case 37: case 38: case 39: case 40:
+                    var o = needcheckallckbox();
+
+                    if (o) {
+                        flag = true;
+                        alert('请完善全部内容后点击下一页');
+                    }
+                    break;
+                case 22:
                     var objs = [{ group: '#1_1,#1_2,#1_3', aftersel: ['#1_1,#1_2,#1_3|#1_4,#1_5'] }];
                     var o = needcheckckbox(objs);
 
@@ -646,7 +657,7 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
-                case 19:
+                case 30:
                     var objs = [{ group: '#D36_1,#D36_2,#D36_3' },
                     { group: '#D37_1,#D37_2,#D37_3', aftersel: ['#D37_1,#D37_2|#D39_1,#D39_2'] },
                     { group: '#D38_1,#D38_2,#D38_3', aftersel: ['#D38_1,#D38_2|#D39_1,#D39_2'] },
@@ -659,7 +670,7 @@
                         alert('请完善全部内容后点击下一页');
                     }
                     break;
-                case 22:
+                case 33:
                     var obj = $('div[show="true"]').find('input');
                     var o = needchecktext(obj);
 
@@ -686,6 +697,8 @@
 
                 if (!$(this).find('input').is(':checked')) {
                     o = true;
+                    $('.warningcontent').removeClass('warningcontent');
+                    $(this).parent().addClass('warningcontent');
                     return false;
                 }
             });
@@ -694,12 +707,14 @@
         }
 
         function needcheckalltext(exce) {
-            var input = $('div[show="true"]').find('input,select');
+            var input = $('div[show="true"] input');
             var o = false;
 
             $.each(input, function () {
                 if ($(this).val() == "") {
                     o = true;
+                    $('.warningcontent').removeClass('warningcontent');
+                    $(this).parent().addClass('warningcontent');
                     return false;
                 }
 
@@ -710,14 +725,14 @@
 
         function needcheckckbox(objs) {
             var o = false;
-
+            var input;
             $.each(objs,
                 function () {
+                    input = this;
                     if (!$('div[show = "true"]').find(this.group).is(':checked')) {
                         o = true;
                         return false;
                     } else {
-                        console.log(this.group);
                         $.each(this.aftersel,
                             function () {
                                 var ischeck = this.substring(0, this.indexOf('|'));
@@ -740,6 +755,13 @@
                             });
                     }
                 });
+
+
+            if (o) {
+                console.log(input);
+                $('.warningcontent').removeClass('warningcontent');
+                $(input).parent().addClass('warningcontent');
+            }
             return o;
         }
 
@@ -749,6 +771,8 @@
                 function () {
                     if ($(this).val() == '') {
                         o = $(this);
+                        $('.warningcontent').removeClass('warningcontent');
+                        $(this).parent().addClass('warningcontent');
                         return false;
                     }
                 });
@@ -758,15 +782,40 @@
         function save() {
             if (checkNeed(this.pageIndex)) return false;
 
-            var tableData = [];
+            var tableData = loaddata();
+            var childInfo = loadchildinfo();
+
+            $.post('/FormData/SaveChildData',
+                {
+                    //visitID: visitID,
+                    //name: $('#left_menu li.active a').html(),
+                    //templateId: $('#left_menu li.active a').data('tid'),
+                    //key: $('#hd_mainId').val(),
+                    childInfo: childInfo,
+                    data: JSON.stringify(tableData),
+                    //dataResult: dataResult
+                },
+                function (data) {
+                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>");
+                });
+
+        }
+
+        function loadchildinfo() {
             var childInfo = {
-                Name: 'child',//$('input[name="name"]').val(),
+                Name: $('input[name="name"]').val(),
                 Type: 2,
-                //Company: $('input[name="school"]').val(),
-                Department: $('select[name="dept"]').val(),
-                VisitID: $('input[name="visitid"]').val(),
-                Birthday: $('input[name="birthday"]').val()
+                Company: $('input[name="school"]').val(),
+                Department: $('select[name="dept"]').val() + $('input[name="class"]').val(),
+                EmployeeNo: $('input[name="stdno"]').val(),
+                Birthday: $('input[name="birthday"]').val(),
             }
+
+            return childInfo;
+        }
+
+        function loaddata() {
+            var tableData = [];
 
             $.each($('[parent]'),
                 function () {
@@ -820,20 +869,16 @@
                     });
                 });
 
-            $.post('/FormData/SaveChildData',
-                {
-                    //visitID: visitID,
-                    //name: $('#left_menu li.active a').html(),
-                    //templateId: $('#left_menu li.active a').data('tid'),
-                    //key: $('#hd_mainId').val(),
-                    childInfo: childInfo,
-                    data: JSON.stringify(tableData),
-                    //dataResult: dataResult
-                },
-                function (data) {
-                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>");
-                });
+            return tableData;
+        }
 
+        function loadcache(tel) {
+            var childInfo = loadchildinfo();
+            var tableData = loaddata();
+
+            $.post('/FormData/LoadCache', { phone: tel, childInfo: JSON.stringify(childInfo), tableData: JSON.stringify(tableData) }, function (d) {
+                console.log(d);
+            })
         }
     </script>
 }
