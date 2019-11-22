@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "_MobileLayout";
+}
+<nav class="navbar-fixed-top navbar-inverse navbar">
+    <div class="container-fluid">
+        <div class="row">
+            <div style="text-align:center"><h1>预约（Booking）</h1></div>
+        </div>
+    </div>
+</nav>
+
+<div id="content" style="text-align:center;margin-top:100px"></div>
+
+<link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+
+<style>
+    #content .layui-laydate-main {
+        width: 400px;
+    }
+
+    #content .layui-laydate-content td, #content .layui-laydate-content th {
+        width: 77px;
+        height: 40px;
+    }
+</style>
+
+@section Scripts
+    {
+    <script src="~/lib/laydate/laydate.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            laydate.render({
+                elem: '#content'
+                , position: 'static'
+                , theme: 'grid'
+                , btns: false
+                , done: function (value) {
+                    dlgBookingInfo(value);
+                }
+            });
+
+            loadCount();
+        })
+
+        function vilidInput() {
+            $('form').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    Name: {
+                        validators: {
+                            notEmpty: {
+                                message: '用户名不能为空'
+                            }
+                        }
+                    },
+                }
+            });
+        }
+
+        function loadCount() {
+            $.get('/Reservation/GetCount', function (data) {
+                console.log(data);
+                $.each($('.layui-laydate-content table td'), function () {
+                    var date = $(this).attr('lay-ymd');
+                    var count = 8;
+                    if (data[date] != undefined)
+                        count = 8 - data[date];
+                    if ($(this).find('div').length > 0)
+                        this.removeChild($(this).find('div')[0]);
+                    $(this).append('<div style="color:' + (count == 0 ? 'red' : 'blue') + '">' + '余：' + count + '</div>');
+                });
+            })
+        }
+        function submitInfo() {
+            var data = $('#div_patinfo form').serialize();
+            console.log(data);
+            $.post('/Reservation/SaveInfo', data, function (result) {
+                var msg;
+                if (result.code == "1") {
+                    msg = "<h3>预约成功！请点击下面链接观看视频。</h3><h4><a href='http://www.baidu.com'>视频地址</a></h4>";
+                } else {
+                    msg = result.message;
+                };
+
+                $('#div_patinfo').html('<h3>' + msg + '</h3>')
+            })
+        }
+
+        function dlgBookingInfo(time) {
+            BootstrapDialog.show({
+                title: '预约信息',
+                message:
+                    '<div id="div_patinfo"><form><input type="hidden" name="ReservationDT" value="'+time+'"><table class="table table-bordered"><tr><td>学校(School)：</td><td><input name="School" class="form-control" placeholder="School..."/></td></tr><tr><td>姓名(Name)：</td><td><input name="Name" class="form-control" placeholder="Name..."/></td></tr><tr><td>身份证号(IDCard)：</td><td><input name="IDCard" class="form-control" placeholder="IDCard..."/></td></tr><tr><td>手机号/学生家长（Telephone）：</td><td><input name="Telephone" class="form-control" placeholder="Telephone..."/></td></tr></table><button type="button" onclick="submitInfo()" class="btn btn-primary">提交</button></form></div>',
+                buttons: [
+                    {
+                        id: 'btn-ok',
+                        icon: 'glyphicon glyphicon-remove',
+                        label: '关闭',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                            loadCount();
+                        }
+                    }
+                ]
+            });
+            //vilidInput();
+        }
+    </script>
+}

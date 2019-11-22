@@ -16,7 +16,10 @@ namespace 问卷调查.Controllers
         {
             return View();
         }
-
+        public IActionResult Entry()
+        {
+            return View();
+        }
         public IActionResult ShowPage(int id)
         {
             switch (id)
