@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using 问卷调查.Models;
 using 问卷调查.Util;
@@ -10,9 +11,72 @@ namespace 问卷调查.Controllers
 {
     public class ReservationController : Controller
     {
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public ReservationController(IHttpContextAccessor httpContextAccessor)
+        {
+            this.httpContextAccessor = httpContextAccessor;
+        }
+
         public IActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult GetValidationCode()
+        {
+            string ip = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            string source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            string code = source.GenerateValidationCode(4);
+
+            using (var db = DBHelp.QueryDB())
+            {
+                var validation = new ValidationCode
+                {
+                    IP = ip,
+                    Code = code,
+                    CreateDT = DateTime.Now,
+                    Description = "验证码",
+                    Status = 0,
+                    EscapeTime = 60
+                };
+
+                db.Saveable(validation).ExecuteCommand();
+            }
+
+            return new JsonResult(new { value = code });
+        }
+
+        public JsonResult VerifyValidationCode(string code)
+        {
+            string ip = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            string result = null;
+
+            using (var db = DBHelp.QueryDB())
+            {
+                var validation = new ValidationCode
+                {
+                    IP = ip,
+                    Code = code,
+                    CreateDT = DateTime.Now,
+                    Description = "验证码",
+                    Status = 0,
+                    EscapeTime = 60
+                };
+
+                var temp = db.Queryable<ValidationCode>().Where(x => x.IP == ip && x.Status == 0 && x.Code == code);
+
+                if (temp.Any())
+                {
+                    result = "SUCCESS";
+                }
+                else
+                {
+                    result = "FALSE";
+                }
+                temp.Context.Deleteable<ValidationCode>().ExecuteCommand();
+            }
+
+            return new JsonResult(new { msg = result });
         }
 
         public JsonResult SaveInfo(ReservationInfo info)

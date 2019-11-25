@@ -11,6 +11,18 @@
 
 <div id="content" style="text-align:center;margin-top:100px"></div>
 
+<div class="modal fade" id="div_patinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">信息填写</h4>
+            </div>
+            <div class="modal-body"><form><input type="hidden" name="ReservationDT" value=""><table class="table table-bordered"><tr><td>学校(School)：</td><td><input name="School" class="form-control" placeholder="School..." /></td></tr><tr><td>姓名(Name)：</td><td><input name="Name" class="form-control" placeholder="Name..." /></td></tr><tr><td>身份证号(IDCard)：</td><td><input name="IDCard" class="form-control" placeholder="IDCard..." /></td></tr><tr><td>手机号/学生家长（Telephone）：</td><td><input name="Telephone" class="form-control" placeholder="Telephone..." /></td></tr><tr><td><label>验证码（Validation）</label><a href="#" onclick="refreshCode()" id="href_code"></a></td><td><input class="form-control" name="ValidationCode" placeholder="Validation" type="text"></td></tr></table><button type="button" onclick="submitInfo()" class="btn btn-primary">提交</button><div id="checkmsg" style="color:red"></div></form></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
 
 <style>
@@ -35,13 +47,25 @@
                 elem: '#content'
                 , position: 'static'
                 , theme: 'grid'
+                , min: '@(DateTime.Now.ToString("yyyy-MM-dd"))'
+                , max:'@(DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd"))'
                 , btns: false
+                , change: function () {
+                     loadCount();
+                }
                 , done: function (value) {
                     dlgBookingInfo(value);
                 }
             });
 
             loadCount();
+
+            $('#div_patinfo').on('shown.bs.modal', function () {
+                refreshCode();
+            })
+            $('#div_patinfo').on('hidden.bs.modal', function () {
+               loadCount();
+            })
         })
 
         function vilidInput() {
@@ -67,7 +91,7 @@
         function loadCount() {
             $.get('/Reservation/GetCount', function (data) {
                 console.log(data);
-                $.each($('.layui-laydate-content table td'), function () {
+                $.each($('.layui-laydate-content table td').not('.laydate-disabled'), function () {
                     var date = $(this).attr('lay-ymd');
                     var count = 8;
                     if (data[date] != undefined)
@@ -81,37 +105,54 @@
         function submitInfo() {
             var data = $('#div_patinfo form').serialize();
             console.log(data);
-            $.post('/Reservation/SaveInfo', data, function (result) {
-                var msg;
-                if (result.code == "1") {
-                    msg = "<h3>预约成功！请点击下面链接观看视频。</h3><h4><a href='http://www.baidu.com'>视频地址</a></h4>";
-                } else {
-                    msg = result.message;
-                };
 
-                $('#div_patinfo').html('<h3>' + msg + '</h3>')
+            var checkmsg = check();
+            if (checkmsg == "") {
+                $.post('/Reservation/SaveInfo', data, function (result) {
+                    var msg;
+                    if (result.code == "1") {
+                        msg = "<h3>预约成功！请点击下面链接观看视频。</h3><h4><a href='http://www.baidu.com'>视频地址</a></h4>";
+                    } else {
+                        msg = result.message;
+                    };
+                    $('#div_patinfo').modal('hide');
+                    $('#content').html('<h3>' + msg + '</h3>')
+                })
+            } else {
+                $('#checkmsg').html(checkmsg);
+            }
+        }
+
+        function refreshCode() {
+            $.get('/Reservation/GetValidationCode', function (data) {
+                $('#href_code').text(data.value);
             })
         }
 
-        function dlgBookingInfo(time) {
-            BootstrapDialog.show({
-                title: '预约信息',
-                message:
-                    '<div id="div_patinfo"><form><input type="hidden" name="ReservationDT" value="'+time+'"><table class="table table-bordered"><tr><td>学校(School)：</td><td><input name="School" class="form-control" placeholder="School..."/></td></tr><tr><td>姓名(Name)：</td><td><input name="Name" class="form-control" placeholder="Name..."/></td></tr><tr><td>身份证号(IDCard)：</td><td><input name="IDCard" class="form-control" placeholder="IDCard..."/></td></tr><tr><td>手机号/学生家长（Telephone）：</td><td><input name="Telephone" class="form-control" placeholder="Telephone..."/></td></tr></table><button type="button" onclick="submitInfo()" class="btn btn-primary">提交</button></form></div>',
-                buttons: [
-                    {
-                        id: 'btn-ok',
-                        icon: 'glyphicon glyphicon-remove',
-                        label: '关闭',
-                        cssClass: 'btn-primary',
-                        autospin: false,
-                        action: function (dialogRef) {
-                            dialogRef.close();
-                            loadCount();
-                        }
+        function check() {
+            var code = $('input[name="ValidationCode"]').val();
+            var result = "";
+
+            $.ajax({
+                type : 'get',
+                async : false,
+                url : '/Reservation/VerifyValidationCode',
+                cache : false,
+                data : {code:code},
+                success: function (data) {
+                    if (data.msg !== "SUCCESS") {
+                        result = "验证码错误。";
+                        refreshCode();
                     }
-                ]
+                }
             });
+
+            return result;
+        }
+
+        function dlgBookingInfo(time) {
+            $('#div_patinfo').modal('show');
+            $('input[name="ReservationDT"]').val(time);
             //vilidInput();
         }
     </script>
