@@ -1,0 +1,18 @@
+﻿@model object
+@{
+    ViewData["Title"] = "BookingResult";
+    Layout = "~/Views/Shared/_MobileLayout.cshtml";
+    var code = Model.GetType().GetProperty("code").GetValue(Model);
+    var msg = Model.GetType().GetProperty("message").GetValue(Model);
+}
+<div style="text-align:center">
+    @if (code.ToString() == "1")
+    {
+        <h3>预约成功！请点击下面链接观看视频。</h3>
+        <h4><a href='http://www.baidu.com'>视频地址</a></h4>
+    }
+    else
+    {
+        <h3>@msg</h3>
+    }
+</div>

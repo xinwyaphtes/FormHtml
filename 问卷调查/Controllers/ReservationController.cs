@@ -68,18 +68,20 @@ namespace 问卷调查.Controllers
                 if (temp.Any())
                 {
                     result = "SUCCESS";
+                    temp.Context.Deleteable<ValidationCode>().ExecuteCommand();
                 }
                 else
                 {
                     result = "FALSE";
                 }
-                temp.Context.Deleteable<ValidationCode>().ExecuteCommand();
+
             }
 
             return new JsonResult(new { msg = result });
         }
 
-        public JsonResult SaveInfo(ReservationInfo info)
+        [HttpPost]
+        public IActionResult SaveInfo(ReservationInfo info)
         {
             int code;
             string message;
@@ -89,7 +91,7 @@ namespace 问卷调查.Controllers
                 {
                     var temp = db.Queryable<ReservationInfo>().ToList();
                     //查询是否存在
-                    var existTemp = temp.Where(x => x.IDCard == info.IDCard);
+                    var existTemp = temp.Where(x => x.IDCard == info.IDCard && x.ReservationDT.AddDays(7) > info.ReservationDT);
                     //查询是否已预约满
                     var alltemp = temp.Where(x => x.ReservationDT >= DateTime.Parse(info.ReservationDT.ToShortDateString()) && x.ReservationDT < DateTime.Parse(info.ReservationDT.AddDays(1).ToShortDateString())).Count();
 
@@ -106,19 +108,20 @@ namespace 问卷调查.Controllers
                     else
                     {
                         info.IsReservation = 1;
+                        info.CreateDT = DateTime.Now;
                         db.Insertable(info).ExecuteCommand();
                         code = 1;
-                        message = "";
+                        message = "预约成功！";
                     }
                 }
                 catch (Exception e)
                 {
                     code = -1;
-                    message = "预约失败。";
+                    message = "预约失败。" + e;
                 }
             }
 
-            return new JsonResult(new { code = code, message = message });
+            return View("BookingResult", new { code = code, message = message });
         }
 
         public JsonResult GetCount()

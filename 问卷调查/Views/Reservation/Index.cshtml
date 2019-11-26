@@ -18,7 +18,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">信息填写</h4>
             </div>
-            <div class="modal-body"><form><input type="hidden" name="ReservationDT" value=""><table class="table table-bordered"><tr><td>学校(School)：</td><td><input name="School" class="form-control" placeholder="School..." /></td></tr><tr><td>姓名(Name)：</td><td><input name="Name" class="form-control" placeholder="Name..." /></td></tr><tr><td>身份证号(IDCard)：</td><td><input name="IDCard" class="form-control" placeholder="IDCard..." /></td></tr><tr><td>手机号/学生家长（Telephone）：</td><td><input name="Telephone" class="form-control" placeholder="Telephone..." /></td></tr><tr><td><label>验证码（Validation）</label><a href="#" onclick="refreshCode()" id="href_code"></a></td><td><input class="form-control" name="ValidationCode" placeholder="Validation" type="text"></td></tr></table><button type="button" onclick="submitInfo()" class="btn btn-primary">提交</button><div id="checkmsg" style="color:red"></div></form></div>
+            <div class="modal-body">
+                <form action="/Reservation/SaveInfo" method="post">
+                    <input type="hidden" name="ReservationDT" value="">
+                    <table class="table table-bordered">
+                        <tr><td>学校(School)：</td><td><div class="form-group"><input name="School" class="form-control" placeholder="School..." /></div></td></tr>
+                        <tr><td>姓名(Name)：</td><td><div class="form-group"><input name="Name" class="form-control" placeholder="Name..." /></div></td></tr>
+                        <tr><td>身份证号(IDCard)：</td><td><div class="form-group"><input name="IDCard" class="form-control" placeholder="IDCard..." /></div></td></tr>
+                        <tr><td>手机号/学生家长（Telephone）：</td><td><div class="form-group"><input name="Telephone" class="form-control" placeholder="Telephone..." /></div></td></tr>
+                        <tr><td><label>验证码（Validation）</label><a href="#" onclick="refreshCode()" id="href_code"></a></td><td><div class="form-group"><input class="form-control" name="ValidationCode" placeholder="Validation" type="text"></div></td></tr>
+                    </table><button type="submit" class="btn btn-primary">提交</button>
+                </form>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
@@ -66,22 +77,64 @@
             $('#div_patinfo').on('hidden.bs.modal', function () {
                loadCount();
             })
+            vilidInput();
         })
 
         function vilidInput() {
-            $('form').bootstrapValidator({
-                message: 'This value is not valid',
+            $('#div_patinfo form').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
+                    School: {
+                        validators: {
+                            notEmpty: {
+                                message: '学校不能为空'
+                            }
+                        }
+                    },
                     Name: {
                         validators: {
                             notEmpty: {
                                 message: '用户名不能为空'
                             }
+                        }
+                    },
+                    IDCard: {
+                        validators: {
+                            notEmpty: {
+                                message: '身份照不能为空'
+                            },
+                            regexp: {
+                                message: '不是合法的身份证',
+                                regexp:/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+                            }
+                        }
+                    },
+                     Telephone: {
+                        validators: {
+                            notEmpty: {
+                                message: '电话号码不能为空'
+                             },
+                            regexp: {
+                                message: '不是合法的电话',
+                                regexp:/^1[3456789]\d{9}$/
+                             }
+                        }
+                    },
+                     ValidationCode: {
+                        validators: {
+                            notEmpty: {
+                                message: '验证码不能为空'
+                             },
+                            callback: {
+                                message: '验证码不正确',
+                                callback: function () {
+                                    return check();
+                                }
+                             }
                         }
                     },
                 }
@@ -140,9 +193,11 @@
                 cache : false,
                 data : {code:code},
                 success: function (data) {
-                    if (data.msg !== "SUCCESS") {
-                        result = "验证码错误。";
-                        refreshCode();
+                    if (data.msg == "SUCCESS") {
+                        result = true;
+                    }
+                    else {
+                        result = false;
                     }
                 }
             });
@@ -153,7 +208,6 @@
         function dlgBookingInfo(time) {
             $('#div_patinfo').modal('show');
             $('input[name="ReservationDT"]').val(time);
-            //vilidInput();
         }
     </script>
 }

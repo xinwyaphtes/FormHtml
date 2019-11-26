@@ -16,5 +16,6 @@ namespace 问卷调查.Models
         public string Telephone { get; set; }
         public int IsReservation { get; set; }
         public DateTime ReservationDT { get; set; }
+        public DateTime CreateDT { get; set; }
     }
 }
