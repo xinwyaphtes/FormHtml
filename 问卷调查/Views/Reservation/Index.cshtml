@@ -9,7 +9,26 @@
     </div>
 </nav>
 
-<div id="content" style="text-align:center;margin-top:100px"></div>
+<div style="padding:50px 10px 30px"><button class="btn btn-primary" onclick="dlgBookingDetail();">我的预约</button></div>
+<div id="content" style="text-align:center;"></div>
+
+<div class="modal fade" id="div_mybookingDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">预约信息</h4>
+            </div>
+            <div class="modal-body">
+                <div><label>请输入手机号:</label><input id="txt_tel" type="number" class="form-control" onblur="checkTele(this.value);" /></div>
+                <div id="div_bookingdetail"></div>
+            </div>
+            <div class="modal-footer" style="text-align:left">
+                <button type="button" onclick="cancel();" class="btn btn-primary hidden" id="btn_cancel">取消预约</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 <div class="modal fade" id="div_patinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -24,9 +43,10 @@
                     <table class="table table-bordered">
                         <tr><td>学校(School)：</td><td><div class="form-group"><input name="School" class="form-control" placeholder="School..." /></div></td></tr>
                         <tr><td>姓名(Name)：</td><td><div class="form-group"><input name="Name" class="form-control" placeholder="Name..." /></div></td></tr>
+                        <tr><td>出生年月(Birthday)：</td><td><div class="form-group"><input name="Birthday" class="form-control" placeholder="Birthday..." type="date" /></div></td></tr>
                         <tr><td>身份证号(IDCard)：</td><td><div class="form-group"><input name="IDCard" class="form-control" placeholder="IDCard..." /></div></td></tr>
                         <tr><td>手机号/学生家长（Telephone）：</td><td><div class="form-group"><input name="Telephone" class="form-control" placeholder="Telephone..." /></div></td></tr>
-                        <tr><td><label>验证码（Validation）</label><a href="#" onclick="refreshCode()" id="href_code"></a></td><td><div class="form-group"><input class="form-control" name="ValidationCode" placeholder="Validation" type="text"></div></td></tr>
+                        <tr><td><span><a href="#" id="href_msgcode">短信验证码</a>（Validation）</span><div><span style="color:red" id="errmsg"></span></div></td><td><div class="form-group"><input class="form-control" name="ValidationCode" placeholder="Validation" type="text"></div></td></tr>
                     </table><button type="submit" class="btn btn-primary">提交</button>
                 </form>
             </div>
@@ -45,6 +65,9 @@
         width: 77px;
         height: 40px;
     }
+
+    .disable {
+    }
 </style>
 
 @section Scripts
@@ -52,8 +75,42 @@
     <script src="~/lib/laydate/laydate.js"></script>
     <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
+            var oBtn = document.getElementById('href_msgcode');
+            var flag = true;
+
+            oBtn.addEventListener("click", function () {                
+                var telNo= $('input[name="Telephone"]').val();
+                if (telNo == ''){$('#errmsg').html('手机号码不能为空');return;}
+                $.get('/Reservation/GetValidationCode', { telNo: telNo }, function (data) {
+                    if (data) {
+                        var time = 10;
+                        oBtn.classList.add('disable');
+                        $('#href_msgcode').removeAttr('href');
+                        oBtn.innerText = '已发送';
+                        $('#errmsg').html('');
+                        if (flag) {
+                            flag = false;
+                            var timer = setInterval(() => {
+                                time--;
+                                oBtn.innerText = time + ' 秒';
+                                if (time === 0) {
+                                    clearInterval(timer);
+                                    oBtn.innerText = '重新获取';
+                                    oBtn.classList.remove('disable');
+                                    $('#href_msgcode').attr('href', '#');
+                                    flag = true;
+                                }
+                            }, 1000)
+                        }
+                    } else {
+                        $('#errmsg').html('发送失败，请重新发送');
+                    }
+                });
+            });
+
+
             laydate.render({
                 elem: '#content'
                 , position: 'static'
@@ -71,9 +128,6 @@
 
             loadCount();
 
-            $('#div_patinfo').on('shown.bs.modal', function () {
-                refreshCode();
-            })
             $('#div_patinfo').on('hidden.bs.modal', function () {
                loadCount();
             })
@@ -99,6 +153,30 @@
                         validators: {
                             notEmpty: {
                                 message: '用户名不能为空'
+                            },
+                        }
+                    },
+                    Birthday: {
+                        validators: {
+                            notEmpty: {
+                                message: '生日不能为空'
+                            },
+                            callback: {
+                                message: '问卷中查无此人',
+                                callback: function () {
+                                    var result = false;
+                                    $.ajax({
+                                        url: '/Reservation/checkVisit',
+                                        type: 'get',
+                                        async: false,//使用同步的方式,true为异步方式
+                                        data: { name: $('input[name="Name"]').val(), birthday: $('input[name="Birthday"]').val() },//这里使用json对象
+                                        success: function (data) {
+                                            result = data;
+                                        }
+                                    });
+
+                                    return result;
+                                }
                             }
                         }
                     },
@@ -143,7 +221,6 @@
 
         function loadCount() {
             $.get('/Reservation/GetCount', function (data) {
-                console.log(data);
                 $.each($('.layui-laydate-content table td').not('.laydate-disabled'), function () {
                     var date = $(this).attr('lay-ymd');
                     var count = 8;
@@ -174,24 +251,20 @@
             } else {
                 $('#checkmsg').html(checkmsg);
             }
-        }
-
-        function refreshCode() {
-            $.get('/Reservation/GetValidationCode', function (data) {
-                $('#href_code').text(data.value);
-            })
+$('#app').after("<h3 style='text-align:center'><a href='/Reservation/Index'>返回</a></h3>");
         }
 
         function check() {
             var code = $('input[name="ValidationCode"]').val();
+            var telNo = $('input[name="Telephone"]').val();
             var result = "";
 
             $.ajax({
-                type : 'get',
-                async : false,
-                url : '/Reservation/VerifyValidationCode',
-                cache : false,
-                data : {code:code},
+                type: 'get',
+                async: false,
+                url: '/Reservation/VerifyValidationCode',
+                cache: false,
+                data: { telNo: telNo, code: code },
                 success: function (data) {
                     if (data.msg == "SUCCESS") {
                         result = true;
@@ -208,6 +281,48 @@
         function dlgBookingInfo(time) {
             $('#div_patinfo').modal('show');
             $('input[name="ReservationDT"]').val(time);
+        }
+
+        function dlgBookingDetail() {
+            $('#div_mybookingDetail').modal('show');
+            $('#div_bookingdetail').html('');
+            $('#btn_cancel').addClass('hidden');
+            $('#txt_tel').val('');
+        }
+
+        function checkTele(tel) {
+            var pattern = /^1[34578]\d{9}$/;
+            var isTel = pattern.test(tel);
+
+            if (!isTel) {
+                $('#div_bookingdetail').css('color', 'red').html('手机号码格式不正确');
+                $('#btn_cancel').addClass('hidden');
+            } else {
+                $.get('/Reservation/GetBookingDetail', { tele: tel }, function (data) {
+                    console.log(data);
+                    if (data.code == 0) {
+                        if (data.data.isReservation == 0) {
+                            $('#div_bookingdetail').css('color', 'red').html('该手机号预约名额已使用');
+                        $('#btn_cancel').addClass('hidden');
+                        } else {
+                            $('#btn_cancel').removeClass('hidden');
+                            $('#div_bookingdetail').html('您的预约时间为：' + data.data.reservationDT.substring(0,10));
+                        }
+                    } else {
+                        $('#div_bookingdetail').css('color', 'red').html('未检索到预约信息，请绑定手机号以及预约后再次查询。');
+                        $('#btn_cancel').addClass('hidden');
+                    }
+                })
+            }
+        }
+
+        function cancel() {
+            var tel = $('#txt_tel').val();
+            if (confirm('是否取消预约，取消后将不能再次预约')) {
+                $.post('/Reservation/Cancel', { tel: tel }, function(){
+                    location.href = location.href;
+                })
+            }
         }
     </script>
 }

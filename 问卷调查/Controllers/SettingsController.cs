@@ -23,7 +23,7 @@ namespace 问卷调查.Controllers
             {
                 // 创建一个 StreamReader 的实例来读取文件 
                 // using 语句也能关闭 StreamReader
-                using (var db = DBHelp.QueryDB())
+                using (var db = new DBHelp().Instance)
                 {
                     var t = db.Queryable<Template>().InSingle(id);
 
@@ -97,7 +97,7 @@ namespace 问卷调查.Controllers
                 
             };
 
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var singlePat = db.Queryable<Patient>().First(x => x.VisitID == visitId);
 

@@ -17,7 +17,7 @@ namespace 问卷调查.Controllers
         [HttpPost]
         public IActionResult SaveBindData(string visitID, string name, int templateId, int key, string data, string dataResult)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
 
@@ -59,7 +59,7 @@ namespace 问卷调查.Controllers
         [HttpPost]
         public void SaveChildData(Patient childInfo, string data)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
 
@@ -87,7 +87,7 @@ namespace 问卷调查.Controllers
         [HttpPost]
         public void SavePregnantData(Patient pregnantInfo, string data)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FormData>>(data);
 
@@ -114,7 +114,7 @@ namespace 问卷调查.Controllers
 
         public IActionResult Del(int id, int pageNum)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var m = db.Queryable<Main>().InSingle(id);
                 if (m != null)
@@ -132,7 +132,7 @@ namespace 问卷调查.Controllers
 
         public void Delitem(int id)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var m = db.Queryable<Main>().InSingle(id);
                 if (m != null)
@@ -149,7 +149,7 @@ namespace 问卷调查.Controllers
                 var user = HttpContext.Session.GetString("user");
                 // 创建一个 StreamReader 的实例来读取文件 
                 // using 语句也能关闭 StreamReader
-                using (var db = DBHelp.QueryDB())
+                using (var db = new DBHelp().Instance)
                 {
                     var t = db.Queryable<Main>().InSingle(id);
 

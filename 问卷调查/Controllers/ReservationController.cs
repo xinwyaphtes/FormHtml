@@ -22,40 +22,61 @@ namespace 问卷调查.Controllers
             return View();
         }
 
-        public JsonResult GetValidationCode()
+        public bool GetValidationCode(string telNo)
         {
-            string ip = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            string source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            string code = source.GenerateValidationCode(4);
+            //检查手机号 如果已经使用过，就不给验证码
+            //如果存在未使用的号码，看是否在有效时间内，如果在就不给验证码，不在就删除这条记录，重新生成验证码
 
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
-                var validation = new ValidationCode
+                var bookinfo = db.Queryable<ReservationInfo>().Where(x => x.Telephone == telNo);
+                var codeExpired = db.Queryable<ValidationCode>().Where(x => x.TelePhoneNum == telNo && x.CreateDT.AddSeconds(x.EscapeTime) > DateTime.Now);
+                if (bookinfo.Any() || codeExpired.Any()) { return false; }
+                else
                 {
-                    IP = ip,
-                    Code = code,
-                    CreateDT = DateTime.Now,
-                    Description = "验证码",
-                    Status = 0,
-                    EscapeTime = 60
-                };
+                    string code;
+                    try
+                    {
+                        //生成code
+                        var sendResponse = Util.SendMsg.GetSms(telNo, out code);
+                        if (!string.IsNullOrEmpty(code))
+                        {
+                            var validation = new ValidationCode
+                            {
+                                TelePhoneNum = telNo,
+                                Code = code,
+                                CreateDT = DateTime.Now,
+                                Description = "验证码",
+                                Status = 0,
+                                EscapeTime = 60
+                            };
 
-                db.Saveable(validation).ExecuteCommand();
+                            db.Deleteable<ValidationCode>().Where(x => x.TelePhoneNum == telNo).ExecuteCommand();
+                            db.Saveable(validation).ExecuteCommand();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
             }
-
-            return new JsonResult(new { value = code });
         }
 
-        public JsonResult VerifyValidationCode(string code)
+        public JsonResult VerifyValidationCode(string telNo, string code)
         {
-            string ip = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             string result = null;
 
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var validation = new ValidationCode
                 {
-                    IP = ip,
+                    TelePhoneNum = telNo,
                     Code = code,
                     CreateDT = DateTime.Now,
                     Description = "验证码",
@@ -63,7 +84,7 @@ namespace 问卷调查.Controllers
                     EscapeTime = 60
                 };
 
-                var temp = db.Queryable<ValidationCode>().Where(x => x.IP == ip && x.Status == 0 && x.Code == code);
+                var temp = db.Queryable<ValidationCode>().Where(x => x.TelePhoneNum == telNo && x.Status == 0 && x.Code == code);
 
                 if (temp.Any())
                 {
@@ -85,7 +106,7 @@ namespace 问卷调查.Controllers
         {
             int code;
             string message;
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 try
                 {
@@ -126,9 +147,9 @@ namespace 问卷调查.Controllers
 
         public JsonResult GetCount()
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
-                var infolist = db.Queryable<ReservationInfo>().Where(x => x.ReservationDT > DateTime.Now.AddDays(-31)).ToList();
+                var infolist = db.Queryable<ReservationInfo>().Where(x => x.ReservationDT > DateTime.Now.AddDays(-31) && x.IsReservation == 1).ToList();
 
                 var group = infolist.GroupBy(x => x.ReservationDT.ToString("yyyy-MM-dd"));
 
@@ -139,6 +160,47 @@ namespace 问卷调查.Controllers
                 }
 
                 return new JsonResult(result);
+            }
+        }
+
+        public JsonResult GetBookingDetail(string tele)
+        {
+            using (var db = new DBHelp().Instance)
+            {
+                var ReservationInfo = db.Queryable<ReservationInfo>().Where(x => x.Telephone == tele);
+                if (ReservationInfo.Any())
+                {
+                    return new JsonResult(new { code = 0, data = ReservationInfo.First() });
+                }
+                else
+                {
+                    return new JsonResult(new { code = 1 });
+                }
+            }
+        }
+
+        [HttpPost]
+        public void Cancel(string tel)
+        {
+            using (var db = new DBHelp().Instance)
+            {
+                db.Updateable<ReservationInfo>().UpdateColumns(it => new ReservationInfo { IsReservation = 0 }).Where(x => x.Telephone == tel).ExecuteCommand();
+            }
+        }
+
+        public bool checkVisit(string name, string birthday)
+        {
+            using (var db = new DBHelp().Instance)
+            {
+                var visit = db.Queryable<Patient>().Where(x => x.Name == name && x.Birthday == birthday);
+                if (!visit.Any())
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
     }

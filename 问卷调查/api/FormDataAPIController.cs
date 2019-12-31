@@ -16,7 +16,7 @@ namespace 问卷调查.api
         [HttpGet]
         public List<FormData> Get(string guid)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 return db.Queryable<FormData>().Where(x => x.MainGuid == guid).ToList();
             }

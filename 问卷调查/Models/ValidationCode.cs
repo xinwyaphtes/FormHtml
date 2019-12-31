@@ -9,7 +9,7 @@ namespace 问卷调查.Models
     public class ValidationCode
     {
         [SugarColumn(IsPrimaryKey = true)]
-        public string IP { get; set; }
+        public string TelePhoneNum { get; set; }
         public string Code { get; set; }
         /// <summary>
         /// 0 第一次生成，未使用

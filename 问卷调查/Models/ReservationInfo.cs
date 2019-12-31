@@ -11,6 +11,7 @@ namespace 问卷调查.Models
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int ID { get; set; }
         public string Name { get; set; }
+        public DateTime Birthday { get; set; }
         public string School { get; set; }
         public string IDCard { get; set; }
         public string Telephone { get; set; }

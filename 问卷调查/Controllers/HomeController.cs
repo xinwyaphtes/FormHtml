@@ -72,7 +72,7 @@ namespace 问卷调查.Controllers
         [HttpGet]
         public IActionResult GetFormList()
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var t = db.Queryable<Template>().Where(x => x.Status).ToList();
 
@@ -83,7 +83,7 @@ namespace 问卷调查.Controllers
         [HttpGet]
         public IActionResult GetPatientInfo(string visitID)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var t = db.Queryable<Patient>().First(x => x.VisitID == visitID);
 
@@ -94,7 +94,7 @@ namespace 问卷调查.Controllers
         [HttpGet]
         public string GetPatientList()
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var t = db.Queryable<Patient>().Where(x => x.Type != Enums.Type.孕妇).OrderBy(x => x.Type).Select(x => new { name = x.Name, visitId = x.VisitID }).ToList();
 
@@ -104,7 +104,7 @@ namespace 问卷调查.Controllers
 
         public IActionResult SearchPatientForm(string visitId)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var m = db.Queryable<Main>().Where(x => x.VisitID == visitId && !x.IsDeleted).ToList();
                 ViewBag.RecordsCount = m.Count;
@@ -115,7 +115,7 @@ namespace 问卷调查.Controllers
 
         public IActionResult SearchListByDate(DateTime from, DateTime to)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 if (to.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
                     to = to.AddSeconds(24 * 3600 - 1);
@@ -141,7 +141,7 @@ namespace 问卷调查.Controllers
 
         public IActionResult HistoryForm(string cardNo, string name)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var list = db.Queryable<Main, Patient>((st, sc) => new object[] {
         JoinType.Inner,st.VisitID==sc.VisitID})
@@ -169,7 +169,7 @@ namespace 问卷调查.Controllers
 
         public JsonResult ShowHisDataById(int id)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 var history = db.SqlQueryable<FormData>("select FormData.* from Main,FormData where Main.Guid = FormData.MainGuid and Main.Id = " + id.ToString()).ToList();
 
@@ -186,7 +186,7 @@ namespace 问卷调查.Controllers
         [HttpPost]
         public void AddDic(List<Dim_Element> dataList)
         {
-            using (var db = DBHelp.QueryDB())
+            using (var db = new DBHelp().Instance)
             {
                 db.Insertable(dataList).ExecuteCommand();
             }
