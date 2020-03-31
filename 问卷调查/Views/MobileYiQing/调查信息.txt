@@ -1,0 +1,42 @@
+﻿<p>儿童姓名<input class="formdata" id="basic_0_1[1]"></p>
+<p>学校<select class="formdata" id="basic_0_2[1]">
+<option value=''>请选择...</option>
+<option>东二小学</option>
+<option>高安路一小</option>
+<option>光启小学</option>
+<option>华泾小学</option>
+<option>华理工附小</option>
+<option>建襄小学</option>
+<option>启新小学</option>
+<option>求知小学</option>
+<option>上海小学</option>
+<option>向阳育才小学</option>
+<option>漕开发实验小学</option>
+<option>第一中心小学</option>
+<option>东安三村小学</option>
+<option>汇师小学</option>
+<option>江南新村小学</option>
+<option>龙华小学</option>
+<option>龙南小学</option>
+<option>日晖新村小学</option>
+<option>盛大花园小学</option>
+<option>世界小学</option>
+<option>体职院附小</option>
+<option>向阳小学</option>
+<option>徐浦小学</option>
+<option>逸夫小学</option>
+<option>园南小学</option>
+<option>长桥二小</option>
+<option>复旦附属徐汇实验学校</option>
+<option>位育实验学校</option>
+<option>西位实验小学</option>
+<option>徐汇实验小学</option>
+<option>徐教院附属实验小学</option>
+<option>教科院实验小学</option>
+<option>上海市实验学校附小</option>
+<option></option>
+</select></p>
+<p>年级<select class="formdata" id="basic_0_3[1]"><option value=''>请选择...</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级</option></select></p>
+<p>班级<select class="formdata" id="basic_0_4[1]"><option value=''>请选择...</option><option>一班</option><option>二班</option><option>三班</option><option>四班</option><option>五班</option></select></p>
+<p>出生日期<input class="formdata" type="date" id="basic_0_5[1]"></p>
+<p>填写日期<input class="formdata" type="date" id="basic_0_6[1]"> </p>

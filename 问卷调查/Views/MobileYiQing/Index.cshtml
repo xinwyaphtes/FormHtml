@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "_MobileLayout";
+}
+
+<nav class="navbar-fixed-top navbar-inverse navbar">
+    <div class="container-fluid">
+        <div class="row" style="margin-top:15px">
+            @*<div class="col-xs-4"><span class="glyphicon glyphicon-chevron-left"></span></div>*@
+            <div class="col-xs-8">儿童睡眠及学习行为能力的调查</div>
+            <div class="col-xs-4 text-right">
+                <span v-show="pageIndex>1 & pageIndex< data.length">{{pageIndex - 1}}/{{data.length-2}}</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12" id="content">
+            <div v-for="(item,index) in data">
+                <div v-show="item.show" v-html="item.html" v-bind:show="item.show"></div>
+            </div>
+            <div class="margin-top-50">
+                <button type="button" v-show="showPrev" class="btn btn-primary" @@click="prev" style="width: 100px;height:40px">{{btPrev}}</button>
+                <button style="width: 100px; height: 40px" type="button" class="btn btn-primary  pull-right" @@click="next">{{btNext}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script>
+        BootstrapDialog.show({
+            title: '微信悬浮框设置步骤',
+            message:
+                '<p><h4>亲爱的用户，如您无法一次性填完本问卷，需要中途退出问卷系统并暂存已填项目，可根据下列步骤设置问卷为悬浮窗，方便您随时回到问卷继续填写！<font color="red">如不设置悬浮窗，再次进入本系统时前次填写内容将无法找回！</font></h4><p/><div style="margin-bottom:10px"><table><thead><td width="85"></td><td width="85"></td></thead><tr><td><img src="/images/guid1.png" width="75px"/><td><img src="/images/guid2.png" width="75px"/><td><img src="/images/guid3.png" width="75px"/></tr></table></div><p><font color="red">仅在微信内有效！</font></p>',
+            buttons: [
+                {
+                    id: 'btn-ok',
+                    icon: 'glyphicon glyphicon-check',
+                    label: '确定',
+                    cssClass: 'btn-primary',
+                    data: {
+                        js: 'btn-confirm',
+                        'user-id': '3'
+                    },
+                    autospin: false,
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
+                }
+            ]
+        });
+        $.get('FormData/GetHtmlDataByDic', { name: '儿童问卷疫情版' }, function (html) {
+            var myapp = new Vue({
+                el: '#app',
+                data: {
+                    btNext: '确定',
+                    btPrev: '上一页',
+                    showPrev: false,
+                    pageIndex: 0,
+                    data: html
+                },
+                methods: {
+                    next: function () { //下一题
+                        if (!checkNeed()) return false;
+
+                        if (this.pageIndex == 0) {
+                            if (!$('#confirm').prop('checked')) {
+                                alert('请确认您以否同意知情同意书！');
+                                return false;
+                            }
+
+                            this.btNext = '下一页';
+                        }
+                        if (this.pageIndex == 1) {
+                            $.get('/FormData/ChildInfo', { name: $('input[id="basic_0_1[1]"]').val(), school: $('select[id="basic_0_2[1]"]').val() }, function (data) {
+                                if (data == "") {
+                                    alert("弹框就写上学期未收集到您的有效信息，请点击确定后填写学年通用问卷。");
+                                    window.location.href = 'http://47.103.56.50:8080/MobileChild';
+                                    return false;
+                                }
+                            })
+                            if (!checkChildInfo()) return false;
+                            this.showPrev = true;
+                        }
+                        if (this.pageIndex + 1 == this.data.length - 1) {
+                            this.btNext = '确认并提交';
+                        };
+                        if (this.pageIndex + 1 == this.data.length) {
+                            save();
+                            return false;
+                        }
+                        this.data[this.pageIndex].show = false;
+                        this.data[this.pageIndex + 1].show = true;
+
+                        this.pageIndex += 1;
+                        scrollTo(0, 0);
+                    },
+                    prev: function () {
+                        if (this.pageIndex - 1 == 0) {
+                            this.btNext = '确定';
+                        }
+                        if (this.pageIndex - 1 == 1) {
+                            this.showPrev = false;
+                        }
+                        if (this.pageIndex == this.data.length - 1) {
+                            this.btNext = '下一页';
+                        };
+                        this.data[this.pageIndex].show = false;
+                        this.data[this.pageIndex - 1].show = true;
+
+                        this.pageIndex -= 1;
+                    }
+                }
+            });
+            $.each($('.title'), function () {
+                var single = $(this).next().find('.single');
+                $.each($(this).next().find('.single'), function () {
+                    var that = $(this);
+                    $(this).click(function () {
+                        single.not(that).prop('checked', false);
+                    });
+                })
+            })
+        })
+
+        function setDefaultValue(obj) {
+            if ($(obj).val() == '不变')
+                $(obj).next().val(0);
+        }
+
+        function checkChildInfo() {
+            var result = true;
+            $.each($('[id^="basic_0"]'), function () {
+                $(this).closest('p').css('color', '#333');
+                if ($(this).val() == '') {
+                    $(this).closest('p').css('color', 'red');
+                    result = false;
+                    return false;
+                }
+            })
+            return result;
+        }
+        //必填项检查
+        function checkNeed() {
+            var result = true;
+            //检查title
+            $.each($('div[show="true"] .title .formdata'), function () {
+                $(this).closest('p').css('color', '#333');
+                if ($(this).val() == '') {
+                    result = false;
+                    alert('请选择或填写内容')
+                    $(this).closest('p').css('color', 'red');
+                    return false;
+                }
+            })
+            if (!result) return result;
+
+            $.each($('div[show="true"] .single'), function () {
+                var fatherdiv = $(this).parent().parent();
+                fatherdiv.prev().css('color', '#333');
+                //有选中
+                result = fatherdiv.find('.single').is(':checked');
+                if (!result) {
+                    alert('请选择或填写内容');
+                    fatherdiv.prev().css('color', 'red');
+                    return false;
+                }
+            })
+            if (!result) return result;
+            //选中值后还有内容需要必填
+            $.each($('div[show="true"] .single:checked'), function () {
+                $(this).parent().parent().prev().css('color', '#333');
+                var length = $(this).siblings().length;
+                var check = $(this).siblings().is(':checked');
+                //有勾选框，一个没选
+                if (length > 1 && !check) {
+                    debugger;
+                    result = false;
+                    alert('请选择或填写内容');
+                    $(this).parent().parent().prev().css('color', 'red');
+                    return false;
+                }
+                //文本框没填
+                if (length == 1 && $(this).siblings()[0].value == '') {
+                    debugger;
+                    result = false;
+                    alert('请选择或填写内容');
+                    $(this).parent().parent().prev().css('color', 'red');
+                    return false;
+                }
+            });
+            return result;
+        }
+
+        function save() {
+            var tableData = [];
+            var childInfo = {
+                Name: document.getElementById('basic_0_1[1]').value,
+                Type: 2,
+                Company: document.getElementById('basic_0_2[1]').value,
+                Department: document.getElementById('basic_0_3[1]').value + "/" + document.getElementById('basic_0_4[1]').value,
+                Birthday: document.getElementById('basic_0_5[1]').value,
+                Description: document.getElementById('basic_0_6[1]').value
+            };
+            $.each($('input.formdata'), function () {
+                var type = $(this).attr('type');
+                var value = $(this).val();
+                if (type == 'checkbox') value = $(this).prop('checked');
+                if (value != "" && value != false)
+                    tableData.push({ DataSign: $(this).attr('id'), ItemValue: value });
+            });
+            console.log(tableData);
+            $.post('/FormData/SaveYiQingData',
+                {
+                    childInfo: childInfo,
+                    data: JSON.stringify(tableData),
+                },
+                function (data) {
+                    $('#content').html("<h3>您已完成全部问卷，谢谢合作！</h3>");
+                });
+
+        }
+    </script>
+}

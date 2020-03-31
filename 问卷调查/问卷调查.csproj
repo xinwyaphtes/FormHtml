@@ -3,9 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
 	 <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+	 <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\OtherQuestion\ReactChild1.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\OtherQuestion\ReactChild1.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="3.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
@@ -18,6 +28,15 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\MobileYiQing\知情同意书.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\MobileYiQing\调查信息.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
