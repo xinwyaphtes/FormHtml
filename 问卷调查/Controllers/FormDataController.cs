@@ -109,13 +109,14 @@ namespace 问卷调查.Controllers
         }
         private void ConvertKuoHao(string name, string order, ref string html)
         {
+            //输入框
             var matchs = Regex.Matches(html, @"(?<=\{)[^}]*(?=\})", RegexOptions.IgnoreCase);
             for (int i = 0; i < matchs.Count; i++)
             {
                 string repstring = "";
                 switch (matchs[i].Value)
                 {
-                    case "number": repstring = "<input class='formdata' type='number' id = '" + name + "_" + order + "[" + (i + 1) + "]" + "' /> "; break;
+                    //case "number": repstring = "<input class='formdata' type='number' id = '" + name + "_" + order + "[" + (i + 1) + "]" + "' min='{min}' max='{max}'/> "; break;
                     case "input":
                         repstring = "<input class='formdata' id = '" + name + "_" + order + "[" + (i + 1) + "]" + "' /> "; break;
                     case "checkbox":
@@ -153,12 +154,22 @@ namespace 问卷调查.Controllers
                     html = r.Replace(html, repstring, 1);
                 }
             }
+            //下拉框
             matchs = Regex.Matches(html, @"(?<=\{\[)[^}]*(?=\]\})", RegexOptions.IgnoreCase);
             for (int i = 0; i < matchs.Count; i++)
             {
                 Regex r = new Regex(@"\{\[" + matchs[i].Value + @"\]\}");
                 var options = matchs[i].Value.Split('/');
                 var repstring = "<select onchange='setDefaultValue(this);' class='formdata' id = '" + name + "_" + order + "[" + (i + 1) + "]" + "'>" + "<option value = ''>请选择...</option>" + "<option>" + string.Join("</option><option>", options) + "</option>" + "</select>";
+                html = r.Replace(html, repstring, 1);
+            }
+            //数字控件(默认整数，支持小数)
+            matchs = Regex.Matches(html, @"(?<=\{number\[)[^}]*(?=\]\})", RegexOptions.IgnoreCase);
+            for (int i = 0; i < matchs.Count; i++)
+            {
+                Regex r = new Regex(@"\{number\[" + matchs[i].Value + @"\]\}");
+                var range = matchs[i].Value.Replace("number", "").Split(',');
+                var repstring = "<input class='formdata' type='number'" + (range[0] == "true" ? " pattern='[0 - 9]*'" : "") + " id = '" + name + "_" + order + "[" + (i + 1) + "]" + "' min='" + range[1] + "' max='" + range[2] + "'/>";
                 html = r.Replace(html, repstring, 1);
             }
         }

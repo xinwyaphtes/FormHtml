@@ -34,7 +34,8 @@
 <option>徐教院附属实验小学</option>
 <option>教科院实验小学</option>
 <option>上海市实验学校附小</option>
-<option></option>
+<option>田林第一个小学</option>
+<option>其它小学</option>
 </select></p>
 <p>年级<select class="formdata" id="basic_0_3[1]"><option value=''>请选择...</option><option>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级</option></select></p>
 <p>班级<select class="formdata" id="basic_0_4[1]"><option value=''>请选择...</option><option>一班</option><option>二班</option><option>三班</option><option>四班</option><option>五班</option></select></p>

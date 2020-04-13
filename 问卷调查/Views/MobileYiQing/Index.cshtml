@@ -74,9 +74,10 @@
                             this.btNext = '下一页';
                         }
                         if (this.pageIndex == 1) {
-                            $.get('/FormData/ChildInfo', { name: $('input[id="basic_0_1[1]"]').val(), school: $('select[id="basic_0_2[1]"]').val() }, function (data) {
-                                if (data == "") {
-                                    alert("弹框就写上学期未收集到您的有效信息，请点击确定后填写学年通用问卷。");
+                            var school = $('select[id="basic_0_2[1]"]').val();
+                            $.get('/FormData/ChildInfo', { name: $('input[id="basic_0_1[1]"]').val(), school: school }, function (data) {
+                                if (data == "" && school != "田林第一小学") {
+                                    alert("上学期未收集到您的有效信息，请点击确定后填写学年通用问卷。");
                                     window.location.href = 'http://47.103.56.50:8080/MobileChild';
                                     return false;
                                 }
@@ -122,6 +123,15 @@
                         single.not(that).prop('checked', false);
                     });
                 })
+            })
+
+            $.each($('input[type="number"]'), function () {
+                $(this).css('width', '100px');
+                $(this).change(function () {
+                    var min = $(this).attr('min'); var max = $(this).attr('max');
+                    if (min > $(this).val()) $(this).val(min);
+                    if (max < $(this).val()) $(this).val(max);
+                });
             })
         })
 
@@ -209,7 +219,7 @@
                 var value = $(this).val();
                 if (type == 'checkbox') value = $(this).prop('checked');
                 if (value != "" && value != false)
-                    tableData.push({ DataSign: $(this).attr('id'), ItemValue: value });
+                    tableData.push({ DataSign: $(this).attr('id'), ItemValue: value, Attribution: $(this).attr('type') });
             });
             console.log(tableData);
             $.post('/FormData/SaveYiQingData',
@@ -222,5 +232,6 @@
                 });
 
         }
+
     </script>
 }
